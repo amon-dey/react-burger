@@ -1,33 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import AppHeader from "./components/appheader"
+import BurgerIngredients from "./components/burgeringredients"
+import BurgerConstructor from "./components/burgerconstructor"
+import { FC } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+import styles from './app.module.css'
+import "./App.css"
+import burgerData from './utils/data.json'
+import AppCard from "./components/appcard"
 
+
+const App: FC = () => {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <nav>
+        <AppHeader />
+      </nav>
+      <main className={styles.main}>
+        <AppCard>
+          <BurgerIngredients data={burgerData} />
+        </AppCard>
+        <span className="m-10" />
+        <AppCard>
+          <BurgerConstructor data={burgerData} />
+        </AppCard>
+      </main>
     </>
   )
 }

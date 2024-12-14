@@ -1,0 +1,15 @@
+.item {
+    max-width: 400px;
+    width: 240px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.grouped_items {
+    overflow-y: scroll;
+}

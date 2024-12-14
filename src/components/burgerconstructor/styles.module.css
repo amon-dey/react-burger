@@ -1,0 +1,21 @@
+.burgerconstructor {
+    overflow-y: auto;
+    max-height: calc(100vh - 10rem);
+}
+
+.check {
+    display: flex;
+    justify-content: flex-end;
+    height: 40px;
+    align-items: center;
+}
+
+.li_total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.ul {
+    padding: 0;
+}

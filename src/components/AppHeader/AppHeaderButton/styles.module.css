@@ -1,0 +1,7 @@
+.headerbutton {
+    background: transparent;
+    padding: 16px 20px 16px 20px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}

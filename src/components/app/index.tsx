@@ -1,13 +1,11 @@
-import AppHeader from "./components/appheader"
-import BurgerIngredients from "./components/burgeringredients"
-import BurgerConstructor from "./components/burgerconstructor"
+import AppHeader from "../appheader"
+import BurgerIngredients from "../burgeringredients"
+import BurgerConstructor from "../burgerconstructor"
 import { FC } from 'react';
 
 import styles from './app.module.css'
-import "./App.css"
-import burgerData from './utils/data.json'
-import AppCard from "./components/appcard"
-
+import burgerData from '../../utils/data.json'
+import AppCard from "../appcard"
 
 const App: FC = () => {
   return (

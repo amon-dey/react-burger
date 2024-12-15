@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import Ingredient from "../../../utils/data"
+import Ingredient from "../../../utils/types"
 
 import styles from './styles.module.css';
 

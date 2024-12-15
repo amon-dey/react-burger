@@ -2,7 +2,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { BurgerConstructorCard } from "./burgerconstructorcard"
 import PropTypes from 'prop-types';
 import { Price } from "../price"
-import Ingredient from "../../utils/data"
+import Ingredient from "../../utils/types"
 
 import styles from './styles.module.css';
 

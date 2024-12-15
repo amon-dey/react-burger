@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import BurgerIngredientsItem from '../BurgerIngredientsItem'
-import { Ingredient, ingredientTypes } from "../../../utils/data"
+import { Ingredient, ingredientTypes } from "../../../utils/types"
 
 import styles from './styles.module.css';
 
@@ -23,7 +23,7 @@ export const BurgerIngredientsGroup: FC<Props> = (props: Props) => {
             <ul className={styles.ul}>
                 {props.items.map((item) => (
                     <li key={item._id} className='li'>
-                        <BurgerIngredientsItem item={item} ></BurgerIngredientsItem>
+                        <BurgerIngredientsItem item={item}></BurgerIngredientsItem>
                     </li>
                 ))}
             </ul>

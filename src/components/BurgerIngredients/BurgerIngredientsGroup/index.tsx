@@ -23,7 +23,7 @@ export const BurgerIngredientsGroup: FC<Props> = (props: Props) => {
             <ul className={styles.ul}>
                 {props.items.map((item) => (
                     <li key={item._id} className='li'>
-                        <BurgerIngredientsItem item={item}></BurgerIngredientsItem>
+                        <BurgerIngredientsItem item={item}/>
                     </li>
                 ))}
             </ul>

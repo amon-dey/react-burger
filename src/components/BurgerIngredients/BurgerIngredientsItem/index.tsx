@@ -14,7 +14,7 @@ export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {
     return (
         <ul className={`${styles.item} p-4 m-4}`}>
             <li>
-                <img className="m-1" src={props.item.image}></img>
+                <img className="m-1" src={props.item.image} alt={props.item.name}></img>
             </li>
             <li className="m-1">
                 <Price price={props.item.price} extra_class='text_type_main-default'></Price>

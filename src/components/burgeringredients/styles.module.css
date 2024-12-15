@@ -8,3 +8,7 @@
     overflow-y: auto;
     max-height: calc(100vh - 22rem);
 }
+
+.tab_block {
+    display: flex;
+}

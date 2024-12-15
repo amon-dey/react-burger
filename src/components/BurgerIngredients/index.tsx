@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Ingredient, ingredientTypes, IngredientGroupNames } from "../../utils/data"
-import { BurgerIngredientsGroup } from "./burgerIngredientsgroup"
+import { BurgerIngredientsGroup } from "./burgeringredientsgroup"
 
 import { groupBy } from "./utils"
 
@@ -22,7 +22,7 @@ export const BurgerIngredients =(props: Props) => {
             <p className="text text_type_main-large mt-10 mb-5">
                 Соберите бургер
             </p>
-            <div style={{ display: 'flex' }} className='mb-10'>
+            <div className={`${styles.tab_block} mb-10}`}>
                 {
                     ingredientTypes.map(
                         (item: IngredientGroupNames) => (

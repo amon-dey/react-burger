@@ -3,22 +3,9 @@ import { BurgerConstructorCard } from "./burgerconstructorcard/burgerconstructor
 import PropTypes from 'prop-types';
 import { Price } from "../price/price"
 import { ingredientItem, IngredientType } from "../../utils/types"
-
 import styles from './styles.module.css';
 
-const getItemType = (index: number, last: number): "top" | "bottom" | undefined => {
-    if (last < 2) {
-        return
-    }
-    if (index == 0) {
-        return "top"
-    }
-    if (index === last - 1) {
-        return "bottom"
-    }
-}
-
-const checkTotal = (data: ingredientItem[]): number => {
+const totalPrice = (data: ingredientItem[]): number => {
     let totalPrice = 0;
     for (let item of data) {
         totalPrice += item.price
@@ -44,7 +31,7 @@ export const BurgerConstructor = (props: Props) => {
                 <BurgerConstructorCard item={budItem} key={budItem._id} card_type="bottom" />
                 <span className='p-10'></span>
                 <li className={`${styles.li_total} p-4 `}>
-                    <Price price={checkTotal(props.data)} extra_class='text_type_main-large' />
+                    <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />
                     <Button htmlType="button" type="primary" size="large">
                         Офоримть заказ
                     </Button>

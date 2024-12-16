@@ -12,3 +12,7 @@
 .tab_block {
     display: flex;
 }
+
+.row {
+    composes: main-card-row from global;
+}

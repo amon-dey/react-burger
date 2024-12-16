@@ -7,26 +7,20 @@ import styles from './styles.module.css';
 
 const AppHeader: FC = () => {
   return (
-    <header className={styles.header}>
-      <AppHeaderBlock>
-        <AppHeaderButton textStyle='text text_type_main-default'>
-          <BurgerIcon type="primary" />
-          Конструктор
-        </AppHeaderButton>
-        <AppHeaderButton textStyle='text text_type_main-default text_color_inactive'>
-          <ListIcon type="primary" />
-          Лента заказов
-        </AppHeaderButton>
-      </AppHeaderBlock>
-      <AppHeaderBlock>
-        <Logo />
-      </AppHeaderBlock>
-      <AppHeaderBlock>
-        <AppHeaderButton textStyle='text text_type_main-default text_color_inactive'>
-          <ProfileIcon type="primary" />
-          Личный кабинет</AppHeaderButton>
-      </AppHeaderBlock>
-    </header >
+    <nav>
+      <header className={styles.header}>
+        <AppHeaderBlock>
+          <AppHeaderButton active={true} icon={BurgerIcon} text="Конструктор"/>
+          <AppHeaderButton active={false} icon={ListIcon} text="Лента заказов"/>
+        </AppHeaderBlock>
+        <AppHeaderBlock>
+          <Logo />
+        </AppHeaderBlock>
+        <AppHeaderBlock>
+          <AppHeaderButton active={false} icon={ProfileIcon} text="Личный кабинет"/>
+        </AppHeaderBlock>
+      </header >
+    </nav>
   )
 }
 

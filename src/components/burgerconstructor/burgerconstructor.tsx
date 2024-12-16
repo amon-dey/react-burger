@@ -2,7 +2,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { BurgerConstructorCard } from "./burgerconstructorcard/burgerconstructorcard"
 import PropTypes from 'prop-types';
 import { Price } from "../price/price"
-import Ingredient from "../../utils/types"
+import { ingredientItem, IngredientType } from "../../utils/types"
 
 import styles from './styles.module.css';
 
@@ -18,7 +18,7 @@ const getItemType = (index: number, last: number): "top" | "bottom" | undefined 
     }
 }
 
-const checkTotal = (data: Ingredient[]): number => {
+const checkTotal = (data: ingredientItem[]): number => {
     let totalPrice = 0;
     for (let item of data) {
         totalPrice += item.price
@@ -27,23 +27,21 @@ const checkTotal = (data: Ingredient[]): number => {
 }
 
 type Props = {
-    data: Ingredient[]
+    data: ingredientItem[]
 }
 
 export const BurgerConstructor = (props: Props) => {
+    const budItem = props.data[0]
+
     return (
-        <div className={styles.burgerconstructor}>
+        <section className={styles.row}>
             <span className='p-25'></span>
             <ul className={styles.ul}>
-                {
-                    props.data.map((item, index) =>
-                        <BurgerConstructorCard
-                            item={item}
-                            card_type={getItemType(index, props.data.length)}
-                            key={item._id}
-                        />
-                    )
-                }
+                <BurgerConstructorCard item={budItem} key={budItem._id} card_type="top" />
+                {props.data.map((item) =>
+                    <BurgerConstructorCard item={item} key={item._id} />
+                )}
+                <BurgerConstructorCard item={budItem} key={budItem._id} card_type="bottom" />
                 <span className='p-10'></span>
                 <li className={`${styles.li_total} p-4 `}>
                     <Price price={checkTotal(props.data)} extra_class='text_type_main-large' />
@@ -52,28 +50,14 @@ export const BurgerConstructor = (props: Props) => {
                     </Button>
                 </li>
             </ul>
-        </div>
+        </section>
     )
 }
 
-const propTypes = {
+BurgerConstructor.propTypes = {
     data: PropTypes.arrayOf(
-        PropTypes.shape({
-            _id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            proteins: PropTypes.number.isRequired,
-            fat: PropTypes.number.isRequired,
-            carbohydrates: PropTypes.number.isRequired,
-            calories: PropTypes.number.isRequired,
-            price: PropTypes.number.isRequired,
-            image: PropTypes.string.isRequired,
-            image_mobile: PropTypes.string.isRequired,
-            image_large: PropTypes.string.isRequired,
-            __v: PropTypes.number.isRequired,
-        })).isRequired
+        IngredientType
+    ).isRequired
 };
-
-BurgerConstructor.propTypes = propTypes;
 
 export default BurgerConstructor

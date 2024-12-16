@@ -1,16 +1,16 @@
 import { FC } from 'react';
 import BurgerIngredientsItem from '../burgeringredientsitem/burgeringredientsitem'
-import { Ingredient, ingredientTypes } from "../../../utils/types"
+import { ingredientItem, ingredientItemTypes } from "../../../utils/types"
 
 import styles from './styles.module.css';
 
 type Props = {
     group: string
-    items: Ingredient[];
+    items: ingredientItem[];
 }
 
 const translateIngridentType = (dataname: string): string => {
-    const foundItem = ingredientTypes.find(item => item.type === dataname);
+    const foundItem = ingredientItemTypes.find(item => item.type === dataname);
     return foundItem ? foundItem.translated_name : "не известный тип"
 }
 

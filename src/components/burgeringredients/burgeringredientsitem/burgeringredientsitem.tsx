@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import Ingredient from "../../../utils/types"
+import ingredientItem from "../../../utils/types"
 import { Price } from "../../price/price"
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from "./styles.module.css"
 
 type Props = {
-    item: Ingredient,
+    item: ingredientItem,
 }
 
 export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {

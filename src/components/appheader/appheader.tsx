@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { AppHeaderButton } from "./appheaderbutton"
-import { AppHeaderBlock } from "./appheaderblock"
+import { AppHeaderButton } from "./appheaderbutton/appheaderbutton"
+import { AppHeaderBlock } from "./appheaderblock/appheaderblock"
 
 import styles from './styles.module.css';
 

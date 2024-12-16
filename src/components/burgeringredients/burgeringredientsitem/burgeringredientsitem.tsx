@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Ingredient from "../../../utils/types"
-import { Price } from "../../price"
+import { Price } from "../../price/price"
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import styles from "./styles.module.css"

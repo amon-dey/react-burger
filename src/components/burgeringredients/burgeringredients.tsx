@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Ingredient, ingredientTypes, IngredientGroupNames } from "../../utils/types"
-import { BurgerIngredientsGroup } from "./burgeringredientsgroup"
+import { BurgerIngredientsGroup } from "./burgeringredientsgroup/burgeringredientsgroup"
 
 import { groupBy } from "./utils"
 

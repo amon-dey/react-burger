@@ -1,7 +1,7 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { BurgerConstructorCard } from "./burgerconstructorcard"
+import { BurgerConstructorCard } from "./burgerconstructorcard/burgerconstructorcard"
 import PropTypes from 'prop-types';
-import { Price } from "../price"
+import { Price } from "../price/price"
 import Ingredient from "../../utils/types"
 
 import styles from './styles.module.css';

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import BurgerIngredientsItem from '../burgeringredients-item/burgeringredients-item'
+import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item'
 import { ingredientItem, ingredientItemTypes } from "../../../utils/types"
 
 import styles from './styles.module.css';

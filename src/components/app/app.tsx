@@ -1,6 +1,6 @@
 import AppHeader from "../app-header/app-header"
-import BurgerIngredients from "../burgeringredients/burgeringredients"
-import BurgerConstructor from "../burgerconstructor/burgerconstructor"
+import BurgerIngredients from "../burger-ingredients/burger-ingredients"
+import BurgerConstructor from "../burger-constructor/burger-constructor"
 import { FC } from 'react';
 
 import styles from './styles.module.css'

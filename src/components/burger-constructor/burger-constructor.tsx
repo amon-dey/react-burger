@@ -24,11 +24,13 @@ export const BurgerConstructor = (props: Props) => {
         <section className={styles.row}>
             <span className='p-25'></span>
             <ul className={styles.ul}>
-                <BurgerConstructorCard item={budItem} key={budItem._id} card_type="top" />
-                {props.data.map((item) =>
+                <BurgerConstructorCard item={budItem} cardType="top" />
+                {props.data
+                    .filter(item => item.type !== budItem.type)
+                    .map((item) =>
                     <BurgerConstructorCard item={item} key={item._id} />
                 )}
-                <BurgerConstructorCard item={budItem} key={budItem._id} card_type="bottom" />
+                <BurgerConstructorCard item={budItem} cardType="bottom" />
                 <span className='p-10'></span>
                 <li className={`${styles.li_total} p-4 `}>
                     <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />

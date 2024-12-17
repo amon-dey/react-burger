@@ -6,18 +6,18 @@ import styles from './styles.module.css';
 
 type Props = {
     item: ingredientItem,
-    card_type?: "top" | "bottom" | undefined,
+    cardType?: "top" | "bottom" | undefined,
 }
 
 export const BurgerConstructorCard: FC<Props> = (props: Props) => {
     //let isLocked = false
     let text: string = props.item.name
-    const dragVisible = props.card_type === undefined ? styles.default : styles.hidden;
-    const isLocked = props.card_type !== undefined ? true : undefined
-    if (props.card_type === "top") {
+    const dragVisible = props.cardType === undefined ? styles.default : styles.hidden;
+    const isLocked = props.cardType !== undefined ? true : undefined
+    if (props.cardType === "top") {
         text += "\n(верх)"
     }
-    if (props.card_type === "bottom") {
+    if (props.cardType === "bottom") {
         text += "\n(низ)"
     }
 
@@ -25,11 +25,12 @@ export const BurgerConstructorCard: FC<Props> = (props: Props) => {
         <li className={`${styles.li} p-4 `}>
             <DragIcon type="primary" className={dragVisible} />
             <ConstructorElement
-                type={props.card_type}
+                type={props.cardType}
                 text={text}
                 thumbnail={props.item.image}
                 price={props.item.price}
                 isLocked={isLocked}
+                extraClass={styles.nowrap}
             />
         </li>
     )

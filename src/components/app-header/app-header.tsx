@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { AppHeaderButton } from "./appheaderbutton/appheaderbutton"
-import { AppHeaderBlock } from "./appheaderblock/appheaderblock"
+import { AppHeaderLink } from "./app-header-link/app-header-link"
+import { AppHeaderBlock } from "./app-header-block/app-header-block"
 
 import styles from './styles.module.css';
 
@@ -10,14 +10,14 @@ const AppHeader: FC = () => {
     <nav>
       <header className={styles.header}>
         <AppHeaderBlock>
-          <AppHeaderButton active={true} icon={BurgerIcon} text="Конструктор"/>
-          <AppHeaderButton active={false} icon={ListIcon} text="Лента заказов"/>
+          <AppHeaderLink active={true} icon={BurgerIcon} text="Конструктор"/>
+          <AppHeaderLink active={false} icon={ListIcon} text="Лента заказов"/>
         </AppHeaderBlock>
         <AppHeaderBlock>
           <Logo />
         </AppHeaderBlock>
         <AppHeaderBlock>
-          <AppHeaderButton active={false} icon={ProfileIcon} text="Личный кабинет"/>
+          <AppHeaderLink active={false} icon={ProfileIcon} text="Личный кабинет"/>
         </AppHeaderBlock>
       </header >
     </nav>

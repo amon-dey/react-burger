@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientItem, ingredientItemTypes, ingredientItemGroupName, IngredientType } from "../../utils/types"
-import { BurgerIngredientsGroup } from "./burgeringredientsgroup/burgeringredientsgroup"
+import { ingredientItem, ingredientItemTypes, ingredientItemGroupName } from "../../utils/types"
+import { BurgerIngredientsGroup } from "./burgeringredients-group/burgeringredients-group"
 
 import { groupBy } from "./utils"
-
-import PropTypes from 'prop-types';
 
 import styles from './styles.module.css';
 
@@ -43,12 +41,6 @@ export const BurgerIngredients = (props: Props) => {
             <span className="m-10" />
         </>
     )
-}
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(
-        IngredientType
-    ).isRequired
 }
 
 export default BurgerIngredients

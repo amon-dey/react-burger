@@ -8,9 +8,9 @@ import styles from './styles.module.css';
 
 export const AppHeaderBlock: FC<Props> = (props: React.PropsWithChildren<Props>): JSX.Element => {
     return (
-        <div className={styles.headerblock}>
+        <nav className={styles.headerblock}>
             {props.children}
-        </div>
+        </nav>
     )
 }
 

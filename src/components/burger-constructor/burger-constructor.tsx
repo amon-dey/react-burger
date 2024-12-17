@@ -28,17 +28,18 @@ export const BurgerConstructor = (props: Props) => {
                 {props.data
                     .filter(item => item.type !== budItem.type)
                     .map((item) =>
-                    <BurgerConstructorCard item={item} key={item._id} />
-                )}
+                        <BurgerConstructorCard item={item} key={item._id} />
+                    )}
                 <BurgerConstructorCard item={budItem} cardType="bottom" />
-                <span className='p-10'></span>
-                <li className={`${styles.li_total} p-4 `}>
-                    <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />
-                    <Button htmlType="button" type="primary" size="large">
-                        Офоримть заказ
-                    </Button>
-                </li>
+
             </ul>
+            <span className='p-10'></span>
+            <li className={`${styles.li_total} p-4 `}>
+                <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />
+                <Button htmlType="button" type="primary" size="large">
+                    Офоримть заказ
+                </Button>
+            </li>
         </section>
     )
 }

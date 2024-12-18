@@ -6,7 +6,7 @@ type Props = {
 
 import styles from './styles.module.css';
 
-export const AppHeaderBlock: FC<Props> = (props: React.PropsWithChildren<Props>): JSX.Element => {
+export const AppHeaderBlock: FC<Props> = (props: Props): JSX.Element => {
     return (
         <nav className={styles.headerblock}>
             {props.children}

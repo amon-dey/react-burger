@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { FC } from 'react';
 import ingredientItem from "../../../utils/types"
 import { Price } from "../../price/price"
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-
+import { ModalOverlay } from "../../modal-overlay/modal-overlay"
+import { IngredientDetails } from "../../ingredient-details/ingredient-details"
 import styles from "./styles.module.css"
 
 type Props = {
@@ -11,8 +13,12 @@ type Props = {
 
 export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {
     const count = Math.floor(Math.random() * (2));
+    const [showModal, setShowModal] = useState(false);
+    const openModal = () => setShowModal(true);
+    const closeModal = () => setShowModal(false);
+
     return (
-        <ul className={`${styles.item} p-4 m-4}`}>
+        <ul className={`${styles.item} p-4 m-4}`} onClick={openModal}>
             <li>
                 <img className="m-1" src={props.item.image} alt={props.item.name}></img>
             </li>
@@ -23,6 +29,11 @@ export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {
                 <p className="text text_type_main-small">{props.item.name}</p>
             </li>
             {Boolean(count) && <Counter count={count} size="small"></Counter>}
+            {showModal && (
+                 <ModalOverlay closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
+                    <IngredientDetails item={ props.item } />
+             </ModalOverlay>
+            )}
         </ul>
     )
 }

@@ -3,7 +3,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import { BurgerConstructorCard } from "./burger-constructor-card/burgerconstructor-card"
 import PropTypes from 'prop-types';
 import { Price } from "../price/price"
-import { ModalOverlay } from "../modal-overlay/modal-overlay"
+import { Modal } from "../modal/modal"
 import { OrderDetails } from "../order-details/order-details"
 
 import { ingredientItem, IngredientType } from "../../utils/types"
@@ -49,9 +49,9 @@ export const BurgerConstructor = (props: Props) => {
                 </Button>
             </li>
             {showModal && (
-                <ModalOverlay closeModal={closeModal} showModal={showModal} >
+                <Modal closeModal={closeModal} showModal={showModal} >
                     <OrderDetails/>
-                </ModalOverlay>
+                </Modal>
             )}
         </section>
     )

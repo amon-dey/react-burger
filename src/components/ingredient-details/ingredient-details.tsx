@@ -8,7 +8,7 @@ import styles from "./styles.module.css"
 
 export const IngredientDetails = (props: Props) => {
     return (
-        <p className={styles.block}>
+        <section className={styles.block}>
             <span className={styles.img}>
                 <img src={props.item.image_large} alt={props.item.name} ></img>
             </span>
@@ -19,7 +19,7 @@ export const IngredientDetails = (props: Props) => {
                 <NutritionValue name="Жиры, г" val={props.item.fat} />
                 <NutritionValue name="Углеводы, г" val={props.item.carbohydrates} />
             </ul>
-        </p>
+        </section>
     )
 }
 export default IngredientDetails

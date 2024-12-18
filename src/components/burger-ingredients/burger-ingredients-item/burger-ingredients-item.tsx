@@ -3,7 +3,7 @@ import { FC } from 'react';
 import ingredientItem from "../../../utils/types"
 import { Price } from "../../price/price"
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ModalOverlay } from "../../modal-overlay/modal-overlay"
+import { Modal } from "../../modal/modal"
 import { IngredientDetails } from "../../ingredient-details/ingredient-details"
 import styles from "./styles.module.css"
 
@@ -30,10 +30,11 @@ export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {
             </li>
             {Boolean(count) && <Counter count={count} size="small"></Counter>}
             {showModal && (
-                 <ModalOverlay closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
-                    <IngredientDetails item={ props.item } />
-             </ModalOverlay>
-            )}
+                <Modal closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
+                    <IngredientDetails item={props.item} />
+                </Modal>
+            )
+            }
         </ul>
     )
 }

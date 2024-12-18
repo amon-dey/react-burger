@@ -15,12 +15,12 @@ const formatNutrition = (val: number): string => {
 
 export const NutritionValue = (props: Props) => {
     return (
-        <p className={`${styles.block} mr-5`}>
+        <li className={`${styles.block} mr-5`}>
             {props.name}
-            <span className="text_type_digits-default mt-2">
+            <p className="text_type_digits-default mt-2">
                 {formatNutrition(props.val)}
-            </span>
-        </p>
+            </p>
+        </li>
     )
 }
 export default NutritionValue

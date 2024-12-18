@@ -1,5 +1,10 @@
 .modal {
     border-radius: 2rem;
     background: #000000;
-    z-index: 9999;
+    z-index: 10;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
 }

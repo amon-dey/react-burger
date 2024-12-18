@@ -17,7 +17,7 @@ const translateIngridentType = (dataname: string): string => {
 export const BurgerIngredientsGroup: FC<Props> = (props: Props) => {
     return (
         <div>
-            <p className="text text_type_main-large">
+            <p className="text text_type_main-large mb-6">
                 {translateIngridentType(props.group)}
             </p>
             <ul className={styles.ul}>

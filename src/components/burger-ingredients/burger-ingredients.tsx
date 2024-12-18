@@ -32,9 +32,12 @@ export const BurgerIngredients = (props: Props) => {
                 </div>
                 <div className={styles.grouped_items}>
                     {
-                        groupedIng.map((type) =>
-                            <BurgerIngredientsGroup group={type[0]} items={type[1]} key={type[0]}></BurgerIngredientsGroup>
-                        )
+                        groupedIng
+                            .filter(item => item[0] === current)
+                            .map(
+                                (type) =>
+                                    <BurgerIngredientsGroup group={type[0]} items={type[1]} key={type[0]}></BurgerIngredientsGroup>
+                            )
                     }
                 </div>
             </section>

@@ -11,7 +11,7 @@ type Props = {
     item: ingredientItem,
 }
 
-export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {
+export const BurgerIngredientsItem: FC<Props> = ({item}): JSX.Element => {
     const count = Math.floor(Math.random() * (2));
     const [showModal, setShowModal] = useState(false);
     const openModal = () => setShowModal(true);
@@ -20,18 +20,18 @@ export const BurgerIngredientsItem: FC<Props> = (props: Props): JSX.Element => {
     return (
         <ul className={`${styles.item} p-4 m-4}`} onClick={openModal}>
             <li>
-                <img className="m-1" src={props.item.image} alt={props.item.name}></img>
+                <img className="m-1" src={item.image} alt={item.name}></img>
             </li>
             <li className="m-1">
-                <Price price={props.item.price} extra_class='text_type_main-default'></Price>
+                <Price price={item.price} extra_class='text_type_main-default'></Price>
             </li>
             <li >
-                <p className="text text_type_main-small">{props.item.name}</p>
+                <p className="text text_type_main-small">{item.name}</p>
             </li>
             {Boolean(count) && <Counter count={count} size="small"></Counter>}
             {showModal && (
                 <Modal closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
-                    <IngredientDetails item={props.item} />
+                    <IngredientDetails item={item} />
                 </Modal>
             )
             }

@@ -1,15 +1,11 @@
-import { FC } from 'react';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './styles.module.css'
 
 /*
 С иконкой надо какое-то колдуствао сделать            
 */
-interface Props  {
-    orderNumber?: number
-}
 
-export const OrderDetails: FC<Props> = ({orderNumber="99999"}) => {    
+export const OrderDetails = ({orderNumber=99999}) =>  {    
     return (
         <section className={`${styles.items} mt-5 mb-30 mr-30 ml-30`}>
             <p className={`${styles.textglow} text text_type_digits-large mb-2`}>{orderNumber}</p>

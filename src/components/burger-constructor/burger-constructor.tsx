@@ -25,7 +25,6 @@ export const BurgerConstructor = (props: Props) => {
     const budItem = props.data[0]
 
     const [showModal, setShowModal] = useState(false);
-    const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
 
     return (
@@ -35,7 +34,7 @@ export const BurgerConstructor = (props: Props) => {
                 <BurgerConstructorCard item={budItem} cardType="top" />
                 {props.data
                     .filter(item => item.type !== budItem.type)
-                    .map((item) =>
+                    .map((item) => 
                         <BurgerConstructorCard item={item} key={item._id} />
                     )}
                 <BurgerConstructorCard item={budItem} cardType="bottom" />
@@ -44,13 +43,14 @@ export const BurgerConstructor = (props: Props) => {
             <span className='p-10'></span>
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />
-                <Button htmlType="button" type="primary" size="large" onClick={openModal}>
+                <Button htmlType="button" type="primary" size="large" onClick={() => setShowModal(true)}>
                     Офоримть заказ
                 </Button>
             </li>
+
             {showModal && (
                 <Modal closeModal={closeModal} showModal={showModal} >
-                    <OrderDetails/>
+                    <OrderDetails />
                 </Modal>
             )}
         </section>

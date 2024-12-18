@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ingredientItem from "../../../utils/types"
-
+import { IngredientDetails } from "../../ingredient-details/ingredient-details"
+import { Modal } from "../../modal/modal"
 import styles from './styles.module.css';
 
 type Props = {
@@ -10,7 +11,10 @@ type Props = {
 }
 
 export const BurgerConstructorCard: FC<Props> = (props: Props) => {
-    //let isLocked = false
+
+    const [showModal, setShowModal] = useState(false);
+    const closeModal = () => setShowModal(false);
+
     let text: string = props.item.name
     const dragVisible = props.cardType === undefined ? styles.default : styles.hidden;
     const isLocked = props.cardType !== undefined ? true : undefined
@@ -22,7 +26,7 @@ export const BurgerConstructorCard: FC<Props> = (props: Props) => {
     }
 
     return (
-        <li className={`${styles.li} p-4 `}>
+        <li className={`${styles.li} p-4 `} onClick={() => setShowModal(true)}>
             <DragIcon type="primary" className={dragVisible} />
             <ConstructorElement
                 type={props.cardType}
@@ -32,6 +36,11 @@ export const BurgerConstructorCard: FC<Props> = (props: Props) => {
                 isLocked={isLocked}
                 extraClass={styles.nowrap}
             />
+            {showModal && (
+                <Modal closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
+                    <IngredientDetails item={props.item} />
+                </Modal>
+            )}
         </li>
     )
 }

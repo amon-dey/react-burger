@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect, useCallback } from 'react';
 import { Modal } from "../modal/modal"
 
 type Props = {
@@ -18,18 +18,25 @@ export const ModalOverlay: FC<Props> = (props: Props) => {
     const childRef = useRef<HTMLInputElement>(null);
 
     const handleClickOutside = (event: React.MouseEvent<HTMLElement>) => {
-        console.log(event)
         event.stopPropagation();
         props.closeModal()
     }
 
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event)
-      };
+    const handleEscapeKeyDown = useCallback((event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            event.stopPropagation();
+            props.closeModal()
+        }
+    }, []);
 
-    const handleKeyboardPress = (event: React.KeyboardEvent<HTMLElement>) => {
-        console.log(event)
-    };
+    useEffect(() => {
+        window.addEventListener('keydown', handleEscapeKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleEscapeKeyDown);
+        };
+    }, []);
 
     useEffect(() => {
         if (childRef.current) {
@@ -39,10 +46,7 @@ export const ModalOverlay: FC<Props> = (props: Props) => {
     }, []);
 
     return ReactDOM.createPortal(
-        <div className={styles.modaloverlay} onClick={handleClickOutside}
-        onKeyDown={handleKeyboardPress} onKeyUp={handleKeyboardPress} onKeyPress={handleKeyboardPress}
-            ref={childRef}
-          >
+        <div className={styles.modaloverlay} onClick={handleClickOutside} ref={childRef}>
             <Modal closeModal={props.closeModal} showModal={props.showModal} headerText={props.headerText} >
                 {props.children}
             </Modal>

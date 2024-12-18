@@ -1,6 +1,5 @@
 .modal {
-    border-radius: 5px;    
-    border-radius: 10px;
-    border: 1px solid #fff;
-    background: #1c1c21;
+    border-radius: 2rem;
+    background: #000000;
+    z-index: 9999;
 }

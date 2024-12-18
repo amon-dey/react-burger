@@ -14,16 +14,11 @@ import styles from './styles.module.css'
 export const Modal: FC<Props> = (props: Props) => {
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        console.log(event)
         event.stopPropagation();
     }
 
-    const handleKeyboardPress = (event: React.KeyboardEvent<HTMLElement>) => {
-        console.log(event)
-    };
-    
     return (
-        <div className={`${styles.modal}`} onClick={handleClick} onKeyDown={handleKeyboardPress} onKeyUp={handleKeyboardPress} onKeyPress={handleKeyboardPress}>
+        <div className={`${styles.modal}`} onClick={handleClick}>
             <div className="mt-10 mr-10 ml-10">
                 <ModalHeader closeModal={props.closeModal} headerText={props.headerText} />
                 {props.children}

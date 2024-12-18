@@ -11,8 +11,8 @@ interface Props  {
 
 export const OrderDetails: FC<Props> = ({orderNumber="99999"}) => {    
     return (
-        <section className={`${styles.items} mb-15`}>
-            <p className={`${styles.textglow} text text_type_digits-large mb-8`}>{orderNumber}</p>
+        <section className={`${styles.items} mt-5 mb-30 mr-30 ml-30`}>
+            <p className={`${styles.textglow} text text_type_digits-large mb-2`}>{orderNumber}</p>
             <p className="text text_type_main-medium">идентификатор заказа</p>
             <CheckMarkIcon type="primary" className={`${styles.icon} m-15`} />
             <p className="text text_type_main-default m-2">Ваш заказ начали готовить</p>

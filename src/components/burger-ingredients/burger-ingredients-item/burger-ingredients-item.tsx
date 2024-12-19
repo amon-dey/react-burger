@@ -11,9 +11,9 @@ type Props = {
     item: ingredientItem,
 }
 
-export const BurgerIngredientsItem: FC<Props> = ({item}): JSX.Element => {
+export const BurgerIngredientsItem: FC<Props> = ({ item }): JSX.Element => {
     const count = Math.floor(Math.random() * (2));
-    
+
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
 
@@ -40,5 +40,3 @@ export const BurgerIngredientsItem: FC<Props> = ({item}): JSX.Element => {
 }
 
 export default BurgerIngredientsItem
-
-//style={{ border: '1px solid rgb(192, 192, 76)' }}

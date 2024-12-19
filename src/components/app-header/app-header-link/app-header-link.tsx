@@ -22,5 +22,3 @@ export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Pr
 }
 
 export default AppHeaderLink
-
-

@@ -34,7 +34,7 @@ export const BurgerConstructor = (props: Props) => {
                 <BurgerConstructorCard item={budItem} cardType="top" />
                 {props.data
                     .filter(item => item.type !== budItem.type)
-                    .map((item) => 
+                    .map((item) =>
                         <BurgerConstructorCard item={item} key={item._id} />
                     )}
                 <BurgerConstructorCard item={budItem} cardType="bottom" />

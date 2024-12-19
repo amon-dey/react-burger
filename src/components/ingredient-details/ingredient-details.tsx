@@ -5,10 +5,10 @@ import { NutritionValue } from "./nutrition-value/nutrition-value"
 import styles from "./styles.module.css"
 
 type Props = {
-    item: ingredientItem;
+    item: ingredientItem,
 }
 
-export const IngredientDetails:FC<Props> = ({item}) => {
+export const IngredientDetails: FC<Props> = ({ item }) => {
     return (
         <section className={styles.block}>
             <span className={styles.img}>

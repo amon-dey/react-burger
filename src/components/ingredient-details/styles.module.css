@@ -1,0 +1,22 @@
+.block {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.group {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.name {
+    text-align: center;
+}
+
+.img {
+    min-width: 520px;
+    min-height: 240px;
+}

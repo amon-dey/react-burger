@@ -28,11 +28,11 @@ export const IngredientType = PropTypes.shape({
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
-}).isRequired
+}).isRequired;
 
 export type ingredientItemGroupName = {
-    type: string
-    translated_name: string
+    type: string;
+    translated_name: string;
 }
 
 export const ingredientItemTypes: Array<ingredientItemGroupName> = [

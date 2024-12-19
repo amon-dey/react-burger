@@ -8,13 +8,13 @@ import { groupBy } from "./utils"
 import styles from './styles.module.css';
 
 type Props = {
-    data: ingredientItem[]
+    data: ingredientItem[];
 }
 
 export const BurgerIngredients = (props: Props) => {
-    const [current, setCurrent] = useState(`${ingredientItemTypes[0].type}`)
+    const [current, setCurrent] = useState(`${ingredientItemTypes[0].type}`);
     const groupedByGrade = groupBy(props.data, (item) => String(item.type));
-    const groupedIng = Object.entries(groupedByGrade)
+    const groupedIng = Object.entries(groupedByGrade);
     return (
         <>
             <section className={styles.row}>

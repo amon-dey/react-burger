@@ -1,16 +1,16 @@
 import styles from "./styles.module.css"
 
 type Props = {
-    name: string
-    val: number
+    name: string;
+    val: number;
 }
 
 const formatNutrition = (val: number): string => {
-    let valFloat = (val / 10).toString().replace(".", ",")
+    let valFloat = (val / 10).toString().replace(".", ",");
     if (!valFloat.includes(',')) {
-        valFloat += ",0"
+        valFloat += ",0";
     }
-    return valFloat
+    return valFloat;
 }
 
 export const NutritionValue = (props: Props) => {

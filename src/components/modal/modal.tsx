@@ -5,10 +5,9 @@ import { ModalHeader } from './modal-header/modal-header'
 import { ModalOverlay } from "../modal-overlay/modal-overlay"
 
 type Props = {
-    children: React.ReactNode
-    closeModal: () => void
-    showModal: boolean
-    headerText?: string
+    children: React.ReactNode;
+    closeModal: () => void;
+    headerText?: string;
 }
 
 import styles from './styles.module.css'

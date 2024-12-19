@@ -15,14 +15,14 @@ export const BurgerConstructorCard: FC<Props> = (props: Props) => {
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
 
-    let text: string = props.item.name
+    let bunLocationText: string = "";
     const dragVisible = props.cardType === undefined ? styles.default : styles.hidden;
-    const isLocked = props.cardType !== undefined ? true : undefined
+    const isLocked = props.cardType !== undefined ? true : undefined;
     if (props.cardType === "top") {
-        text += "\n(верх)"
+        bunLocationText += "\n(верх)";
     }
     if (props.cardType === "bottom") {
-        text += "\n(низ)"
+        bunLocationText += "\n(низ)";
     }
 
     return (
@@ -30,14 +30,14 @@ export const BurgerConstructorCard: FC<Props> = (props: Props) => {
             <DragIcon type="primary" className={dragVisible} />
             <ConstructorElement
                 type={props.cardType}
-                text={text}
+                text={bunLocationText}
                 thumbnail={props.item.image}
                 price={props.item.price}
                 isLocked={isLocked}
                 extraClass={styles.nowrap}
             />
             {showModal && (
-                <Modal closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
+                <Modal closeModal={closeModal} headerText="Детали ингедиента">
                     <IngredientDetails item={props.item} />
                 </Modal>
             )}

@@ -5,7 +5,7 @@ import { NutritionValue } from "./nutrition-value/nutrition-value"
 import styles from "./styles.module.css"
 
 type Props = {
-    item: ingredientItem,
+    item: ingredientItem;
 }
 
 export const IngredientDetails:FC<Props> = ({item}) => {

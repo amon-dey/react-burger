@@ -13,12 +13,12 @@ type Props = {
 
 export const BurgerIngredientsItem: FC<Props> = ({item}): JSX.Element => {
     const count = Math.floor(Math.random() * (2));
+    
     const [showModal, setShowModal] = useState(false);
-    const openModal = () => setShowModal(true);
     const closeModal = () => setShowModal(false);
 
     return (
-        <ul className={`${styles.item} p-4 m-4}`} onClick={openModal}>
+        <ul className={`${styles.item} p-4 m-4}`} onClick={() => setShowModal(true)}>
             <li>
                 <img className="m-1" src={item.image} alt={item.name}></img>
             </li>
@@ -30,7 +30,7 @@ export const BurgerIngredientsItem: FC<Props> = ({item}): JSX.Element => {
             </li>
             {Boolean(count) && <Counter count={count} size="small"></Counter>}
             {showModal && (
-                <Modal closeModal={closeModal} showModal={showModal} headerText="Детали ингедиента">
+                <Modal closeModal={closeModal} headerText="Детали ингедиента">
                     <IngredientDetails item={item} />
                 </Modal>
             )

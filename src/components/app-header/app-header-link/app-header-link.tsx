@@ -10,8 +10,8 @@ type Props = {
 import styles from "./styles.module.css"
 export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Props>): JSX.Element => {
     const ButtonIcon = props.icon;
-    const typeButton = props.active ? 'primary' : 'secondary'
-    const textClass = props.active ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"
+    const typeButton = props.active ? 'primary' : 'secondary';
+    const textClass = props.active ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
 
     return (
         <a className={`${styles.headerbutton} ${textClass} m-4`} >

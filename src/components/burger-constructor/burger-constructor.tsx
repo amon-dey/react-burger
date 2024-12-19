@@ -12,9 +12,9 @@ import styles from './styles.module.css';
 const totalPrice = (data: ingredientItem[]): number => {
     let totalPrice = 0;
     for (let item of data) {
-        totalPrice += item.price
+        totalPrice += item.price;
     }
-    return totalPrice
+    return totalPrice;
 }
 
 type Props = {
@@ -22,7 +22,7 @@ type Props = {
 }
 
 export const BurgerConstructor = (props: Props) => {
-    const budItem = props.data[0]
+    const budItem = props.data[0];
 
     const [showModal, setShowModal] = useState(false);
     const closeModal = () => setShowModal(false);
@@ -49,7 +49,7 @@ export const BurgerConstructor = (props: Props) => {
             </li>
 
             {showModal && (
-                <Modal closeModal={closeModal} showModal={showModal} >
+                <Modal closeModal={closeModal}>
                     <OrderDetails />
                 </Modal>
             )}

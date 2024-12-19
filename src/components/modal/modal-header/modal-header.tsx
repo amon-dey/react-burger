@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 type Props = {
-    closeModal: () => void
-    headerText?: string
+    closeModal: () => void;
+    headerText?: string;
 }
 
 import styles from './styles.module.css'

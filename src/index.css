@@ -4,8 +4,8 @@ li {
 
 .main-card-row {
     max-height: calc(100vh - 160px);
-    max-width: 37rem;
-    min-width: 37rem;
+    max-width: 38rem;
+    min-width: 38rem;
     padding: 0;
 }
 

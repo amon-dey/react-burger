@@ -1,0 +1,14 @@
+.li {
+    display: flex;
+    align-items: center;
+    overflow-wrap: anywhere;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.nowrap {
+    overflow-wrap: break-word;
+    overflow-y: hidden;
+}

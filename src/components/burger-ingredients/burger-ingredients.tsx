@@ -4,7 +4,6 @@ import { ingredientItem, ingredientItemTypes, ingredientItemGroupName } from "..
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group"
 
 import { groupBy } from "./utils"
-
 import styles from './styles.module.css';
 
 type Props = {
@@ -12,6 +11,7 @@ type Props = {
 }
 
 export const BurgerIngredients = (props: Props) => {
+
     const [currentTab, setCurrentTab] = useState(`${ingredientItemTypes[0].type}`);
     const groupedByGrade = groupBy(props.data, (item) => String(item.type));
     const groupedIng = Object.entries(groupedByGrade);

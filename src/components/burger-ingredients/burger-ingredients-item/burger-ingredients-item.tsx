@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { FC } from 'react';
 import ingredientItem from "../../../utils/types"
 import { Price } from "../../price/price"
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Modal } from "../../modal/modal"
+import { useModal } from "../../../hooks/useModal"
 import { IngredientDetails } from "../../ingredient-details/ingredient-details"
 import styles from "./styles.module.css"
 
@@ -14,11 +14,10 @@ type Props = {
 export const BurgerIngredientsItem: FC<Props> = ({ item }): JSX.Element => {
     const count = Math.floor(Math.random() * (2));
 
-    const [showModal, setShowModal] = useState(false);
-    const closeModal = () => setShowModal(false);
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     return (
-        <ul className={`${styles.item} p-4 m-4}`} onClick={() => setShowModal(true)}>
+        <ul className={`${styles.item} p-4 m-4}`} onClick={openModal}>
             <li>
                 <img className="m-1" src={item.image} alt={item.name}></img>
             </li>
@@ -29,7 +28,7 @@ export const BurgerIngredientsItem: FC<Props> = ({ item }): JSX.Element => {
                 <p className="text text_type_main-small">{item.name}</p>
             </li>
             {Boolean(count) && <Counter count={count} size="small"></Counter>}
-            {showModal && (
+            {isModalOpen && (
                 <Modal closeModal={closeModal} headerText="Детали ингедиента">
                     <IngredientDetails item={item} />
                 </Modal>

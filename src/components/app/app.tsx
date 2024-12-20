@@ -8,37 +8,75 @@ import { ingredientItem } from "../../utils/types"
 import { FC } from 'react';
 
 import styles from './styles.module.css'
-import burgerData from '../../utils/data.json'
+//import burgerData from '../../utils/data.json'
 
 const URL = "https://norma.nomoreparties.space/api/ingredients"
+
+//const URL = "/api/"
+
 
 const App: FC = () => {
   const [data, setData] = useState<ingredientItem[]>();
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(
+    {
+      isError: false,
+      text: ""
+    }
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(URL);
+        if (response.status !== 200) {
+          setIsError({ isError: true, text: "ответ сервера " + response.status.toLocaleString() })
+        }
+
         const data = await response.json();
-        setData(data.data);
-        setIsLoading(false);
-      } catch (error) {
-        setData(burgerData)
-        setIsLoading(false);
-        setIsError(true)
-        console.error('Ошибка загрузки списка ингредиентов', error);
+        try {
+          const items: ingredientItem[] = data.data as ingredientItem[]
+          if (!Array.isArray(items)) {
+            console.error('Ошибка: данные не являются массивом');
+            setIsError({ isError: true, text: "сервер вернул не корректные данные" })
+            return;
+          }
+
+          items.forEach((item) => {
+            if (item._id && item.name) {
+              ;
+            } else {
+              console.error('Ошибка: элемент массива не соответствует типу');
+              setIsError({ isError: true, text: "сервер вернул не корректные данные" })
+              return Promise.reject(`Ошибка`);
+            }
+          });
+
+          setData(items)
+        }
+        catch {
+          setIsError({ isError: true, text: "сервер вернул не корректные данные" })
+        }
+
       }
+      catch {
+        setIsError({ isError: true, text: "сервер вернул не корректные данные" })
+      }
+      finally {
+        setIsLoading(false)
+      }
+
     };
 
     fetchData();
   }, []);
 
-  if (isError) {
+  if (isError.isError) {
     return <p className={`${styles.isloading} text text_type_main-large m-10`}>
       <InfoIcon type="error" className={styles.icon} />
-      Печалька, ингридиенты не загрузились</p>;
+      Печалька, ингредиенты не загрузились
+      {isError.text !== "" ? ":" + isError.text : ""}
+    </p>;
   }
 
   if (isLoading) {

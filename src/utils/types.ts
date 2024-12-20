@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export type ingredientItem = {
+export interface ingredientItem {
     "_id": string
     "name": string
     "type": string

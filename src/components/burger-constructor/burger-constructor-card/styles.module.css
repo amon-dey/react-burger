@@ -10,6 +10,7 @@
 
 .nowrap {
     overflow-wrap: break-word;
+    overflow-y: hidden;
 }
 
 .nowrap:hover {

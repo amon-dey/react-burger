@@ -30,16 +30,15 @@ export const BurgerConstructor = (props: Props) => {
     return (
         <section className={styles.row}>
             <span className='p-25'></span>
+            <BurgerConstructorCard item={budItem} cardType="top" />
             <ul className={styles.ul}>
-                <BurgerConstructorCard item={budItem} cardType="top" />
                 {props.data
                     .filter(item => item.type !== budItem.type)
                     .map((item) =>
                         <BurgerConstructorCard item={item} key={item._id} />
                     )}
-                <BurgerConstructorCard item={budItem} cardType="bottom" />
-
             </ul>
+            <BurgerConstructorCard item={budItem} cardType="bottom" />
             <span className='p-10'></span>
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />
@@ -47,7 +46,6 @@ export const BurgerConstructor = (props: Props) => {
                     Офоримть заказ
                 </Button>
             </li>
-
             {showModal && (
                 <Modal closeModal={closeModal}>
                     <OrderDetails />

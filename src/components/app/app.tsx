@@ -8,12 +8,11 @@ import { ingredientItem } from "../../utils/types"
 import { FC } from 'react';
 
 import styles from './styles.module.css'
-//import burgerData from '../../utils/data.json'
+import burgerData from '../../utils/data.json'
 
 const URL = "https://norma.nomoreparties.space/api/ingredients"
 
 //const URL = "/api/"
-
 
 const App: FC = () => {
   const [data, setData] = useState<ingredientItem[]>();
@@ -25,6 +24,7 @@ const App: FC = () => {
     }
   );
 
+  //  TODO: чудо юдо, надо упростить
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -34,6 +34,7 @@ const App: FC = () => {
         }
 
         const data = await response.json();
+
         try {
           const items: ingredientItem[] = data.data as ingredientItem[]
           if (!Array.isArray(items)) {
@@ -43,12 +44,12 @@ const App: FC = () => {
           }
 
           items.forEach((item) => {
-            if (item._id && item.name) {
+            if (item._id && item.name && item.type && item.price) {
               ;
             } else {
               console.error('Ошибка: элемент массива не соответствует типу');
               setIsError({ isError: true, text: "сервер вернул не корректные данные" })
-              return Promise.reject(`Ошибка`);
+              return;
             }
           });
 
@@ -57,15 +58,15 @@ const App: FC = () => {
         catch {
           setIsError({ isError: true, text: "сервер вернул не корректные данные" })
         }
-
       }
       catch {
-        setIsError({ isError: true, text: "сервер вернул не корректные данные" })
+        //используем локальные данные в случае не доступности, у меня интернет редкий зверь
+        //setIsError({ isError: true, text: "сервер не доступен" })
+        setData(burgerData)
       }
       finally {
         setIsLoading(false)
       }
-
     };
 
     fetchData();

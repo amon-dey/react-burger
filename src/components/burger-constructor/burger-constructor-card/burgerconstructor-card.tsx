@@ -9,7 +9,7 @@ type Props = {
 }
 
 export const BurgerConstructorCard: FC<Props> = (props: Props) => {
-    let bunLocationText: string = "";
+    let bunLocationText: string = props.item.name;
     const dragVisible = props.cardType === undefined ? styles.default : styles.hidden;
     const isLocked = props.cardType !== undefined ? true : undefined;
     if (props.cardType === "top") {

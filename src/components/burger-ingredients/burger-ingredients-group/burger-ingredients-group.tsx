@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { forwardRef } from 'react';
 import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item'
 import { ingredientItem, ingredientItemTypes } from "../../../utils/types"
 
@@ -14,20 +14,21 @@ const translateIngridentType = (dataname: string): string => {
     return foundItem ? foundItem.translated_name : "не известный тип";
 }
 
-export const BurgerIngredientsGroup: FC<Props> = (props: Props) => {
+export const BurgerIngredientsGroup = forwardRef<HTMLDivElement, Props>((props, ref) => {
     return (
-        <div>
-            <p className="text text_type_main-large mb-6">
+        <div ref={ref}>
+            <p className="text text_type_main-large mb-6" >
                 {translateIngridentType(props.group)}
             </p>
             <ul className={styles.ul}>
                 {props.items.map((item) => (
                     <li key={item._id} className='li'>
-                        <BurgerIngredientsItem item={item}/>
+                        <BurgerIngredientsItem item={item} />
                     </li>
                 ))}
             </ul>
         </div>
     )
-}
+});
+
 export default BurgerIngredientsGroup

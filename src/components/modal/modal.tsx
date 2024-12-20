@@ -20,15 +20,15 @@ export const Modal: FC<Props> = (props: Props) => {
         event.stopPropagation();
     }
 
-    const handleEscapeKeyDown = useCallback((event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-            event.preventDefault();
-            event.stopPropagation();
-            props.closeModal();
-        }
-    }, []);
-
     useEffect(() => {
+        const handleEscapeKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                event.stopPropagation();
+                props.closeModal();
+            }
+        };
+        
         window.addEventListener('keydown', handleEscapeKeyDown);
         return () => {
             window.removeEventListener('keydown', handleEscapeKeyDown);

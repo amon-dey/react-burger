@@ -1,5 +1,5 @@
 
-import { FC, useEffect, useCallback } from 'react';
+import { FC, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ModalHeader } from './modal-header/modal-header'
 import { ModalOverlay } from "../modal-overlay/modal-overlay"
@@ -28,7 +28,6 @@ export const Modal: FC<Props> = (props: Props) => {
                 props.closeModal();
             }
         };
-        
         window.addEventListener('keydown', handleEscapeKeyDown);
         return () => {
             window.removeEventListener('keydown', handleEscapeKeyDown);

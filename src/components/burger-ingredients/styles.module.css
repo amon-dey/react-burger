@@ -6,7 +6,7 @@
 
 .grouped_items {
     overflow-y: auto;
-    max-height: calc(100vh - 22rem);
+    max-height: calc(100vh - 20rem);
 }
 
 .tab_block {

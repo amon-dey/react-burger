@@ -29,7 +29,7 @@ const App: FC = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(URL);
-        if (response.status !== 200) {
+        if (!response.ok) {
           setIsError({ isError: true, text: "ответ сервера " + response.status.toLocaleString() })
         }
 

@@ -1,0 +1,13 @@
+.items {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.textglow {
+    text-shadow:
+        0 0 5px rgba(5, 0, 149, 0.803),
+        0 0 15px rgba(2, 39, 253, 0.727);
+}

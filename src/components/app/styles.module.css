@@ -1,0 +1,21 @@
+.main {    
+  display: flex;
+  justify-content: center;
+  min-width: min-content;
+}
+
+.isloading {
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 1;
+}
+
+.icon {
+  transform: scale(2);
+  padding: auto;
+  margin-right: 2rem;
+}

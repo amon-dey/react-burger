@@ -1,17 +1,17 @@
-import { FC } from 'react';
-import ingredientItem from "../../../utils/types"
-import { Price } from "../../price/price"
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Modal } from "../../modal/modal"
-import { useModal } from "../../../hooks/useModal"
-import { IngredientDetails } from "../../ingredient-details/ingredient-details"
-import styles from "./styles.module.css"
+import { FC, memo } from 'react';
+import ingredientItem from "../../../utils/types";
+import { Price } from "../../price/price";
+import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Modal } from "../../modal/modal";
+import { useModal } from "../../../hooks/useModal";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import styles from "./styles.module.css";
 
 type Props = {
-    item: ingredientItem,
-}
+    ingredient: ingredientItem,
+};
 
-export const BurgerIngredientsItem: FC<Props> = ({ item }): JSX.Element => {
+export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
     const count = Math.floor(Math.random() * (2));
 
     const { isModalOpen, openModal, closeModal } = useModal();
@@ -30,12 +30,13 @@ export const BurgerIngredientsItem: FC<Props> = ({ item }): JSX.Element => {
             {Boolean(count) && <Counter count={count} size="small"></Counter>}
             {isModalOpen && (
                 <Modal closeModal={closeModal} headerText="Детали ингедиента">
-                    <IngredientDetails item={item} />
+                    <IngredientDetails ingredient={item} />
                 </Modal>
             )
             }
         </ul>
-    )
-}
+    );
+};
 
-export default BurgerIngredientsItem
+export default memo(BurgerIngredientsItem)
+

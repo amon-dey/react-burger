@@ -1,6 +1,6 @@
-import styles from './styles.module.css'
+import styles from './styles.module.css';
 
-import { OrderDetailsSuccessIcon } from "./oreder-details-icon/oreder-details-icon"
+import { OrderDetailsSuccessIcon } from "./oreder-details-icon/oreder-details-icon";
 
 export const OrderDetails = ({ orderNumber = 99999 }) => {
     return (
@@ -11,6 +11,6 @@ export const OrderDetails = ({ orderNumber = 99999 }) => {
             <p className="text text_type_main-default m-2">Ваш заказ начали готовить</p>
             <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
         </section>
-    )
-}
-export default OrderDetails
+    );
+};
+export default OrderDetails;

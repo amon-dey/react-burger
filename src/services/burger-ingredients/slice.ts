@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { burgerIngredientsInitialStateType } from "../../utils/types";
-import { fetchIngredients } from "./../thunks/burgeringredients"
+import { fetchIngredients } from "../thunks/burgeringredients"
+import { ingredientItem } from '../../utils/types';
+
+export type burgerIngredientsInitialStateType = {
+    ingredients: ingredientItem[],
+    isLoading: boolean,
+    isError: boolean
+}
 
 const myInitialState: burgerIngredientsInitialStateType = {
     ingredients: [],
@@ -9,7 +15,7 @@ const myInitialState: burgerIngredientsInitialStateType = {
 };
 
 export const BurgerIngredientsSlice = createSlice({
-    name: 'burgeringredients',
+    name: 'burger-ingredients',
     initialState: myInitialState,
     reducers: {},
     extraReducers: (builder) => {

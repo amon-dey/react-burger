@@ -48,33 +48,3 @@ const App: FC = () => {
 };
 
 export default App;
-
-/*
-  return (
-    <>
-      <AppHeader />
-      {
-        if (isError.isError) {
-    return <p className={`${styles.isloading} text text_type_main-large m-10`}>
-      <InfoIcon type="error" className={styles.icon} />
-      Печалька, ингредиенты не загрузились
-      {isError.text !== "" ? ":" + isError.text : ""}
-    </p>;
-  }
-
-  if (isLoading) {
-    return <p className={`${styles.isloading} text text_type_main-large`}>
-      Загрузка списка ингредиентов...</p>;
-  }
-        ingredients !== undefined && !isLoading &&
-        <ul className={styles.main}>
-          <BurgerIngredients ingredients={ingredients} />
-          <BurgerConstructor ingredients={ingredients} />
-        </ul>
-      }
-    </>
-  );
-
-
-  
-*/

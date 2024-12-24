@@ -4,7 +4,7 @@ import ingredientItem from '../../utils/types';
 import { request } from '../utils';
 
 export const fetchIngredients = createAsyncThunk<{ data: ingredientItem[] }>(
-  `burgeringredients`,
+  `burger-ingredients`,
   async () => {
     return await request(URL_INGREDIENTS);
   }

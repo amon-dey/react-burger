@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useMemo, useCallback, memo } from 'react';
+import { useEffect, useRef, useMemo, useCallback, memo } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientItemTypes, ingredientItemGroupName } from "../../utils/types";
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
 import { Modal } from "../modal/modal";
 import { fetchIngredients } from "../../services/thunks/burgeringredients";
-import { resetSelected } from '../../services/burger-ingredients/slice';
+import { resetSelected, setCurrentActiveTab } from '../../services/burger-ingredients/slice';
 import { IngredientDetails } from "./ingredient-details/ingredient-details";
 import { AppDispatch, RootState } from './../../services/store';
 import { getVisibleGroup, groupBy } from "./utils";
@@ -13,9 +13,7 @@ import styles from './styles.module.css';
 
 export const BurgerIngredients = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { isError, isLoading, ingredients, selectedIngredient } = useSelector((state: RootState) => state.burgerIngredients);
-
-    const [currentActiveTab, setCurrentActiveTab] = useState(`${ingredientItemTypes[0].type}`);
+    const { isError, isLoading, ingredients, selectedIngredient, currentActiveTab } = useSelector((state: RootState) => state.burgerIngredients);
 
     const refGroups = useRef<HTMLDivElement>(null);
     const arrayOfGroupRefs = Array.from(
@@ -25,9 +23,8 @@ export const BurgerIngredients = () => {
     );
 
     const groupedItems = useMemo(() => {
-        if (!ingredients) return [];
-        const groupedByGrade = groupBy(ingredients, (item) => String(item.type));
-        return Object.entries(groupedByGrade);
+        if (!ingredients) return null;
+        return Object.entries(groupBy(ingredients, (item) => String(item.type)));
     }, [ingredients]);
 
     //грузим ингредиенты
@@ -40,50 +37,31 @@ export const BurgerIngredients = () => {
         const refGroupCopy = refGroups.current;
         if (!refGroupCopy) return;
         const handleScroll = () => {
-            setCurrentActiveTab(ingredientItemTypes[getVisibleGroup(arrayOfGroupRefs)].type);
+            dispatch(setCurrentActiveTab(ingredientItemTypes[getVisibleGroup(arrayOfGroupRefs)].type));
         };
 
         refGroups.current.addEventListener('scroll', handleScroll);
         return () => {
-            if (refGroupCopy) {
-                refGroupCopy.removeEventListener('scroll', handleScroll);
-            }
+            refGroupCopy && refGroupCopy.removeEventListener('scroll', handleScroll);
         };
-    }, [arrayOfGroupRefs]);
+    }, [arrayOfGroupRefs, dispatch]);
 
-    // скролим до необходимой группы ингредиентов
+    // скролим до необходимой группы ингредиентов, реакция на клик в табе
     const handleTabClick = useCallback((tabItemType: string) => {
         const scrollToGroup = (tabItemType: string) => {
             const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType);
             const groupRef = arrayOfGroupRefs[currentTabNumber].current;
-
-            if (groupRef !== null) {
-                groupRef.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        };
-        setCurrentActiveTab(tabItemType);
+            groupRef && groupRef.scrollIntoView({ behavior: 'smooth' });
+        }
         scrollToGroup(tabItemType);
-    }, [arrayOfGroupRefs]);
+        dispatch(setCurrentActiveTab(tabItemType))
+    }, [arrayOfGroupRefs, dispatch]);
 
-    if (isError) {
+    const message = isError ? "Печалька, ингредиенты не загрузились" : "Ингредиенты не загрузились";
+    if (isError || isLoading) {
         return <section className={`${styles.row} mb-10`}>
-            <p className={`${styles.isloading} text text_type_main-large m-10`}>
-                Печалька, ингредиенты не загрузились
-            </p>
+            <p className={`${styles.isloading} text text_type_main-large m-10`}>{message}</p>
         </section >;
-    }
-
-    if (isLoading) {
-        return <section className={`${styles.row} mb-10`}>
-            <p className={`${styles.isloading} text text_type_main-large`}>
-                Загрузка списка ингредиентов...</p>
-        </section>
-    }
-
-    const handleCloseModal = () => {
-        dispatch(resetSelected());
     }
 
     return (
@@ -92,33 +70,24 @@ export const BurgerIngredients = () => {
                 Собери бургер
             </p>
             <div className={`${styles.tab_block} mb-10}`}>
-                {
-                    ingredientItemTypes.map(
-                        (ingredient: ingredientItemGroupName) => (
-                            <Tab value={ingredient.type} active={currentActiveTab == ingredient.type} onClick={() => handleTabClick(ingredient.type)} key={ingredient.type}>
-                                {ingredient.translated_name}</Tab>
-                        ))
-                }
+                {ingredientItemTypes.map(
+                    (ingredient: ingredientItemGroupName) => (
+                        <Tab value={ingredient.type} active={currentActiveTab == ingredient.type} onClick={() => handleTabClick(ingredient.type)} key={ingredient.type}>
+                            {ingredient.translated_name}</Tab>
+                    ))}
             </div>
-            <div className={styles.grouped_items} ref={refGroups}>
-                {
-                    groupedItems.map(
-                        (type, index) =>
-                            <BurgerIngredientsGroup
-                                ref={arrayOfGroupRefs[index]}
-                                group={type[0]}
-                                ingredients={type[1]}
-                                key={type[0]} />
-                    )
-                }
-            </div>
-            {
-                selectedIngredient && (
-                    <Modal closeModal={handleCloseModal} headerText="Детали ингедиента">
-                        <IngredientDetails />
-                    </Modal>
-                )
+            {groupedItems &&
+                <div className={styles.grouped_items} ref={refGroups}> {
+                    groupedItems.map((type, index) =>
+                        <BurgerIngredientsGroup ref={arrayOfGroupRefs[index]} group={type[0]} ingredients={type[1]} key={type[0]} />
+                    )}
+                </div>
             }
+            {selectedIngredient && (
+                <Modal closeModal={() => { dispatch(resetSelected()) }} headerText="Детали ингедиента">
+                    <IngredientDetails />
+                </Modal>
+            )}
         </section>
     );
 };

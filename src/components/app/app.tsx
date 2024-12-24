@@ -1,80 +1,32 @@
-import { useState, useEffect } from "react";
+import { useEffect, FC } from "react";
 import { InfoIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import AppHeader from "./app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { ingredientItem } from "../../utils/types";
 
-import { FC } from 'react';
+import { fetchIngredients } from "../../services/thunks/burgeringredients";
 
 import styles from './styles.module.css';
-import burgerData from '../../utils/data.json';
+import { useSelector, useDispatch } from "react-redux";
 
-const URL = "https://norma.nomoreparties.space/api/ingredients";
-
-//const URL = "/api/"
+import { RootState, AppDispatch } from './../../services/store';
 
 const App: FC = () => {
-  const [ingredients, setIngredients] = useState<ingredientItem[]>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(
-    {
-      isError: false,
-      text: ""
-    }
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const isError = useSelector((state: RootState) => state.burgerIngredients.isError);
+  const isLoading = useSelector((state: RootState) => state.burgerIngredients.isLoading);
+  const ingredients = useSelector((state: RootState) => state.burgerIngredients.ingredients);
 
-  //  TODO: чудо юдо, надо упростить
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(URL);
-        if (!response.ok) {
-          setIsError({ isError: true, text: "ответ сервера " + response.status.toLocaleString() });
-        }
+    dispatch(fetchIngredients());
+    console.log("fetch")
+  }, [dispatch]);
 
-        const data = await response.json();
 
-        try {
-          const items: ingredientItem[] = data.data as ingredientItem[];
-          if (!Array.isArray(items)) {
-            console.error('Ошибка: данные не являются массивом');
-            setIsError({ isError: true, text: "сервер вернул не корректные данные" });
-            return;
-          }
-
-          items.forEach((item) => {
-            if (!(item._id && item.name && item.type && item.price)) {
-              console.error('Ошибка: элемент массива не соответствует типу');
-              setIsError({ isError: true, text: "сервер вернул не корректные данные" });
-              return;
-            }
-          });
-
-          setIngredients(items);
-        }
-        catch {
-          setIsError({ isError: true, text: "сервер вернул не корректные данные" });
-        }
-      }
-      catch {
-        //используем локальные данные в случае не доступности, у меня интернет редкий зверь
-        //setIsError({ isError: true, text: "сервер не доступен" })
-        setIngredients(burgerData);
-      }
-      finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isError.isError) {
+  if (isError) {
     return <p className={`${styles.isloading} text text_type_main-large m-10`}>
       <InfoIcon type="error" className={styles.icon} />
       Печалька, ингредиенты не загрузились
-      {isError.text !== "" ? ":" + isError.text : ""}
     </p>;
   }
 
@@ -87,6 +39,36 @@ const App: FC = () => {
     <>
       <AppHeader />
       {
+        ingredients.length > 0 &&
+        <ul className={styles.main}>
+          <BurgerIngredients ingredients={ingredients} />
+          <BurgerConstructor ingredients={ingredients} />
+        </ul>
+      }
+    </>
+  );
+
+};
+
+export default App;
+
+/*
+  return (
+    <>
+      <AppHeader />
+      {
+        if (isError.isError) {
+    return <p className={`${styles.isloading} text text_type_main-large m-10`}>
+      <InfoIcon type="error" className={styles.icon} />
+      Печалька, ингредиенты не загрузились
+      {isError.text !== "" ? ":" + isError.text : ""}
+    </p>;
+  }
+
+  if (isLoading) {
+    return <p className={`${styles.isloading} text text_type_main-large`}>
+      Загрузка списка ингредиентов...</p>;
+  }
         ingredients !== undefined && !isLoading &&
         <ul className={styles.main}>
           <BurgerIngredients ingredients={ingredients} />
@@ -95,6 +77,7 @@ const App: FC = () => {
       }
     </>
   );
-};
 
-export default App;
+
+  
+*/

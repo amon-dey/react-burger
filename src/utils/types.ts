@@ -41,4 +41,11 @@ export const ingredientItemTypes: Array<ingredientItemGroupName> = [
     { type: "sauce", translated_name: "Соусы" }
 ];
 
+export type burgerIngredientsInitialStateType = {
+    ingredients: ingredientItem[],
+    isLoading: boolean,
+    isError: boolean
+}
+
 export default ingredientItem
+

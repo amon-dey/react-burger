@@ -26,5 +26,12 @@ export const BurgerConstructorSlice = createSlice({
         setBun: (state, action) => {
             state.bun = action.payload;
         },
+        resetConstructor: (state) => {
+            state.bun = null;
+            state.ingredients = [];
+        }
     },
 });
+
+export const { addIngredients, removeIngredients, setBun, resetConstructor } = BurgerConstructorSlice.actions;
+export default BurgerConstructorSlice.reducer;

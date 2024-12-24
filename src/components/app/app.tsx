@@ -13,7 +13,7 @@ import { RootState, AppDispatch } from './../../services/store';
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { isError, isLoading, ingredients } =  useSelector((state: RootState) => state.burgerIngredients);
+  const { isError, isLoading, ingredients } = useSelector((state: RootState) => state.burgerIngredients);
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -39,7 +39,7 @@ const App: FC = () => {
         ingredients.length > 0 &&
         <ul className={styles.main}>
           <BurgerIngredients ingredients={ingredients} />
-          <BurgerConstructor ingredients={ingredients} />
+          <BurgerConstructor />
         </ul>
       }
     </>

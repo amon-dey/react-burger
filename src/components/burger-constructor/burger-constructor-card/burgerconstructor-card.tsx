@@ -4,12 +4,26 @@ import ingredientItem from "../../../utils/types";
 import styles from './styles.module.css';
 
 type Props = {
-    ingredient: ingredientItem,
+    ingredient: ingredientItem | null,
     cardType?: "top" | "bottom" | undefined,
 };
 
+type PropsEmpty = {
+    cardType?: "top" | "bottom" | undefined,
+    text: string
+}
+
+export const EmptyItem: FC<PropsEmpty> = ({cardType: cardType, text: text}) => {
+    return (
+        <li>
+            {cardType}
+            {text}
+        </li>
+    )
+}
+
 export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardType: cardType }) => {
-    let bunLocationText: string = ingredient.name;
+    let bunLocationText: string = ingredient!==null ? ingredient.name : "";
     const dragVisible = cardType === undefined ? styles.default : styles.hidden;
     const isLocked = cardType !== undefined ? true : undefined;
     if (cardType === "top") {
@@ -17,6 +31,12 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
     }
     if (cardType === "bottom") {
         bunLocationText += "\n(низ)";
+    }
+
+    if (ingredient === null) {
+        return (
+            <EmptyItem cardType={cardType} text={bunLocationText}></EmptyItem>
+        )
     }
 
     return (

@@ -13,17 +13,23 @@ type PropsEmpty = {
     text: string
 }
 
-export const EmptyItem: FC<PropsEmpty> = ({cardType: cardType, text: text}) => {
+export const EmptyItem: FC<PropsEmpty> = ({ cardType: cardType, text: text }) => {
     return (
-        <li>
-            {cardType}
-            {text}
+        <li className={`${styles.li} p-4 `}>
+            <ConstructorElement
+                type={cardType}
+                text={text}
+                thumbnail=''
+                price={0}
+                isLocked={true}
+                extraClass=''
+            />
         </li>
     )
 }
 
 export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardType: cardType }) => {
-    let bunLocationText: string = ingredient!==null ? ingredient.name : "";
+    let bunLocationText: string = ingredient !== null ? ingredient.name : "";
     const dragVisible = cardType === undefined ? styles.default : styles.hidden;
     const isLocked = cardType !== undefined ? true : undefined;
     if (cardType === "top") {

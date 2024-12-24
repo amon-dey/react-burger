@@ -1,23 +1,21 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback, memo } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientItem, ingredientItemTypes, ingredientItemGroupName } from "../../utils/types";
+import { ingredientItemTypes, ingredientItemGroupName } from "../../utils/types";
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
-
+import { Modal } from "../modal/modal";
+import { fetchIngredients } from "../../services/thunks/burgeringredients";
+import { resetSelected } from '../../services/burger-ingredients/slice';
+import { IngredientDetails } from "./ingredient-details/ingredient-details";
+import { AppDispatch, RootState } from './../../services/store';
 import { getVisibleGroup, groupBy } from "./utils";
 import styles from './styles.module.css';
 
-type Props = {
-    ingredients: ingredientItem[];
-};
+export const BurgerIngredients = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { isError, isLoading, ingredients, selectedIngredient } = useSelector((state: RootState) => state.burgerIngredients);
 
-
-export const BurgerIngredients = (props: Props) => {
     const [currentActiveTab, setCurrentActiveTab] = useState(`${ingredientItemTypes[0].type}`);
-
-    const groupedItems = useMemo(() => {
-        const groupedByGrade = groupBy(props.ingredients, (item) => String(item.type));
-        return Object.entries(groupedByGrade);
-    }, [props.ingredients]);
 
     const refGroups = useRef<HTMLDivElement>(null);
     const arrayOfGroupRefs = Array.from(
@@ -26,12 +24,23 @@ export const BurgerIngredients = (props: Props) => {
         () => useRef<HTMLDivElement>(null),
     );
 
+    const groupedItems = useMemo(() => {
+        if (!ingredients) return [];
+        const groupedByGrade = groupBy(ingredients, (item) => String(item.type));
+        return Object.entries(groupedByGrade);
+    }, [ingredients]);
+
+    //грузим ингредиенты
+    useEffect(() => {
+        dispatch(fetchIngredients());
+    }, [dispatch]);
+
+    //отрабатываем события скрола в списке ингредиентов
     useEffect(() => {
         const refGroupCopy = refGroups.current;
         if (!refGroupCopy) return;
         const handleScroll = () => {
-            const min = getVisibleGroup(arrayOfGroupRefs);
-            setCurrentActiveTab(ingredientItemTypes[min].type);
+            setCurrentActiveTab(ingredientItemTypes[getVisibleGroup(arrayOfGroupRefs)].type);
         };
 
         refGroups.current.addEventListener('scroll', handleScroll);
@@ -42,6 +51,7 @@ export const BurgerIngredients = (props: Props) => {
         };
     }, [arrayOfGroupRefs]);
 
+    // скролим до необходимой группы ингредиентов
     const handleTabClick = useCallback((tabItemType: string) => {
         const scrollToGroup = (tabItemType: string) => {
             const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType);
@@ -56,6 +66,25 @@ export const BurgerIngredients = (props: Props) => {
         setCurrentActiveTab(tabItemType);
         scrollToGroup(tabItemType);
     }, [arrayOfGroupRefs]);
+
+    if (isError) {
+        return <section className={`${styles.row} mb-10`}>
+            <p className={`${styles.isloading} text text_type_main-large m-10`}>
+                Печалька, ингредиенты не загрузились
+            </p>
+        </section >;
+    }
+
+    if (isLoading) {
+        return <section className={`${styles.row} mb-10`}>
+            <p className={`${styles.isloading} text text_type_main-large`}>
+                Загрузка списка ингредиентов...</p>
+        </section>
+    }
+
+    const handleCloseModal = () => {
+        dispatch(resetSelected());
+    }
 
     return (
         <section className={`${styles.row} mb-10`}>
@@ -75,12 +104,24 @@ export const BurgerIngredients = (props: Props) => {
                 {
                     groupedItems.map(
                         (type, index) =>
-                            <BurgerIngredientsGroup ref={arrayOfGroupRefs[index]} group={type[0]} ingredients={type[1]} key={type[0]} />
+                            <BurgerIngredientsGroup
+                                ref={arrayOfGroupRefs[index]}
+                                group={type[0]}
+                                ingredients={type[1]}
+                                key={type[0]} />
                     )
                 }
             </div>
+            {
+                selectedIngredient && (
+                    <Modal closeModal={handleCloseModal} headerText="Детали ингедиента">
+                        <IngredientDetails />
+                    </Modal>
+                )
+            }
         </section>
     );
 };
 
-export default BurgerIngredients;
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(BurgerIngredients);

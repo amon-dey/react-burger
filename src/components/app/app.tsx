@@ -13,15 +13,12 @@ import { RootState, AppDispatch } from './../../services/store';
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const isError = useSelector((state: RootState) => state.burgerIngredients.isError);
-  const isLoading = useSelector((state: RootState) => state.burgerIngredients.isLoading);
-  const ingredients = useSelector((state: RootState) => state.burgerIngredients.ingredients);
+  const { isError, isLoading, ingredients } =  useSelector((state: RootState) => state.burgerIngredients);
 
   useEffect(() => {
     dispatch(fetchIngredients());
     console.log("fetch")
   }, [dispatch]);
-
 
   if (isError) {
     return <p className={`${styles.isloading} text text_type_main-large m-10`}>

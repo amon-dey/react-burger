@@ -1,8 +1,6 @@
-
 import { createSlice } from '@reduxjs/toolkit';
-import { combineReducers } from 'redux';
-import { burgerIngredientsInitialStateType } from "../utils/types";
-import { fetchIngredients } from "./thunks/burgeringredients"
+import { burgerIngredientsInitialStateType } from "../../utils/types";
+import { fetchIngredients } from "./../thunks/burgeringredients"
 
 const myInitialState: burgerIngredientsInitialStateType = {
     ingredients: [],
@@ -10,7 +8,7 @@ const myInitialState: burgerIngredientsInitialStateType = {
     isError: false
 };
 
-const BurgerIngredientsSlice = createSlice({
+export const BurgerIngredientsSlice = createSlice({
     name: 'burgeringredients',
     initialState: myInitialState,
     reducers: {},
@@ -33,8 +31,3 @@ const BurgerIngredientsSlice = createSlice({
             });
     }
 });
-
-export const rootReducer = combineReducers({
-    burgerIngredients: BurgerIngredientsSlice.reducer
-});
-

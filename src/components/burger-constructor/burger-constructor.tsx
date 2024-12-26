@@ -6,19 +6,16 @@ import { OrderDetails } from "./order-details/order-details";
 import styles from './styles.module.css';
 import { AppDispatch, RootState } from './../../services/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetOrder, setOrderIngredients } from './../../services/burger-constructor/order';
+import { resetOrder } from './../../services/burger-constructor/order';
 import { useMemo } from 'react';
 import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
-
-//import { postOrder } from '../../services/thunks/burgerconstructor';
-
+import { postOrder } from '../../services/thunks/burgerconstructor';
 
 export const BurgerConstructor = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
     const { orderNumber } = useSelector((state: RootState) => state.BurgerConstructorOrder);
-
     const totalPrice = useMemo(() => {
         let totalPrice = 0;
         for (const item of ingredients) {
@@ -37,8 +34,9 @@ export const BurgerConstructor = () => {
 
     const handleOnOrderClick = (e: React.SyntheticEvent) => {
         e.stopPropagation();
-        dispatch(setOrderIngredients([ bun, ...ingredients, bun]));
-        dispatch(postOrder())
+        if (ingredients !== null && bun !== null) {
+            dispatch(postOrder([bun, ...ingredients, bun]));
+        }
     }
 
     return (

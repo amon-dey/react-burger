@@ -1,27 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 import ingredientItem from '../../utils/types';
-import { postOrder } from './../thunks/burgerconstructor';
 
 type burgerConstructorOrderInitialStateType = {
-    ingredients: ingredientItem[];
+    ingredintIdList: string[];
     orderNumber: number | null;
 };
 
 const burgerConstructorOrderInitialState: burgerConstructorOrderInitialStateType = {
-    ingredients: [],
+    ingredintIdList: [],
     orderNumber: null
 };
 
 export const BurgerConstructorOrderSlice = createSlice({
+
     name: 'burger-constructor',
     initialState: burgerConstructorOrderInitialState,
     reducers: {
         setOrderIngredients: (state, action) => {
-            state.ingredients = action.payload;
-            postOrder(store.iningredients)
+            const data = action.payload as ingredientItem[];
+            state.ingredintIdList = data.map(item => item._id);
         },
         resetOrder: (state) => {
-            state.ingredients = [];
+            state.ingredintIdList = [];
             state.orderNumber = null;
         },
         setOrder: (state, action) => {
@@ -29,6 +29,5 @@ export const BurgerConstructorOrderSlice = createSlice({
         }
     },
 });
-
 export const { setOrderIngredients, resetOrder, setOrder } = BurgerConstructorOrderSlice.actions;
 export default BurgerConstructorOrderSlice.reducer;

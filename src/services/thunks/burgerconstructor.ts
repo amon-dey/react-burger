@@ -5,9 +5,8 @@ import { request } from '../utils';
 
 export const postOrder = createAsyncThunk(
   `burger-constructor/order`,
-  async (data ) => {
-    const data1 = data as unknown as ingredientItem[]
-    const idList: string[] = data1.map(item => item._id);
+  async (data: ingredientItem[] ) => {
+    const idList: string[] = data.map(item => item._id);
  
     const options = {
         method: 'POST',

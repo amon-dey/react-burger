@@ -6,11 +6,11 @@ import { OrderDetails } from "./order-details/order-details";
 import styles from './styles.module.css';
 import { AppDispatch, RootState } from './../../services/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetOrder, setOrderIngredients} from './../../services/burger-constructor/order';
+import { resetOrder, setOrderIngredients} from '../../services/burger-constructor/burger-constructor-order';
 import { useMemo } from 'react';
 import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
-import { postOrder } from '../../services/thunks/burgerconstructor';
+import { postOrder } from '../../services/thunks/thunks';
 
 export const BurgerConstructor = () => {
     const dispatch = useDispatch<AppDispatch>();

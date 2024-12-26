@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientItem } from "../../../utils/types";
 import styles from './styles.module.css';
-import { removeIngredient } from "../../../services/burger-constructor/constructor-ingredients";
+import { removeIngredient } from "../../../services/burger-constructor/burger-constructor-ingredients";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../../../services/store';
 

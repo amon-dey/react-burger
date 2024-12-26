@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { URL_ORDER } from '../../utils/constants';
+import { URL_ORDER, URL_INGREDIENTS } from '../../utils/constants';
 import ingredientItem from '../../utils/types';
 import { request } from '../utils';
 
@@ -20,5 +20,16 @@ export const postOrder = createAsyncThunk(
       };
 
     return await request(URL_ORDER, options);
+  }
+);
+
+
+
+
+export const fetchIngredients = createAsyncThunk<{ data: ingredientItem[]; }>(
+  `burger-ingredients/fetch`,
+  async () => {
+    const options = { method: 'GET' };
+    return await request(URL_INGREDIENTS, options);
   }
 );

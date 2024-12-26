@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ingredientItem } from '../../utils/types';
-import { fetchIngredients } from "../thunks/burgeringredients";
+import { fetchIngredients } from "../thunks/thunks";
 
 
 type burgerIngredientsInitialStateType = {

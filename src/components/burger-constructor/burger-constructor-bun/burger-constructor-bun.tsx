@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { AppDispatch, RootState } from './../../../services/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { BurgerConstructorCard } from "./../burger-constructor-card/burgerconstructor-card";
-import { setBun } from "../../../services/burger-constructor/constructor-ingredients";
+import { setBun } from "../../../services/burger-constructor/burger-constructor-ingredients";
 
 import styles from './styles.module.css';
 

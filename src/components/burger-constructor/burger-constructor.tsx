@@ -6,10 +6,13 @@ import { OrderDetails } from "./order-details/order-details";
 import styles from './styles.module.css';
 import { AppDispatch, RootState } from './../../services/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetOrder, setOrder } from './../../services/burger-constructor/order';
+import { resetOrder, setOrderIngredients } from './../../services/burger-constructor/order';
 import { useMemo } from 'react';
 import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
+
+//import { postOrder } from '../../services/thunks/burgerconstructor';
+
 
 export const BurgerConstructor = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +35,12 @@ export const BurgerConstructor = () => {
         return false;
     }, [ingredients, bun]);
 
+    const handleOnOrderClick = (e: React.SyntheticEvent) => {
+        e.stopPropagation();
+        dispatch(setOrderIngredients([ bun, ...ingredients, bun]));
+        dispatch(postOrder())
+    }
+
     return (
         <section className={styles.row}>
             <span className={`${styles.span} mb-25`}></span>
@@ -45,7 +54,7 @@ export const BurgerConstructor = () => {
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice} extra_class='text_type_main-large' />
                 <Button htmlType="button" type="primary" size="large"
-                    onClick={() => (dispatch(setOrder(10)))}
+                    onClick={handleOnOrderClick}
                     disabled={disableOrderButton}>
                     Офоримть заказ
                 </Button>

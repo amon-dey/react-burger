@@ -6,8 +6,8 @@ const checkResponse = async (res: Response) => {
     return await res.json().then(() => Promise.reject("Ошибка"));
 };
 
-export const request = async (url: string) => {
-    return await fetch(url).then(checkResponse);
+export const request = async (url: string, options: RequestInit) => {
+    return await fetch(url, options).then(checkResponse);
 };
 
 // Функция для чтения данных из localStorage

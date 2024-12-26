@@ -6,7 +6,7 @@ import { OrderDetails } from "./order-details/order-details";
 import styles from './styles.module.css';
 import { AppDispatch, RootState } from './../../services/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { resetOrder } from './../../services/burger-constructor/order';
+import { resetOrder, setOrderIngredients} from './../../services/burger-constructor/order';
 import { useMemo } from 'react';
 import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
@@ -35,6 +35,7 @@ export const BurgerConstructor = () => {
     const handleOnOrderClick = (e: React.SyntheticEvent) => {
         e.stopPropagation();
         if (ingredients !== null && bun !== null) {
+            dispatch(setOrderIngredients([bun, ...ingredients, bun]));
             dispatch(postOrder([bun, ...ingredients, bun]));
         }
     }

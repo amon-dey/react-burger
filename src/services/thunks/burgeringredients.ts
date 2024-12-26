@@ -5,7 +5,6 @@ import { request } from '../utils';
 
 export const fetchIngredients = createAsyncThunk<{ data: ingredientItem[]; }>(
   `burger-ingredients/fetch`,
-
   async () => {
     const options = { method: 'GET' };
     return await request(URL_INGREDIENTS, options);

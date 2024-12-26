@@ -6,7 +6,8 @@ import { request } from '../utils';
 export const postOrder = createAsyncThunk(
   `burger-constructor/order`,
   async (data: ingredientItem[] ) => {
-    const idList: string[] = data.map(item => item._id);
+    const data1 = data as unknown as ingredientItem[]
+    const idList: string[] = data1.map(item => item._id);
  
     const options = {
         method: 'POST',
@@ -21,12 +22,3 @@ export const postOrder = createAsyncThunk(
     return await request(URL_ORDER, options);
   }
 );
-
-/* Эндпоинт
-// POST https://norma.nomoreparties.space/api/orders
-
- Тело запроса
-{ 
-    "ingredients": ["609646e4dc916e00276b286e","609646e4dc916e00276b2870"]
-} 
-*/

@@ -38,7 +38,7 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
     };
 
     const [, dragRef] = useDrag({
-        type: item.type,
+        type: item.type+"addingredient",
         item: { item }
     });
 

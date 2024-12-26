@@ -6,11 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 type burgerConstructorInitialStateType = {
     bun: ingredientItem | null;
     ingredients: ingredientItem[];
+    hoverDropIndex: number | null;
 };
 
 const burgerConstructorInitialState: burgerConstructorInitialStateType = {
     bun: null,
-    ingredients: []
+    ingredients: [],
+    hoverDropIndex: null
 };
 
 export const BurgerConstructorSlice = createSlice({
@@ -26,6 +28,17 @@ export const BurgerConstructorSlice = createSlice({
         removeIngredient: (state, action) => {
             state.ingredients = state.ingredients.filter(ingredient => ingredient.uuid !== action.payload.uuid);
         },
+        hoverDropIndex: (state, action) => {
+            state.hoverDropIndex = action.payload;
+        },
+        swapIngredient: (state, action) => {
+            const dragIndex = state.ingredients.findIndex(item => item.uuid === action.payload.ingredient.uuid);
+            if (state.hoverDropIndex === null) {return}
+            if (dragIndex===-1) {return}
+            const temp = state.ingredients[state.hoverDropIndex];
+            state.ingredients[state.hoverDropIndex] = state.ingredients[dragIndex];
+            state.ingredients[dragIndex] = temp;
+        },
         setBun: (state, action) => {
             state.bun = action.payload.item;
         },
@@ -36,5 +49,5 @@ export const BurgerConstructorSlice = createSlice({
     },
 });
 
-export const { addIngredient, removeIngredient, setBun, resetConstructor } = BurgerConstructorSlice.actions;
+export const { addIngredient, removeIngredient, setBun, resetConstructor, swapIngredient, hoverDropIndex } = BurgerConstructorSlice.actions;
 export default BurgerConstructorSlice.reducer;

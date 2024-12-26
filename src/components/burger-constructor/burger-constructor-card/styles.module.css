@@ -19,7 +19,6 @@
     overflow-y: hidden;
 }
 
-.constructor-element {
-    composes:constructor-element from global;
-    display: block;
+.fix {
+    display: grid;
 }

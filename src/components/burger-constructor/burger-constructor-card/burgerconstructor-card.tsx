@@ -20,7 +20,7 @@ type PropsEmpty = {
 // @ya.praktikum\react-developer-burger-ui-components\dist\ui\constructor-element.css
 export const EmptyItem: FC<PropsEmpty> = ({ cardType: cardType }) => {
 
-    let className = "constructor-element ml-4 text text_type_main-medium text_color_inactive";
+    let className = `constructor-element ml-4 text text_type_main-medium text_color_inactive ${styles.fix}`;
     if (cardType === "top") {
         className += " constructor-element_pos_top";
     }
@@ -31,8 +31,8 @@ export const EmptyItem: FC<PropsEmpty> = ({ cardType: cardType }) => {
     return (
         <li className={`${styles.li} p-4 `}>
             <div className={className}>
-            <div className={styles.empty_list}>
-                Перетащи сюда {!cardType ? "начинку или соус" : "Булку"}
+                <div className={styles.empty_list}>
+                    Перетащи сюда {!cardType ? "начинку или соус" : "Булку"}
                 </div>
             </div>
         </li>

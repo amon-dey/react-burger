@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo, useMemo } from 'react';
 import ingredientItem from "../../../utils/types";
 import { Price } from "../../price/price";
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,22 +7,39 @@ import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from './../../../services/store';
 import { useDrag } from "react-dnd";
+import { RootState } from './../../../services/store';
+import { useSelector } from 'react-redux';
 
 type Props = {
     ingredient: ingredientItem,
 };
 
 export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
-    const count = Math.floor(Math.random() * (2));
+    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
+
+    const count = useMemo(() => {
+        if (item.type === "bun" && bun) {
+            if (item._id == bun._id) {
+                return 2;
+            }
+        }
+        if (ingredients.length > 0) {
+            return ingredients.filter(ingredient => ingredient._id === item._id).length;
+        } else {
+            return 0;
+        }
+    }, [ingredients, item._id, item.type, bun]);
+
+
     const dispatch = useDispatch<AppDispatch>();
 
     const handleOnClick = () => {
         dispatch(setSelected(item));
-    }
+    };
 
     const [, dragRef] = useDrag({
         type: item.type,
-        item: {item}
+        item: { item }
     });
 
     return (
@@ -42,4 +59,4 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
-export default memo(BurgerIngredientsItem)
+export default memo(BurgerIngredientsItem);

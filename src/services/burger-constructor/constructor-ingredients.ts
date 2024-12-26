@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import ingredientItem from '../../utils/types';
+import { ingredientItem } from '../../utils/types';
+import { v4 as uuidv4 } from 'uuid';
+
 
 type burgerConstructorInitialStateType = {
-    bun: ingredientItem | null
-    ingredients: ingredientItem[]
-}
+    bun: ingredientItem | null;
+    ingredients: ingredientItem[];
+};
 
 const myInitialState: burgerConstructorInitialStateType = {
     bun: null,
-    ingredients: [],
+    ingredients: []
 };
 
 export const BurgerConstructorSlice = createSlice({
@@ -16,15 +18,18 @@ export const BurgerConstructorSlice = createSlice({
     initialState: myInitialState,
     reducers: {
         addIngredient: (state, action) => {
-            state.ingredients = [...state.ingredients, {
-                ...action.payload,
-            }];
+            state.ingredients = [...state.ingredients, 
+                {
+                ...action.payload.item,
+                uuid: uuidv4()
+                }
+        ];
         },
         removeIngredient: (state, action) => {
-            state.ingredients = state.ingredients.filter(ingredient => ingredient._id !== action.payload);
+            state.ingredients = state.ingredients.filter(ingredient => ingredient.uuid !== action.payload.uuid);
         },
         setBun: (state, action) => {
-            state.bun = action.payload;
+            state.bun = action.payload.item;
         },
         resetConstructor: (state) => {
             state.bun = null;

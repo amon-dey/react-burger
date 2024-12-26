@@ -13,6 +13,7 @@ export interface ingredientItem {
     "image_mobile": string,
     "image_large": string,
     "__v": number,
+    "uuid": string | undefined
 }
 
 export const IngredientType = PropTypes.shape({

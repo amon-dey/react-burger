@@ -6,6 +6,7 @@ import { setSelected } from '../../../services/burger-ingredients/selected-ingre
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from './../../../services/store';
+import { useDrag } from "react-dnd";
 
 type Props = {
     ingredient: ingredientItem,
@@ -19,8 +20,13 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
         dispatch(setSelected(item));
     }
 
+    const [, dragRef] = useDrag({
+        type: item.type,
+        item: {item}
+    });
+
     return (
-        <ul className={`${styles.item} p-4 m-4}`} onClick={handleOnClick}>
+        <ul className={`${styles.item} p-4 m-4}`} onClick={handleOnClick} ref={dragRef}>
             <li>
                 <img className="m-1" src={item.image} alt={item.name}></img>
             </li>

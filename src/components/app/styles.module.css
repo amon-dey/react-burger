@@ -3,11 +3,3 @@
   justify-content: center;
   min-width: min-content;
 }
-
-
-
-.icon {
-  transform: scale(2);
-  padding: auto;
-  margin-right: 2rem;
-}

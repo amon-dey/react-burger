@@ -36,15 +36,15 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
     }
 
     const [, dragRef] = useDrag({
-        type: "lololo",
+        type: "burger-ingredients",
         item: { ingredient }
     });
 
-    const [{ handlerId }, dropRef] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
-        accept: "lololo",
+    const [{ handlerId, isHover }, dropRef] = useDrop<DragItem, void, { handlerId: Identifier | null, isHover: boolean }>({
+        accept: "burger-ingredients",
         collect(monitor) {
             return {
-                //isHover: monitor.isOver({ shallow: true }),
+                isHover: monitor.isOver({ shallow: true }),
                 handlerId: monitor.getHandlerId(),
             }
         },
@@ -69,7 +69,7 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
         },
     })
 
-    //const hoverClass = isHover.isHover ? styles.ishover : '';
+    const hoverClass = isHover ? styles.ishover : '';
     dragRef(dropRef(ref));
 
     const handleClose = () => {
@@ -77,7 +77,7 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
     };
 
     return (
-        <li className={`${styles.li} p-4`} ref={ref} data-handler-id={handlerId}>
+        <li className={`${styles.li} p-4 ${hoverClass}`} ref={ref} data-handler-id={handlerId}>
             <DragIcon type="primary" className={dragVisible} />
             <ConstructorElement
                 type={cardType}

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import { BurgerIngredientsSlice } from './burger-ingredients/slice';
-import { BurgerConstructorSlice } from './burger-constructor/slice'
+import { selectedIngredientSlice, currentActiveTabSlice, BurgerIngredientsSlice } from './burger-ingredients/slice';
+import { BurgerConstructorSlice } from './burger-constructor/slice';
 
 export const rootReducer = combineReducers({
-    burgerIngredients: BurgerIngredientsSlice.reducer,
+    burgerIngredientsIngredient: BurgerIngredientsSlice.reducer,
+    burgerIngredientsCurrentActiveTab: currentActiveTabSlice.reducer,
+    burgerIngredientsSelectedIngredient: selectedIngredientSlice.reducer,
     burgerConstructor: BurgerConstructorSlice.reducer
 });

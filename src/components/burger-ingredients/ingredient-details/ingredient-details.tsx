@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../services/store';
 
 export const IngredientDetails = () => {
-    const { selectedIngredient: selected } = useSelector((state: RootState) => state.burgerIngredients);
+    const { selectedIngredient: selected } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
     if (!selected) { return }
     return (
         <section className={styles.block}>

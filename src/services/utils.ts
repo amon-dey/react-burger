@@ -1,9 +1,6 @@
 
-const checkResponse = async (res: Response) => {
-    if (res.ok) {
-        return await res.json();
-    }
-    return await res.json().then(() => Promise.reject("Ошибка"));
+const checkResponse = async (response: Response) => {
+    return response.ok ? response.json() : response.json().then(e => Promise.reject(e));
 };
 
 export const request = async (url: string, options: RequestInit) => {

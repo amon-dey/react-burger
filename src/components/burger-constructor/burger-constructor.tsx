@@ -27,6 +27,11 @@ export const BurgerConstructor = () => {
         return totalPrice;
     }, [ingredients, bun]);
 
+    const disableOrderButton = useMemo(() => {
+        if (!ingredients.length || !bun) return true;
+        return false;
+    }, [ingredients, bun]);
+
     return (
         <section className={styles.row}>
             <span className='p-25'></span>
@@ -39,7 +44,9 @@ export const BurgerConstructor = () => {
 
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice} extra_class='text_type_main-large' />
-                <Button htmlType="button" type="primary" size="large" onClick={() => (dispatch(setOrder(10)))}>
+                <Button htmlType="button" type="primary" size="large"
+                    onClick={() => (dispatch(setOrder(10)))}
+                    disabled={disableOrderButton}>
                     Офоримть заказ
                 </Button>
             </li>

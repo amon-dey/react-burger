@@ -25,7 +25,7 @@ export const BurgerConstructorIngredients: FC = () => {
 
     const emptyList = () => {
         return (
-            <div ref={drop} className={hoverClass}>
+            <div className={hoverClass}>
                 <BurgerConstructorCard ingredient={null} key={0} />
             </div>
         );
@@ -34,7 +34,7 @@ export const BurgerConstructorIngredients: FC = () => {
     const existList = () => {
         return (
             ingredients.map((ingredient) =>
-                <div ref={drop} className={hoverClass} key={ingredient.uuid}>
+                <div className={hoverClass} key={ingredient.uuid}>
                     <BurgerConstructorCard ingredient={ingredient} />
                 </div>
             )
@@ -42,7 +42,7 @@ export const BurgerConstructorIngredients: FC = () => {
     };
 
     return (
-        <div>
+        <div ref={drop}>
             {
                 ingredients.length > 0 ? existList() : emptyList()
             }

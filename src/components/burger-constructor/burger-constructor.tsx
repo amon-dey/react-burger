@@ -34,7 +34,7 @@ export const BurgerConstructor = () => {
 
     return (
         <section className={styles.row}>
-            <span className='p-25'></span>
+            <span className={`${styles.span} mb-25`}></span>
 
             <BurgerConstructorBun cardType="top" />
             <BurgerConstructorIngredients />

@@ -4,6 +4,12 @@
     overflow-wrap: anywhere;
 }
 
+.empty_list {
+    align-items: center;
+    text-align: center;
+    align-content: center;
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -11,4 +17,9 @@
 .nowrap {
     overflow-wrap: break-word;
     overflow-y: hidden;
+}
+
+.constructor-element {
+    composes:constructor-element from global;
+    display: block;
 }

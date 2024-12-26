@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from './../../../services/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { BurgerConstructorCard } from "./../burger-constructor-card/burgerconstructor-card";
 import { setBun } from "../../../services/burger-constructor/burger-constructor-ingredients";
+import { ingredientItemTypes } from "./../../../utils/types"
 
 import styles from './styles.module.css';
 
@@ -16,7 +17,7 @@ export const BurgerConstructorBun: FC<Props> = ({ cardType: cardType }) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const [isHover, drop] = useDrop({
-        accept: "bun",
+        accept: ingredientItemTypes[0].type,
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),

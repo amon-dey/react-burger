@@ -5,19 +5,19 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../services/store';
 
 export const IngredientDetails = () => {
-    const { selectedIngredient: selected } = useSelector((state: RootState) => state.burgerIngredients);
-    if (!selected) { return }
+    const { selectedIngredient } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
+    if (!selectedIngredient) { return }
     return (
         <section className={styles.block}>
             <span className={styles.img}>
-                <img src={selected.image_large} alt={selected.name} ></img>
+                <img src={selectedIngredient.image_large} alt={selectedIngredient.name} ></img>
             </span>
-            <p className={`${styles.name} text_type_main-medium mt-4 mb-8`}>{selected.name}</p>
+            <p className={`${styles.name} text_type_main-medium mt-4 mb-8`}>{selectedIngredient.name}</p>
             <ul className={`${styles.group} text text_type_main-default text_color_inactive`}>
-                <NutritionValue name="Калории,ккал" val={selected.calories} />
-                <NutritionValue name="Белки, г" val={selected.proteins} />
-                <NutritionValue name="Жиры, г" val={selected.fat} />
-                <NutritionValue name="Углеводы, г" val={selected.carbohydrates} />
+                <NutritionValue name="Калории,ккал" val={selectedIngredient.calories} />
+                <NutritionValue name="Белки, г" val={selectedIngredient.proteins} />
+                <NutritionValue name="Жиры, г" val={selectedIngredient.fat} />
+                <NutritionValue name="Углеводы, г" val={selectedIngredient.carbohydrates} />
             </ul>
         </section>
     );

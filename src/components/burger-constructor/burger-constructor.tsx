@@ -4,12 +4,11 @@ import { Price } from "../price/price";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "./order-details/order-details";
 
-import { useModal } from "../../hooks/useModal";
 import { ingredientItem } from "../../utils/types";
 import styles from './styles.module.css';
-import { RootState } from '../../services/store';
-import { useSelector } from 'react-redux';
-
+import { AppDispatch, RootState } from './../../services/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetOrder, setOrder } from './../../services/burger-constructor/order'
 
 const totalPrice = (data: ingredientItem[]): number => {
     let totalPrice = 0;
@@ -20,10 +19,10 @@ const totalPrice = (data: ingredientItem[]): number => {
 };
 
 
-
 export const BurgerConstructor = () => {
-    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructor);
-    const { isModalOpen, openModal, closeModal } = useModal();
+    const dispatch = useDispatch<AppDispatch>();
+    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
+    const { orderNumber } = useSelector((state: RootState) => state.BurgerConstructorOrder);
 
     return (
         <section className={styles.row}>
@@ -47,12 +46,12 @@ export const BurgerConstructor = () => {
 
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice(ingredients)} extra_class='text_type_main-large' />
-                <Button htmlType="button" type="primary" size="large" onClick={openModal}>
+                <Button htmlType="button" type="primary" size="large" onClick={ ()=>( dispatch(setOrder(10)))}>
                     Офоримть заказ
                 </Button>
             </li>
-            {isModalOpen && (
-                <Modal closeModal={closeModal}>
+            {orderNumber && (
+                <Modal closeModal={() => { dispatch(resetOrder()); }}>
                     <OrderDetails />
                 </Modal>
             )}

@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import ingredientItem from "../../../utils/types";
 import { Price } from "../../price/price";
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { setSelected } from '../../../services/burger-ingredients/slice';
+import { setSelected } from '../../../services/burger-ingredients/selected-ingredient';
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from './../../../services/store';

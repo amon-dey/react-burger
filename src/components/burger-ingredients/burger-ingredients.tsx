@@ -13,9 +13,7 @@ import styles from './styles.module.css';
 
 export const BurgerIngredients = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { isError, isLoading, ingredients } = useSelector((state: RootState) => state.burgerIngredientsIngredient);
-    const { selectedIngredient } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
-    const { currentActiveTab } = useSelector((state: RootState) => state.burgerIngredientsCurrentActiveTab);
+    const { isError, isLoading, ingredients, selectedIngredient, currentActiveTab } = useSelector((state: RootState) => state.burgerIngredients);
 
     const refGroups = useRef<HTMLDivElement>(null);
     const arrayOfGroupRefs = Array.from(
@@ -54,9 +52,9 @@ export const BurgerIngredients = () => {
             const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType);
             const groupRef = arrayOfGroupRefs[currentTabNumber].current;
             groupRef && groupRef.scrollIntoView({ behavior: 'smooth' });
-        };
+        }
         scrollToGroup(tabItemType);
-        dispatch(setCurrentActiveTab(tabItemType));
+        dispatch(setCurrentActiveTab(tabItemType))
     }, [arrayOfGroupRefs, dispatch]);
 
     const message = isError ? "Печалька, ингредиенты не загрузились" : "Ингредиенты не загрузились";
@@ -86,7 +84,7 @@ export const BurgerIngredients = () => {
                 </div>
             }
             {selectedIngredient && (
-                <Modal closeModal={() => { dispatch(resetSelected()); }} headerText="Детали ингедиента">
+                <Modal closeModal={() => { dispatch(resetSelected()) }} headerText="Детали ингедиента">
                     <IngredientDetails />
                 </Modal>
             )}

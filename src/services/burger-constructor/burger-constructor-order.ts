@@ -32,9 +32,6 @@ export const BurgerConstructorOrderSlice = createSlice({
             state.orderNumber = null;
             state.orederBurgerName = "";
         },
-        setOrder: (state, action) => {
-            state.orderNumber = action.payload;
-        }
     },
     extraReducers: (builder) => {
         builder
@@ -63,5 +60,5 @@ export const BurgerConstructorOrderSlice = createSlice({
             });
     }
 });
-export const { setOrderIngredients, resetOrder, setOrder } = BurgerConstructorOrderSlice.actions;
+export const { setOrderIngredients, resetOrder } = BurgerConstructorOrderSlice.actions;
 export default BurgerConstructorOrderSlice.reducer;

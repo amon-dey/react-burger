@@ -16,6 +16,7 @@ type Props = {
 
 export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
     const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
+    const dispatch = useDispatch<AppDispatch>();
 
     const count = useMemo(() => {
         if (item.type === "bun" && bun) {
@@ -29,9 +30,6 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
             return 0;
         }
     }, [ingredients, item._id, item.type, bun]);
-
-
-    const dispatch = useDispatch<AppDispatch>();
 
     const handleOnClick = () => {
         dispatch(setSelected(item));

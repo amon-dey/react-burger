@@ -68,7 +68,9 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
     });
 
     const hoverClass = isHover ? styles.ishover : '';
-    dragRef(dropRef(ref));
+    if (!cardType) {
+        dragRef(dropRef(ref));
+    }
 
     const handleClose = () => {
         dispatch(removeIngredient(ingredient));

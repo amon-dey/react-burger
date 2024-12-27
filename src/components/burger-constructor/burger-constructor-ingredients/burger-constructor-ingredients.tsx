@@ -4,7 +4,7 @@ import { useDrop } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 import { BurgerConstructorCard } from "./../burger-constructor-card/burgerconstructor-card";
 import { addIngredient } from "../../../services/burger-constructor/burger-constructor-ingredients";
-import { ingredientItemTypes } from "./../../../utils/types"
+import { ingredientItemTypes } from "./../../../utils/types";
 import { EmptyItem } from "./../burger-constructor-emptycard/burger-constructor-emptycard";
 
 import styles from './styles.module.css';

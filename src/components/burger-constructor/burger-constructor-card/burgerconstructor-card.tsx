@@ -6,18 +6,18 @@ import { removeIngredient } from "../../../services/burger-constructor/burger-co
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './../../../services/store';
 import { swapIngredient, hoverDropIndex } from "../../../services/burger-constructor/burger-constructor-ingredients";
-import type { Identifier, XYCoord } from 'dnd-core'
+import type { Identifier, XYCoord } from 'dnd-core';
 import styles from './styles.module.css';
 
 type Props = {
     ingredient: ingredientItem,
     cardType?: "top" | "bottom" | undefined,
-    index: number
+    index: number;
 };
 
 interface DragItem {
-    index: number
-    _id: string
+    index: number;
+    _id: string;
 }
 
 export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardType: cardType, index: index }) => {
@@ -40,34 +40,32 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
         item: { ingredient }
     });
 
-    const [{ handlerId, isHover }, dropRef] = useDrop<DragItem, void, { handlerId: Identifier | null, isHover: boolean }>({
+    const [{ handlerId, isHover }, dropRef] = useDrop<DragItem, void, { handlerId: Identifier | null, isHover: boolean; }>({
         accept: "burger-ingredients",
         collect(monitor) {
             return {
                 isHover: monitor.isOver({ shallow: true }),
                 handlerId: monitor.getHandlerId(),
-            }
+            };
         },
         hover(item: DragItem, monitor) {
-            if (!ref.current) {
-                return
-            }
-            const dragIndex = item.index
-            const hoverIndex = index
+            if (!ref.current) return;
+            const dragIndex = item.index;
+            const hoverIndex = index;
 
-            if (dragIndex === hoverIndex) return
-            const hoverBoundingRect = ref.current?.getBoundingClientRect()
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
-            const clientOffset = monitor.getClientOffset()
-            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return
+            if (dragIndex === hoverIndex) return;
+            const hoverBoundingRect = ref.current?.getBoundingClientRect();
+            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
             dispatch(hoverDropIndex(hoverIndex));
         },
         drop(item) {
             dispatch(swapIngredient(item));
         },
-    })
+    });
 
     const hoverClass = isHover ? styles.ishover : '';
     dragRef(dropRef(ref));

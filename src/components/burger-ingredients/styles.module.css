@@ -16,6 +16,7 @@
 .row {
     composes: main-card-row from global;
 }
+
 .isloading {
     text-align: center;
     position: sticky;
@@ -24,4 +25,4 @@
     /*transform: translate(-50%, -50%);
     width: 100%; */
     z-index: 1;
-  }
+}

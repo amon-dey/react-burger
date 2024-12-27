@@ -6,7 +6,7 @@ import { RootState } from '../../../services/store';
 
 export const IngredientDetails = () => {
     const { selectedIngredient } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
-    if (!selectedIngredient) { return }
+    if (!selectedIngredient) { return; }
     return (
         <section className={styles.block}>
             <span className={styles.img}>

@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 type burgerConstructorInitialStateType = {
     bun: ingredientItem | null;
     ingredients: ingredientItem[];
-    hoverDropIndex: number | null;
+    ingredientToDrop: number | null;
 };
 
 const burgerConstructorInitialState: burgerConstructorInitialStateType = {
     bun: null,
     ingredients: [],
-    hoverDropIndex: null
+    ingredientToDrop: null
 };
 
 export const BurgerConstructorSlice = createSlice({
@@ -29,15 +29,15 @@ export const BurgerConstructorSlice = createSlice({
             state.ingredients = state.ingredients.filter(ingredient => ingredient.uuid !== action.payload.uuid);
         },
         hoverDropIndex: (state, action) => {
-            state.hoverDropIndex = action.payload;
+            state.ingredientToDrop = action.payload;
         },
         swapIngredient: (state, action) => {
-            const dragIndex = state.ingredients.findIndex(item => item.uuid === action.payload.ingredient.uuid);
-            if (state.hoverDropIndex === null) {return}
-            if (dragIndex===-1) {return}
-            const temp = state.ingredients[state.hoverDropIndex];
-            state.ingredients[state.hoverDropIndex] = state.ingredients[dragIndex];
-            state.ingredients[dragIndex] = temp;
+            const dragIngredientIndex = state.ingredients.findIndex(item => item.uuid === action.payload.ingredient.uuid);
+            if (state.ingredientToDrop === null) return;
+            if (dragIngredientIndex === -1) return;
+            const temp = state.ingredients[state.ingredientToDrop];
+            state.ingredients[state.ingredientToDrop] = state.ingredients[dragIngredientIndex];
+            state.ingredients[dragIngredientIndex] = temp;
         },
         setBun: (state, action) => {
             state.bun = action.payload.item;

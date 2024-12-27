@@ -4,7 +4,7 @@ import { ingredientItem } from '../../utils/types';
 
 type selectedIngredientInitialStateType = {
     selectedIngredient: ingredientItem | null;
-}
+};
 
 const selectedIngredientInitialState: selectedIngredientInitialStateType = {
     selectedIngredient: null,

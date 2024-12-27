@@ -35,9 +35,14 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
         bunLocationText += "\n(низ)";
     }
 
-    const [, dragRef] = useDrag({
+    const [isDragging, dragRef] = useDrag({
         type: "burger-ingredients",
-        item: { ingredient }
+        item: { ingredient },
+        collect(monitor) {
+            return {
+                isDragging: monitor.isDragging(),
+            }
+        }
     });
 
     const [{ handlerId, isHover }, dropRef] = useDrop<DragItem, void, { handlerId: Identifier | null, isHover: boolean; }>({
@@ -68,6 +73,8 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
     });
 
     const hoverClass = isHover ? styles.ishover : '';
+    const opacityClass = isDragging.isDragging ? styles.isopacity : '';
+
     if (!cardType) {
         dragRef(dropRef(ref));
     }
@@ -77,7 +84,7 @@ export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardT
     };
 
     return (
-        <li className={`${styles.li} p-4 ${hoverClass}`} ref={ref} data-handler-id={handlerId}>
+        <li className={`${styles.li} p-4 ${hoverClass} ${opacityClass}`} ref={ref} data-handler-id={handlerId}>
             <DragIcon type="primary" className={dragVisible} />
             <ConstructorElement
                 type={cardType}

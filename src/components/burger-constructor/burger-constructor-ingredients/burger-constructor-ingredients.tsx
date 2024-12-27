@@ -4,8 +4,9 @@ import { useDrop } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 import { BurgerConstructorCard } from "./../burger-constructor-card/burgerconstructor-card";
 import { addIngredient } from "../../../services/burger-constructor/burger-constructor-ingredients";
-import { ingredientItemTypes } from "./../../../utils/types";
+import { ingredientItemTypes, IngredientItemType } from "./../../../utils/types";
 import { EmptyItem } from "./../burger-constructor-emptycard/burger-constructor-emptycard";
+import { v4 as uuidv4 } from 'uuid';
 
 import styles from './styles.module.css';
 
@@ -24,8 +25,12 @@ export const BurgerConstructorIngredients: FC = () => {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(item) {
-            dispatch(addIngredient(item));
+        drop(doppeditem) {
+            const { item } = doppeditem as { item: IngredientItemType };
+            const doppedIngredient = { 
+                ...item,
+                uuid: uuidv4()} as IngredientItemType;           
+            dispatch(addIngredient(doppedIngredient));
         },
     });
 

@@ -31,12 +31,12 @@ export const IngredientType = PropTypes.shape({
     __v: PropTypes.number.isRequired,
 }).isRequired;
 
-export type IingredientItemGroupNameType = {
+export type IngredientItemGroupNameType = {
     type: string;
     translated_name: string;
 }
 
-export const ingredientItemTypes: Array<IingredientItemGroupNameType> = [
+export const ingredientItemTypes: Array<IngredientItemGroupNameType> = [
     { type: "bun", translated_name: "Булки" },
     { type: "main", translated_name: "Начинки" },
     { type: "sauce", translated_name: "Соусы" }

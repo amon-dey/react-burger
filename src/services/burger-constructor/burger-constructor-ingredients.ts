@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IngredientItemType } from '../../utils/types';
-import { v4 as uuidv4 } from 'uuid';
 
 
 type BurgerConstructorInitialStateType = {
@@ -21,8 +20,7 @@ export const BurgerConstructorSlice = createSlice({
     reducers: {
         addIngredient: (state, action) => {
             state.ingredients = [...state.ingredients, {
-                ...action.payload.item,
-                uuid: uuidv4()
+                ...action.payload,
             }];
         },
         removeIngredient: (state, action) => {

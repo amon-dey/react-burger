@@ -45,6 +45,8 @@ export const BurgerConstructorOrderSlice = createSlice({
             .addCase(postOrder.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
+                state.orderNumber = null;
+                state.orederBurgerName = "";
                 if (action.payload) {
                     if (action.payload.success) {
                         state.orderNumber = action.payload.order.number;
@@ -54,6 +56,8 @@ export const BurgerConstructorOrderSlice = createSlice({
                 }
             })
             .addCase(postOrder.rejected, (state) => {
+                state.orderNumber = null;
+                state.orederBurgerName = "";
                 state.isLoading = false;
                 state.isError = true;
             });

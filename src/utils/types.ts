@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export interface ingredientItem {
+export interface IngredientItemType {
     "_id": string
     "name": string
     "type": string
@@ -31,16 +31,16 @@ export const IngredientType = PropTypes.shape({
     __v: PropTypes.number.isRequired,
 }).isRequired;
 
-export type ingredientItemGroupName = {
+export type IingredientItemGroupNameType = {
     type: string;
     translated_name: string;
 }
 
-export const ingredientItemTypes: Array<ingredientItemGroupName> = [
+export const ingredientItemTypes: Array<IingredientItemGroupNameType> = [
     { type: "bun", translated_name: "Булки" },
     { type: "main", translated_name: "Начинки" },
     { type: "sauce", translated_name: "Соусы" }
 ];
 
-export default ingredientItem
+export default IngredientItemType
 

@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ingredientItem } from '../../utils/types';
+import { IngredientItemType } from '../../utils/types';
 import { fetchIngredients } from "../thunks/thunks";
 
 
-type burgerIngredientsInitialStateType = {
-    ingredients: ingredientItem[] | null,
+type BurgerIngredientsInitialStateType = {
+    ingredients: IngredientItemType[] | null,
     isLoading: boolean,
     isError: boolean;
 };
 
-const burgerIngredientsInitialState: burgerIngredientsInitialStateType = {
+const burgerIngredientsInitialState: BurgerIngredientsInitialStateType = {
     ingredients: null,
     isLoading: false,
     isError: false,

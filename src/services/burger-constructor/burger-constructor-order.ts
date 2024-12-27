@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import ingredientItem from '../../utils/types';
+import IngredientItemType from '../../utils/types';
 import { postOrder } from '../thunks/thunks';
 
-type burgerConstructorOrderInitialStateType = {
-    ingredintIdList: ingredientItem[];
+type BurgerConstructorOrderInitialStateType = {
+    ingredintIdList: IngredientItemType[];
     orderNumber: number | null;
     orederBurgerName: string;
     isError: boolean;
     isLoading: boolean;
 };
 
-const burgerConstructorOrderInitialState: burgerConstructorOrderInitialStateType = {
+const burgerConstructorOrderInitialState: BurgerConstructorOrderInitialStateType = {
     ingredintIdList: [],
     orderNumber: null,
     orederBurgerName: "",

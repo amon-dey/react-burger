@@ -1,5 +1,5 @@
 import { FC, memo, useMemo } from 'react';
-import ingredientItem from "../../../utils/types";
+import IngredientItemType from "../../../utils/types";
 import { Price } from "../../price/price";
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setSelected } from '../../../services/burger-ingredients/burger-ingredients-selected-ingredient';
@@ -11,7 +11,7 @@ import { RootState } from './../../../services/store';
 import { useSelector } from 'react-redux';
 
 type Props = {
-    ingredient: ingredientItem,
+    ingredient: IngredientItemType,
 };
 
 export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {

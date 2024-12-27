@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ingredientItem } from '../../utils/types';
+import { IngredientItemType } from '../../utils/types';
 
 
-type selectedIngredientInitialStateType = {
-    selectedIngredient: ingredientItem | null;
+type SelectedIngredientInitialStateType = {
+    selectedIngredient: IngredientItemType | null;
 };
 
-const selectedIngredientInitialState: selectedIngredientInitialStateType = {
+const selectedIngredientInitialState: SelectedIngredientInitialStateType = {
     selectedIngredient: null,
 };
 

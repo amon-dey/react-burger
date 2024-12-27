@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo, useCallback, memo } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientItemTypes, ingredientItemGroupName } from "../../utils/types";
+import { ingredientItemTypes, IingredientItemGroupNameType } from "../../utils/types";
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
 import { Modal } from "../modal/modal";
 import { fetchIngredients } from "../../services/thunks/thunks";
@@ -74,7 +74,7 @@ export const BurgerIngredients = () => {
             </p>
             <div className={`${styles.tab_block} mb-10}`}>
                 {ingredientItemTypes.map(
-                    (ingredient: ingredientItemGroupName) => (
+                    (ingredient: IingredientItemGroupNameType) => (
                         <Tab value={ingredient.type} active={currentActiveTab == ingredient.type} onClick={() => handleTabClick(ingredient.type)} key={ingredient.type}>
                             {ingredient.translated_name}</Tab>
                     ))}

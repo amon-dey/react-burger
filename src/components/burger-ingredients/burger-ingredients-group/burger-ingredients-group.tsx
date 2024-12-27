@@ -1,12 +1,12 @@
 import { forwardRef, memo } from 'react';
 import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
-import { ingredientItem, ingredientItemTypes } from "../../../utils/types";
+import { IngredientItemType, ingredientItemTypes } from "../../../utils/types";
 
 import styles from './styles.module.css';
 
 type Props = {
     group: string;
-    ingredients: ingredientItem[];
+    ingredients: IngredientItemType[];
 };
 
 const translateIngridentType = (dataname: string): string => {

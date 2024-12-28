@@ -1,13 +1,13 @@
-import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils'
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 import { FC } from 'react';
 
 type Props = {
     active: boolean,
-    icon: FC<TIconProps>
-    text: string
-}
+    icon: FC<TIconProps>;
+    title: string;
+};
 
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
 export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Props>): JSX.Element => {
     const ButtonIcon = props.icon;
     const typeButton = props.active ? 'primary' : 'secondary';
@@ -16,9 +16,9 @@ export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Pr
     return (
         <a className={`${styles.headerbutton} ${textClass} m-4`} >
             <ButtonIcon type={typeButton} />
-            {props.text}
+            {props.title}
         </a>
-    )
-}
+    );
+};
 
-export default AppHeaderLink
+export default AppHeaderLink;

@@ -1,9 +1,9 @@
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
 
 type Props = {
     name: string;
     val: number;
-}
+};
 
 const formatNutrition = (val: number): string => {
     let valFloat = (val / 10).toString().replace(".", ",");
@@ -11,7 +11,7 @@ const formatNutrition = (val: number): string => {
         valFloat += ",0";
     }
     return valFloat;
-}
+};
 
 export const NutritionValue = (props: Props) => {
     return (
@@ -21,6 +21,6 @@ export const NutritionValue = (props: Props) => {
                 {formatNutrition(props.val)}
             </p>
         </li>
-    )
-}
-export default NutritionValue
+    );
+};
+export default NutritionValue;

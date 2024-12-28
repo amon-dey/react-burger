@@ -20,3 +20,7 @@
     overflow-y: auto;
     max-height: calc(100vh - 31rem);
 }
+
+.span {
+    display: block;
+}

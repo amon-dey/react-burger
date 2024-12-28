@@ -1,63 +1,77 @@
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { BurgerConstructorCard } from "./burger-constructor-card/burgerconstructor-card"
-import PropTypes from 'prop-types';
-import { Price } from "../price/price"
-import { Modal } from "../modal/modal"
-import { OrderDetails } from "../order-details/order-details"
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Price } from "../price/price";
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "./order-details/order-details";
 
-import { useModal } from "../../hooks/useModal"
-import { ingredientItem, IngredientType } from "../../utils/types"
 import styles from './styles.module.css';
+import { AppDispatch, RootState } from './../../services/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetOrder, setOrderIngredients } from '../../services/burger-constructor/burger-constructor-order';
+import { useMemo } from 'react';
+import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
+import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
+import { resetConstructor } from '../../services/burger-constructor/burger-constructor-ingredients';
+import { postOrder } from '../../services/thunks/thunks';
 
-const totalPrice = (data: ingredientItem[]): number => {
-    let totalPrice = 0;
-    for (let item of data) {
-        totalPrice += item.price;
-    }
-    return totalPrice;
-}
 
-type Props = {
-    data: ingredientItem[]
-}
+export const BurgerConstructor = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
+    const { orderNumber } = useSelector((state: RootState) => state.BurgerConstructorOrder);
+    const totalPrice = useMemo(() => {
+        let totalPrice = 0;
+        for (const item of ingredients) {
+            totalPrice += item.price;
+        }
+        if (bun !== null) {
+            totalPrice += bun.price * 2;
+        }
+        return totalPrice;
+    }, [ingredients, bun]);
 
-export const BurgerConstructor = (props: Props) => {
-    const budItem = props.data[0];
+    const disableOrderButton = useMemo(() => {
+        if (!ingredients.length || !bun) return true;
+        return false;
+    }, [ingredients, bun]);
 
-    const { isModalOpen, openModal, closeModal } = useModal();
+    const handleOnOrderClick = (e: React.SyntheticEvent) => {
+        e.stopPropagation();
+        if (ingredients !== null && bun !== null) {
+            dispatch(setOrderIngredients([bun, ...ingredients, bun]));
+            dispatch(postOrder([bun, ...ingredients, bun]));
+        }
+    };
+
+    const handleCloseOrderModal = () => {
+        dispatch(resetConstructor());
+        dispatch(resetOrder());
+    };
 
     return (
         <section className={styles.row}>
-            <span className='p-25'></span>
-            <BurgerConstructorCard item={budItem} cardType="top" />
-            <ul className={styles.ul}>
-                {props.data
-                    .filter(item => item.type !== budItem.type)
-                    .map((item) =>
-                        <BurgerConstructorCard item={item} key={item._id} />
-                    )}
-            </ul>
-            <BurgerConstructorCard item={budItem} cardType="bottom" />
+            <span className={`${styles.span} mb-25`}></span>
+
+            <BurgerConstructorBun cardType="top" />
+            <BurgerConstructorIngredients />
+            <BurgerConstructorBun cardType="bottom" />
+
             <span className='p-10'></span>
+
             <li className={`${styles.li_total} p-4 `}>
-                <Price price={totalPrice(props.data)} extra_class='text_type_main-large' />
-                <Button htmlType="button" type="primary" size="large" onClick={openModal}>
+                <Price price={totalPrice} extra_class='text_type_main-large' />
+                <Button htmlType="button" type="primary" size="large"
+                    onClick={handleOnOrderClick}
+                    disabled={disableOrderButton}>
                     Офоримть заказ
                 </Button>
             </li>
-            {isModalOpen && (
-                <Modal closeModal={closeModal}>
+            {orderNumber && (
+                <Modal closeModal={handleCloseOrderModal}>
                     <OrderDetails />
                 </Modal>
             )}
         </section>
-    )
-}
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(
-        IngredientType
-    ).isRequired
+    );
 };
 
-export default BurgerConstructor
+export default BurgerConstructor;

@@ -1,107 +1,99 @@
-import { useState, useEffect, useRef, RefObject } from 'react';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ingredientItem, ingredientItemTypes, ingredientItemGroupName } from "../../utils/types"
-import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group"
-
-import { groupBy } from "./utils"
+import { useEffect, useRef, useMemo, useCallback, memo } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientItemTypes, IngredientItemGroupNameType } from "../../utils/types";
+import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
+import { Modal } from "../modal/modal";
+import { fetchIngredients } from "../../services/thunks/thunks";
+import { resetSelected } from '../../services/burger-ingredients/burger-ingredients-selected-ingredient';
+import { setCurrentActiveTab } from '../../services/burger-ingredients/burger-ingredients-current-activetab';
+import { IngredientDetails } from "./ingredient-details/ingredient-details";
+import { AppDispatch, RootState } from './../../services/store';
+import { getVisibleGroup, groupBy } from "./utils";
 import styles from './styles.module.css';
 
-type Props = {
-    data: ingredientItem[];
-}
+export const BurgerIngredients = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { isError, isLoading, ingredients } = useSelector((state: RootState) => state.burgerIngredientsIngredient);
+    const { selectedIngredient } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
+    const { currentActiveTab } = useSelector((state: RootState) => state.burgerIngredientsCurrentActiveTab);
 
-const isElementPartiallyVisible = (element: RefObject<HTMLElement | null>, prevItemsHeight: number) => {
-    if (!element.current) return false;
-    const rect = element.current.getBoundingClientRect();
-    if (rect.top + prevItemsHeight > 0) {
-        return true
-    }
-};
-
-export const BurgerIngredients = (props: Props) => {
-    const [currentActiveTab, setCurrentActiveTab] = useState(`${ingredientItemTypes[0].type}`);
-    const groupedByGrade = groupBy(props.data, (item) => String(item.type));
-    const groupedIng = Object.entries(groupedByGrade);
     const refGroups = useRef<HTMLDivElement>(null);
     const arrayOfGroupRefs = Array.from(
         { length: ingredientItemTypes.length },
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         () => useRef<HTMLDivElement>(null),
     );
 
+    const groupedItems = useMemo(() => {
+        if (!ingredients) return null;
+        return Object.entries(groupBy(ingredients, (item) => String(item.type)));
+    }, [ingredients]);
+
+    //грузим ингредиенты
     useEffect(() => {
+        dispatch(fetchIngredients());
+    }, [dispatch]);
 
+    //отрабатываем события скрола в списке ингредиентов
+    useEffect(() => {
+        const refGroupCopy = refGroups.current;
+        if (!refGroupCopy) return;
         const handleScroll = () => {
-            let min = arrayOfGroupRefs.length - 1;
-            let heighOffset = 0;
-            for (let i = 0; i < arrayOfGroupRefs.length; i++) {
-                const item = arrayOfGroupRefs[i];
-                if (!item.current) {
-                    continue
-                }
-                if (isElementPartiallyVisible(item, heighOffset)) {
-                    if (min > i) {
-                        min = i
-                    }
-                }
-                heighOffset = heighOffset + item.current.getBoundingClientRect().height
-            }
-
-            setCurrentActiveTab(ingredientItemTypes[min].type)
+            dispatch(setCurrentActiveTab(ingredientItemTypes[getVisibleGroup(arrayOfGroupRefs)].type));
         };
 
-        if (refGroups.current) {
-            refGroups.current.addEventListener('scroll', handleScroll);
-        }
-
+        refGroups.current.addEventListener('scroll', handleScroll);
         return () => {
-            if (refGroups.current) {
-                refGroups.current.removeEventListener('scroll', handleScroll);
-            }
+            refGroupCopy && refGroupCopy.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [arrayOfGroupRefs, dispatch]);
 
-    const handleTabClick = (tabItemType: string) => {
-        
-        const focusToCurrentTab = (tabItemType: string) => {
-            const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType)
+    // скролим до необходимой группы ингредиентов, реакция на клик в табе
+    const handleTabClick = useCallback((tabItemType: string) => {
+        const scrollToGroup = (tabItemType: string) => {
+            const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType);
             const groupRef = arrayOfGroupRefs[currentTabNumber].current;
+            groupRef && groupRef.scrollIntoView({ behavior: 'smooth' });
+        };
+        scrollToGroup(tabItemType);
+        dispatch(setCurrentActiveTab(tabItemType));
+    }, [arrayOfGroupRefs, dispatch]);
 
-            if (groupRef !== null) {
-                groupRef.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        setCurrentActiveTab(tabItemType)
-        focusToCurrentTab(tabItemType);
+    const message = isError ? "Печалька, ингредиенты не загрузились" : "Ингредиенты не загрузились";
+    if (isError || isLoading) {
+        return <section className={`${styles.row} mb-10`}>
+            <p className={`${styles.isloading} text text_type_main-large m-10`}>{message}</p>
+        </section >;
     }
 
     return (
         <section className={`${styles.row} mb-10`}>
             <p className="text text_type_main-large mt-10 mb-5">
-                Соберите бургер
+                Собери бургер
             </p>
             <div className={`${styles.tab_block} mb-10}`}>
-                {
-                    ingredientItemTypes.map(
-                        (item: ingredientItemGroupName) => (
-                            <Tab value={item.type} active={currentActiveTab == item.type} onClick={() => handleTabClick(item.type)} key={item.type}>
-                                {item.translated_name}</Tab>
-                        ))
-                }
+                {ingredientItemTypes.map(
+                    (ingredient: IngredientItemGroupNameType) => (
+                        <Tab value={ingredient.type} active={currentActiveTab == ingredient.type} onClick={() => handleTabClick(ingredient.type)} key={ingredient.type}>
+                            {ingredient.translated_name}</Tab>
+                    ))}
             </div>
-            <div className={styles.grouped_items} ref={refGroups}>
-                {
-                    groupedIng
-                        .map(
-                            (type, index) =>
-                                <BurgerIngredientsGroup ref={arrayOfGroupRefs[index]} group={type[0]} items={type[1]} key={type[0]} />
-                        )
-                }
-            </div>
+            {groupedItems &&
+                <div className={styles.grouped_items} ref={refGroups}> {
+                    groupedItems.map((type, index) =>
+                        <BurgerIngredientsGroup ref={arrayOfGroupRefs[index]} group={type[0]} ingredients={type[1]} key={type[0]} />
+                    )}
+                </div>
+            }
+            {selectedIngredient && (
+                <Modal closeModal={() => { dispatch(resetSelected()); }} headerText="Детали ингедиента">
+                    <IngredientDetails />
+                </Modal>
+            )}
         </section>
-    )
-}
+    );
+};
 
-export default BurgerIngredients
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(BurgerIngredients);

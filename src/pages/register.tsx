@@ -4,15 +4,17 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { Link } from "react-router-dom";
 import styles from "./login.module.css";
 
-const PageLogin: FC = () => {
+const PageRegister: FC = () => {
+    const [username, setUsername] = useState('username');
     const [email, setEmail] = useState('email')
     const [password, setPassword] = useState('password')
     const [showPassword, setShowPassword] = useState(false)
 
-
     return (
         <div className={styles.container}>
-            <p className="text text_type_main-large">Вход</p>
+            <p className="text text_type_main-large">Регистрация</p>
+            <div className="m-6"></div>
+            <Input type={'text'} placeholder={'Имя'} onChange={e => setUsername(e.target.value)} value={username} />
             <div className="m-6"></div>
             <Input type={'text'} placeholder={'e-mail'} onChange={e => setEmail(e.target.value)} value={email} />
             <div className="m-6"></div>
@@ -26,19 +28,15 @@ const PageLogin: FC = () => {
             />
             <div className="m-6"></div>
             <Button htmlType="button" type="primary" size="medium">
-                Войти
+                Зарегистрироваться
             </Button>
             <div className="m-20"></div>
             <p className="text text_type_main-default text_color_inactive">
-                Вы новый пользователь ?
-                <Link to="/register">Зарегистрироваться</Link>
-            </p>
-            <p className="text text_type_main-default text_color_inactive">
-                Забыли пароль ?
-                <Link to="/forgot-password">Восстановить пароль</Link>
+                Уже зарегистрированы ?
+                <Link to="/login">Войти</Link>
             </p>
         </div>
     );
 };
 
-export default PageLogin;
+export default PageRegister;

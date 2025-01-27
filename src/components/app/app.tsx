@@ -6,6 +6,10 @@ import styles from './styles.module.css'
 
 import PageMain from './../../pages/main'
 import PageLogin from './../../pages/login'
+import PageRegister from "../../pages/register";
+import ForgotPasswordPage from "../../pages/forgot-password";
+import PageResetPassword from "../../pages/reset-password";
+import ProfilePage from "../../pages/profile";
 
 const App: FC = () => {
   return (
@@ -16,6 +20,11 @@ const App: FC = () => {
           <Routes>
             <Route path="/" element={<PageMain />} />
             <Route path="/login" element={<PageLogin />} />
+            <Route path="/register" element={<PageRegister />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<PageResetPassword />} />
+            <Route path="/profile" element={<ProfilePage />} >
+            </Route>
           </Routes>
         </div>
       </Router>

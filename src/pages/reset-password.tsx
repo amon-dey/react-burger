@@ -4,41 +4,36 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { Link } from "react-router-dom";
 import styles from "./login.module.css";
 
-const PageLogin: FC = () => {
-    const [email, setEmail] = useState('email')
-    const [password, setPassword] = useState('password')
+const PageResetPassword: FC = () => {
+    const [emailcode, setEmailCode] = useState('')
+    const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-
 
     return (
         <div className={styles.container}>
-            <p className="text text_type_main-large">Вход</p>
-            <div className="m-6"></div>
-            <Input type={'text'} placeholder={'e-mail'} onChange={e => setEmail(e.target.value)} value={email} />
+            <p className="text text_type_main-large">Восстановление пароля</p>
             <div className="m-6"></div>
             <Input
                 type={showPassword ? 'text' : 'password'}
-                placeholder={'Пароль'}
+                placeholder={'Введите новый пароль'}
                 onChange={e => setPassword(e.target.value)}
                 icon={'ShowIcon'}
                 value={password}
                 onIconClick={() => setShowPassword(!showPassword)}
             />
             <div className="m-6"></div>
+            <Input type={'text'} placeholder={'Введите код из письма'} onChange={e => setEmailCode(e.target.value)} value={emailcode} />
+            <div className="m-6"></div>
             <Button htmlType="button" type="primary" size="medium">
-                Войти
+                Сохранить
             </Button>
             <div className="m-20"></div>
             <p className="text text_type_main-default text_color_inactive">
-                Вы новый пользователь ?
-                <Link to="/register">Зарегистрироваться</Link>
-            </p>
-            <p className="text text_type_main-default text_color_inactive">
-                Забыли пароль ?
-                <Link to="/forgot-password">Восстановить пароль</Link>
+                Вспомнили пароль ?
+                <Link to="/login">Войти</Link>
             </p>
         </div>
     );
 };
 
-export default PageLogin;
+export default PageResetPassword;

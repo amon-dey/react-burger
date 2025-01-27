@@ -10,14 +10,14 @@ const AppHeader: FC = () => {
     <nav>
       <header className={styles.header}>
         <AppHeaderBlock>
-          <AppHeaderLink active={true} icon={BurgerIcon} title="Конструктор" />
-          <AppHeaderLink active={false} icon={ListIcon} title="Лента заказов" />
+          <AppHeaderLink icon={BurgerIcon} title="Конструктор" linkLocation='/' />
+          <AppHeaderLink icon={ListIcon} title="Лента заказов" linkLocation='/orders' />
         </AppHeaderBlock>
         <AppHeaderBlock>
           <Logo />
         </AppHeaderBlock>
         <AppHeaderBlock>
-          <AppHeaderLink active={false} icon={ProfileIcon} title="Личный кабинет" />
+          <AppHeaderLink icon={ProfileIcon} title="Личный кабинет" linkLocation='/profile' />
         </AppHeaderBlock>
       </header >
     </nav>

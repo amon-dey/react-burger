@@ -1,0 +1,12 @@
+.appcontainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.contentcontainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

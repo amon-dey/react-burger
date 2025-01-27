@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 import { FC } from 'react';
@@ -19,10 +19,10 @@ export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Pr
     const textClass = isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
 
     return (
-        <a className={`${styles.headerbutton} ${textClass} m-4`} >
+        <Link className={`${styles.headerbutton} ${textClass} m-4`} to={props.linkLocation} >
             <ButtonIcon type={typeButton} />
             {props.title}
-        </a>
+        </Link>
     );
 };
 

@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useDispatch } from "../services/store";
 import { resetPassword } from "../services/thunks/thunks";
@@ -9,9 +9,15 @@ import { resetPassword } from "../services/thunks/thunks";
 const PageResetPassword: FC = () => {
     const [token, setToken] = useState('')
     const [password, setPassword] = useState('')
-    const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const { state } = location;
+
+    if (!state || !state.fromForgotPassword) {
+        navigate("/reset-password", { replace: true, });
+        return null;
+    }
 
     const handleOnClick = () => {
         dispatch(resetPassword({ password: password, token: token }));
@@ -19,30 +25,21 @@ const PageResetPassword: FC = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <p className="text text_type_main-large">Восстановление пароля</p>
-            <div className="m-6"></div>
-            <Input
-                type={showPassword ? 'text' : 'password'}
-                placeholder={'Введите новый пароль'}
-                onChange={e => setPassword(e.target.value)}
-                icon={'ShowIcon'}
-                value={password}
-                onIconClick={() => setShowPassword(!showPassword)}
-            />
-            <div className="m-6"></div>
-            <Input type={'text'} placeholder={'Введите код из письма'} onChange={e => setToken(e.target.value)} value={token} />
-            <div className="m-6"></div>
-            <Button htmlType="button" type="primary" size="medium"
-                onClick={handleOnClick}>
+        <form title="Восстановление пароля" onSubmit={handleOnClick} className={styles.container}>
+            <p className="text text_type_main-medium m-6">Восстановление пароля</p>
+            <PasswordInput id="password" onChange={e => setPassword(e.target.value)}
+                value={password} name={'Пароль'} extraClass="m-6" autoComplete="password" />
+
+            <Input id="emailtoken" type={'text'} placeholder={'Введите код из письма'}
+                onChange={e => setToken(e.target.value)} value={token} extraClass="m-6" />
+
+            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
                 Сохранить
             </Button>
-            <div className="m-20"></div>
-            <p className="text text_type_main-default text_color_inactive">
-                Вспомнили пароль ?
-                <Link to="/login">Войти</Link>
+            <p className="text text_type_main-default text_color_inactive mt-20">
+                Вспомнили пароль ?<Link to="/login">Войти</Link>
             </p>
-        </div>
+        </form>
     );
 };
 

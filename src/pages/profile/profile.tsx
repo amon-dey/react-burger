@@ -1,13 +1,22 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import styles from "./styles.module.css";
 import PageUserDetails from './user-details';
 import PageLogout from './logout'
+import { useNavigate } from "react-router-dom";
+
 
 import Tab from '../../components/tab/tab';
 
 const ProfilePage: FC = () => {
     const [current, setCurrent] = useState('Профиль');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (current === 'История заказов') {
+            navigate("/profile/orders", { replace: true, });
+        }
+    }, [current, navigate])
 
     return (
         <div className={styles.container}>

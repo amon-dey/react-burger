@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useDispatch } from "../services/store";
@@ -13,24 +13,22 @@ const ForgotPasswordPage: FC = () => {
 
     const handleOnClick = () => {
         dispatch(forgotPassword(email));
-        navigate("/reset-password", { replace: true })
+        navigate("/reset-password", { replace: true, state: { fromForgotPassword: true } })
     }
 
     return (
-        <div className={styles.container}>
-            <p className="text text_type_main-large">Востановление пароля</p>
-            <div className="m-6"></div>
-            <Input type={'text'} placeholder={'e-mail'} onChange={e => setEmail(e.target.value)} value={email} />
-            <div className="m-6"></div>
+        <form title="Востановление пароля" onSubmit={handleOnClick} className={styles.container}>
+            <p className="text text_type_main-medium">Востановление пароля</p>
+            <EmailInput id="email" onChange={e => setEmail(e.target.value)}
+                value={email} name={'e-mail'} isIcon={false} extraClass="m-6" autoComplete="email" />
             <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
                 Восстановить
             </Button>
             <div className="m-20"></div>
             <p className="text text_type_main-default text_color_inactive">
-                Вспомнили пароль ?
-                <Link to="/login">Войти</Link>
+                Вспомнили пароль ?<Link to="/login">Войти</Link>
             </p>
-        </div>
+        </form>
     );
 };
 

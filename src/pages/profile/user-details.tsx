@@ -1,13 +1,14 @@
 import { FC, useState } from "react";
 import { useSelector } from "../../services/store";
+import { getUser } from "../../services/user/slice.ts";
 
 import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const PageUserDetails: FC = () => {
-    const user = useSelector((state) => state.user.user);
+    const User = useSelector(getUser);
 
-    const [email, setEmail] = useState(user ? user.email : "")
-    const [username, setUsername] = useState(user ? user.name : "");
+    const [username, setUsername] = useState<string>(User ? User.name : "");
+    const [email, setEmail] = useState<string>(User ? User.email : "")
     const [password, setPassword] = useState('')
 
     return (
@@ -16,7 +17,7 @@ const PageUserDetails: FC = () => {
                 value={username} extraClass="mb-6" autoComplete="username" />
 
             <EmailInput id="email" onChange={e => setEmail(e.target.value)}
-                value={email} name={'e-mail'} isIcon={false} extraClass="m-6" autoComplete="email" />
+                value={email} name={'e-mail'} isIcon={false} extraClass="mb-6" autoComplete="email" />
 
             <PasswordInput id="password" onChange={e => setPassword(e.target.value)}
                 value={password} name={'Пароль'} autoComplete="current-password" />

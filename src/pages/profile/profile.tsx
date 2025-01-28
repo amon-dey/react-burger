@@ -2,21 +2,25 @@ import { FC, useEffect, useState } from "react";
 
 import styles from "./styles.module.css";
 import PageUserDetails from './user-details';
-import PageLogout from './logout'
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "../../services/store";
+import { logout } from "../../services/thunks/thunks";
 
 import Tab from '../../components/tab/tab';
 
 const ProfilePage: FC = () => {
     const [current, setCurrent] = useState('Профиль');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (current === 'История заказов') {
             navigate("/profile/orders", { replace: true, });
         }
-    }, [current, navigate])
+        if (current === 'Выход') {
+            dispatch(logout());
+        }
+    }, [current, dispatch, navigate])
 
     return (
         <div className={styles.container}>
@@ -38,7 +42,6 @@ const ProfilePage: FC = () => {
             <div className={styles.subpage}>
                 {current === 'Профиль' && <PageUserDetails />}
                 {current === 'История заказов' && <div>Истрия заказов</div>}
-                {current === 'Выход' && <PageLogout />}
             </div>
         </div>
     );

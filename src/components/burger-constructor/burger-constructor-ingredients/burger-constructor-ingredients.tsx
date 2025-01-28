@@ -26,9 +26,9 @@ export const BurgerConstructorIngredients: FC = () => {
         }),
         drop(doppeditem) {
             const { item } = doppeditem as { item: IngredientItemType };
-            const doppedIngredient = { 
+            const doppedIngredient = {
                 ...item,
-                uuid: uuidv4()} as IngredientItemType;           
+                uuid: uuidv4()} as IngredientItemType;
             dispatch(addIngredient(doppedIngredient));
         },
     });
@@ -46,7 +46,7 @@ export const BurgerConstructorIngredients: FC = () => {
     };
 
     return (
-        <div ref={drop}>
+        <div ref={drop} className={styles.ul}>
             {
                 ingredients.length > 0 ? existIngreidentsList() : <div className={hoverClass} key="1"><EmptyItem /></div>
             }

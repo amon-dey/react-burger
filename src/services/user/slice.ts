@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { login, logout, postRegister, userGetInfo } from "./../thunks/thunks";
+import { login, logout, postRegister, userGetInfo, userSetInfo } from "./../thunks/thunks";
 import { UserType } from "../../utils/types";
 
 type TUserState = {
@@ -70,6 +70,10 @@ export const userSlice = createSlice({
         state.isAuthChecked = true
       })
       .addCase(userGetInfo.fulfilled, (state, action) => {
+        state.isAuthChecked = true
+        state.user = action.payload.user
+      })
+      .addCase(userSetInfo.fulfilled, (state, action) => {
         state.isAuthChecked = true
         state.user = action.payload.user
       })

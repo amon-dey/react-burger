@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -14,10 +14,13 @@ const PageResetPassword: FC = () => {
     const location = useLocation();
     const { state } = location;
 
-    if (!state || !state.fromForgotPassword) {
-        navigate("/reset-password", { replace: true, });
-        return null;
-    }
+    useEffect(() => {
+        if (!state || !state.fromForgotPassword) {
+            navigate("/forgot-password"), { replace: true };
+            return;
+        }
+    }, [navigate, state]);
+
 
     const handleOnClick = () => {
         dispatch(resetPassword({ password: password, token: token }));

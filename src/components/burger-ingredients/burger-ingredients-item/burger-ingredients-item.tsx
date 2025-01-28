@@ -5,18 +5,16 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { setSelected } from '../../../services/burger-ingredients/burger-ingredients-selected-ingredient';
 import styles from "./styles.module.css";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from './../../../services/store';
 import { useDrag } from "react-dnd";
-import { RootState } from './../../../services/store';
-import { useSelector } from 'react-redux';
+import { useSelector } from './../../../services/store';
 
 type Props = {
     ingredient: IngredientItemType,
 };
 
 export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
-    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
-    const dispatch = useDispatch<AppDispatch>();
+    const { bun, ingredients } = useSelector((state) => state.burgerConstructorIngredients);
+    const dispatch = useDispatch();
 
     const count = useMemo(() => {
         if (item.type === "bun" && bun) {

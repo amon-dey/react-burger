@@ -3,8 +3,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { IngredientItemType } from "../../../utils/types";
 import { useDrag, useDrop } from "react-dnd";
 import { removeIngredient } from "../../../services/burger-constructor/burger-constructor-ingredients";
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from './../../../services/store';
+import { useDispatch } from './../../../services/store';
 import { swapIngredient, hoverDropIndex } from "../../../services/burger-constructor/burger-constructor-ingredients";
 import type { Identifier, XYCoord } from 'dnd-core';
 import styles from './styles.module.css';
@@ -21,7 +20,7 @@ interface DragItem {
 }
 
 export const BurgerConstructorCard: FC<Props> = ({ ingredient: ingredient, cardType: cardType, index: index }) => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     const ref = useRef<HTMLLIElement>(null);
 
     let bunLocationText: string = ingredient !== null ? ingredient.name : "";

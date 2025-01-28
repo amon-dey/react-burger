@@ -24,6 +24,7 @@ const App: FC = () => {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<PageResetPassword />} />
             <Route path="/profile" element={<ProfilePage />} >
+            {/* </Route><Route path="/ingredients/:id" element={< />} > */}
             </Route>
           </Routes>
         </div>

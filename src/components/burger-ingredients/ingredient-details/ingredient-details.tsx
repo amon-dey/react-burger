@@ -1,12 +1,11 @@
 import { NutritionValue } from "./nutrition-value/nutrition-value";
 
 import styles from "./styles.module.css";
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../services/store';
+import { useSelector } from "./../../../services/store";
 
 export const IngredientDetails = () => {
-    const { selectedIngredient } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
-    if (!selectedIngredient) { return; }
+    const { selectedIngredient } = useSelector((state) => state.burgerIngredientsSelectedIngredient);
+    if (!selectedIngredient) { return null; }
     return (
         <section className={styles.block}>
             <span className={styles.img}>

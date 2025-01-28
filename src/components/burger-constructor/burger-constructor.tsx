@@ -4,8 +4,7 @@ import { Modal } from "../modal/modal";
 import { OrderDetails } from "./order-details/order-details";
 
 import styles from './styles.module.css';
-import { AppDispatch, RootState } from './../../services/store';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from './../../services/store';
 import { resetOrder, setOrderIngredients } from '../../services/burger-constructor/burger-constructor-order';
 import { useMemo } from 'react';
 import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
@@ -15,9 +14,9 @@ import { postOrder } from '../../services/thunks/thunks';
 
 
 export const BurgerConstructor = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
-    const { orderNumber } = useSelector((state: RootState) => state.BurgerConstructorOrder);
+    const dispatch = useDispatch();
+    const { bun, ingredients } = useSelector((state) => state.burgerConstructorIngredients);
+    const { orderNumber } = useSelector((state) => state.BurgerConstructorOrder);
     const totalPrice = useMemo(() => {
         let totalPrice = 0;
         for (const item of ingredients) {

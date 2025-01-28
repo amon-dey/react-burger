@@ -8,7 +8,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-const CustomTab: FC<Props> = ({ active, value, children, onClick }) => {
+const Tab: FC<Props> = ({ active, value, children, onClick }) => {
     const textClass = active ? styles.tab_type_current : "text text_type_main-default text_color_inactive";
 
     const handleClick = () => {
@@ -24,4 +24,4 @@ const CustomTab: FC<Props> = ({ active, value, children, onClick }) => {
     );
 };
 
-export default CustomTab;
+export default Tab;

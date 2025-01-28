@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { useDrop } from 'react-dnd';
-import { AppDispatch, RootState } from './../../../services/store';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from './../../../services/store';
 import { BurgerConstructorCard } from "./../burger-constructor-card/burgerconstructor-card";
 import { setBun } from "../../../services/burger-constructor/burger-constructor-ingredients";
 import { ingredientItemTypes } from "./../../../utils/types";
@@ -14,8 +13,8 @@ type Props = {
 };
 
 export const BurgerConstructorBun: FC<Props> = ({ cardType: cardType }) => {
-    const { bun } = useSelector((state: RootState) => state.burgerConstructorIngredients);
-    const dispatch = useDispatch<AppDispatch>();
+    const { bun } = useSelector((state) => state.burgerConstructorIngredients);
+    const dispatch = useDispatch();
 
     const [isHover, drop] = useDrop({
         accept: ingredientItemTypes[0].type + "addingredient",

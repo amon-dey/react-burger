@@ -1,10 +1,9 @@
 import { OrderDetailsSuccessIcon } from "./oreder-details-icon/oreder-details-icon";
-import { RootState } from '../../../services/store';
-import { useSelector } from 'react-redux';
+import { useSelector } from "./../../../services/store";
 import styles from './styles.module.css';
 
 export const OrderDetails = () => {
-    const { orderNumber } = useSelector((state: RootState) => state.BurgerConstructorOrder);
+    const { orderNumber } = useSelector((state) => state.BurgerConstructorOrder);
 
     return (
         <section className={`${styles.items} mt-5 mb-30 mr-30 ml-30`}>

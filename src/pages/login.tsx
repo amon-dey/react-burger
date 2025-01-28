@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import { Button, PasswordInput, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "../services/store";
 import styles from "./styles.module.css";
 import { login } from "../services/thunks/thunks";
@@ -10,9 +10,11 @@ const PageLogin: FC = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleOnClick = () => {
         dispatch(login({ email: email, password: password }));
+        navigate(-1);
     }
 
     return (

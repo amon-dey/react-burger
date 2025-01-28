@@ -3,12 +3,12 @@ import { useSelector } from "../../services/store.ts";
 import { Navigate, useLocation } from "react-router-dom";
 import { getIsAuthChecked, getUser } from "../../services/user/slice.ts";
 
-type TProtectedProps = {
+type Props = {
     onlyUnAuth?: boolean;
     component: React.JSX.Element;
 }
 
-const Protected = ({ onlyUnAuth = false, component }: TProtectedProps): React.JSX.Element => {
+const ProtectedRouteElement = ({ onlyUnAuth = false, component }: Props): React.JSX.Element => {
     const isAuthChecked = useSelector(getIsAuthChecked);
     const user = useSelector(getUser);
     const location = useLocation();
@@ -29,7 +29,7 @@ const Protected = ({ onlyUnAuth = false, component }: TProtectedProps): React.JS
     return component;
 }
 
-export const OnlyAuth = Protected;
+export const OnlyAuth = ProtectedRouteElement;
 export const OnlyUnAuth = ({ component }: { component: React.JSX.Element }): React.JSX.Element => (
-    <Protected onlyUnAuth={true} component={component} />
+    <ProtectedRouteElement onlyUnAuth={true} component={component} />
 );

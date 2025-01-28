@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from "react";
+import { FC, useState, useMemo } from "react";
 import { useDispatch } from "../services/store";
 import { useSelector } from "../services/store.ts";
 import { getUser } from "../services/user/slice.ts";
@@ -23,7 +23,7 @@ const PageUserDetails: FC = () => {
         setEmail(User ? User.email : "")
     }
 
-    const isChanged = useCallback(() => {
+    const isChanged = useMemo(() => {
         if (User === null) return false;
         if (username !== User.name || email !== User.email || password !== '') return true
     }, [User, email, password, username])
@@ -40,11 +40,11 @@ const PageUserDetails: FC = () => {
                 value={password} name={'Пароль'} autoComplete="current-password" />
             <span>
                 <Button htmlType="button" type="primary" size="medium"
-                    onClick={handleOnRevert} extraClass="m-6" disabled={!isChanged()}>
+                    onClick={handleOnRevert} extraClass="m-6" disabled={!isChanged}>
                     Отменить
                 </Button>
                 <Button htmlType="button" type="primary" size="medium"
-                    onClick={handleOnSubmit} extraClass="m-6" disabled={!isChanged()}>
+                    onClick={handleOnSubmit} extraClass="m-6" disabled={!isChanged}>
                     Сохранить
                 </Button>
             </span>

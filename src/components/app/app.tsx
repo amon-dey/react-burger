@@ -1,8 +1,8 @@
-import { FC, useEffect } from "react";
+import { FC, } from "react";
 import { Routes, Route } from "react-router-dom";
 import AppHeader from "./app-header/app-header";
-import { useDispatch } from "./../../services/store"
-import { checkUserAuth } from './../../services/thunks/thunks'
+//import { useDispatch } from "./../../services/store"
+//import { checkUserAuth } from './../../services/thunks/thunks'
 import { OnlyAuth, OnlyUnAuth } from "./protected-route.tsx";
 
 import styles from './styles.module.css'
@@ -15,11 +15,11 @@ import PageResetPassword from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile";
 
 const App: FC = () => {
-  const dispatch = useDispatch();
+  /*const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(checkUserAuth());
-  }, []);
+  }, []);*/
 
   return (
     <main className={styles.appcontainer}>
@@ -32,7 +32,7 @@ const App: FC = () => {
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
           <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
-            {/* </Route><Route path="/ingredients/:id" element={< />} > */}
+          {/* </Route><Route path="/ingredients/:id" element={< />} > */}
         </Routes>
       </div>
     </main>

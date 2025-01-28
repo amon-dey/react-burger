@@ -1,8 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN, API_LOGOUT } from '../../utils/constants';
+
+import {
+  API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
+  API_LOGOUT, API_FORGOTPASSWORD, API_RESETPASSWORD
+} from '../../utils/constants';
+
 import IngredientItemType from '../../utils/types';
-import { request, api } from '../utils';
-import { setIsAuthChecked, setUser } from "./../user/slice";
+import {
+  request, fetchWithRefresh,
+} from '../utils';
 
 type RegisterPostType = {
   email: string,
@@ -70,15 +76,32 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const checkUserAuth = createAsyncThunk(
-  "user/checkUserAuth",
-  async (_, { dispatch }) => {
-    if (localStorage.getItem("accessToken")) {
-      api.getUser()
-        .then(user => dispatch(setUser(user)))
-        .finally(() => dispatch(setIsAuthChecked(true)));
-    } else {
-      dispatch(setIsAuthChecked(true));
-    }
+export const forgotPassword = createAsyncThunk(
+  `api/forgot-password`,
+  async (email: string) => {
+    const options = {
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify({ email: email }),
+    };
+    return await request(API_FORGOTPASSWORD, options);
   }
-)
+);
+
+export const resetPassword = createAsyncThunk(
+  `api/reset-password`,
+  async (pasword: string) => {
+    const token = localStorage.getItem("refreshToken")
+    const options = {
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify({ pasword: pasword, token: token }),
+    };
+    return await fetchWithRefresh(API_RESETPASSWORD, options);
+  }
+);
+
+export const checkUserAuth = createAsyncThunk(
+  `api/checkUserAuth`,
+  async () => {
+    const options = {
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, };
+    return await fetchWithRefresh(API_RESETPASSWORD, options);
+  }
+);

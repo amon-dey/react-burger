@@ -1,6 +1,6 @@
 
 import { API_TOKEN } from './../utils/constants'
-import { UserType } from "./../utils/types";
+//import { UserType } from "./../utils/types";
 
 const checkResponse = async (response: Response): Promise<any> => {
     if (!response.ok) {
@@ -88,30 +88,4 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
             return Promise.reject(err);
         }
     }
-};
-
-
-const getUser = async (): Promise<UserType> => {
-    const request: Promise<UserType> = new Promise((resolve) => {
-        setTimeout(() => {
-            const fakeuser: UserType = {
-                name: "Asdf",
-                email: "asdf"
-            }
-            resolve(fakeuser);
-        }, 1000);
-    });
-
-    try {
-        return await request;
-    } catch (error) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        throw error;
-    }
-}
-
-
-export const api = {
-    getUser,
 };

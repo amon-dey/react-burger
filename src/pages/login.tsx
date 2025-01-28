@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import styles from "./login.module.css";
 
 const PageLogin: FC = () => {
-    const [email, setEmail] = useState('email')
-    const [password, setPassword] = useState('password')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-
 
     return (
         <div className={styles.container}>

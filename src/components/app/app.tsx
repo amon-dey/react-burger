@@ -1,6 +1,9 @@
-import { FC } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import AppHeader from "./app-header/app-header";
+import { useDispatch } from "./../../services/store"
+import { checkUserAuth } from './../../services/thunks/thunks'
+import { OnlyAuth, OnlyUnAuth } from "./protected-route.tsx";
 
 import styles from './styles.module.css'
 
@@ -12,23 +15,26 @@ import PageResetPassword from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile";
 
 const App: FC = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, []);
+
   return (
     <main className={styles.appcontainer}>
-      <Router>
-        <AppHeader />
-        <div className={styles.contentcontainer}>
-          <Routes>
-            <Route path="/" element={<PageMain />} />
-            <Route path="/login" element={<PageLogin />} />
-            <Route path="/register" element={<PageRegister />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/reset-password" element={<PageResetPassword />} />
-            <Route path="/profile" element={<ProfilePage />} >
+      <AppHeader />
+      <div className={styles.contentcontainer}>
+        <Routes>
+          <Route path="/" element={<OnlyAuth component={<PageMain />} />} />
+          <Route path="/login" element={<OnlyUnAuth component={<PageLogin />} />} />
+          <Route path="/register" element={<OnlyUnAuth component={<PageRegister />} />} />
+          <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
+          <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
+          <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
             {/* </Route><Route path="/ingredients/:id" element={< />} > */}
-            </Route>
-          </Routes>
-        </div>
-      </Router>
+        </Routes>
+      </div>
     </main>
   );
 

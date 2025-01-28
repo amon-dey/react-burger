@@ -10,14 +10,17 @@ import { currentActiveTabSlice } from './burger-ingredients/burger-ingredients-c
 import { selectedIngredientSlice } from './burger-ingredients/burger-ingredients-selected-ingredient';
 import { BurgerConstructorSlice } from './burger-constructor/burger-constructor-ingredients';
 import { BurgerConstructorOrderSlice } from './burger-constructor/burger-constructor-order';
+import { userSlice } from './user/slice'
 
 export const rootReducer = combineReducers({
     burgerIngredientsIngredient: BurgerIngredientsSlice.reducer,
     burgerIngredientsCurrentActiveTab: currentActiveTabSlice.reducer,
     burgerIngredientsSelectedIngredient: selectedIngredientSlice.reducer,
     burgerConstructorIngredients: BurgerConstructorSlice.reducer,
-    BurgerConstructorOrder: BurgerConstructorOrderSlice.reducer
+    BurgerConstructorOrder: BurgerConstructorOrderSlice.reducer,
+    [userSlice.reducerPath]: userSlice.reducer,
 });
+
 export const store = configureStore({
     reducer: rootReducer,
     devTools: process.env.NODE_ENV !== 'production',

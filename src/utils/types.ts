@@ -44,3 +44,4 @@ export const ingredientItemTypes: Array<IngredientItemGroupNameType> = [
 
 export default IngredientItemType
 
+export type TUser = {}

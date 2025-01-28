@@ -11,7 +11,7 @@ const AppHeader: FC = () => {
       <header className={styles.header}>
         <AppHeaderBlock>
           <AppHeaderLink icon={BurgerIcon} title="Конструктор" linkLocation='/' />
-          <AppHeaderLink icon={ListIcon} title="Лента заказов" linkLocation='/reset-password' />
+          <AppHeaderLink icon={ListIcon} title="Лента заказов" linkLocation='/orders' />
         </AppHeaderBlock>
         <AppHeaderBlock>
           <Logo />

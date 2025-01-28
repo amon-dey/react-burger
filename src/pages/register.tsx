@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import styles from "./login.module.css";
 
 const PageRegister: FC = () => {
-    const [username, setUsername] = useState('username');
-    const [email, setEmail] = useState('email')
-    const [password, setPassword] = useState('password')
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
     return (

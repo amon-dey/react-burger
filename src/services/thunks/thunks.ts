@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import {
   API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
-  API_LOGOUT, API_FORGOTPASSWORD, API_RESETPASSWORD
+  API_LOGOUT, API_FORGOTPASSWORD, API_RESETPASSWORD,
+  API_USER
 } from '../../utils/constants';
 
 import IngredientItemType from '../../utils/types';
@@ -64,7 +65,8 @@ export const logout = createAsyncThunk(
   async () => {
     const token = localStorage.getItem("refreshToken")
     const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify({ token: token }),
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
+      body: JSON.stringify({ token: token }),
     };
     return await request(API_LOGOUT, options);
   }
@@ -74,7 +76,8 @@ export const forgotPassword = createAsyncThunk(
   `api/forgot-password`,
   async (email: string) => {
     const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify({ email: email }),
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
+      body: JSON.stringify({ email: email }),
     };
     return await request(API_FORGOTPASSWORD, options);
   }
@@ -87,16 +90,21 @@ export const resetPassword = createAsyncThunk(
       method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
       body: JSON.stringify(data),
     };
-    return await fetchWithRefresh(API_RESETPASSWORD, options);
+    return await request(API_RESETPASSWORD, options);
   }
 );
 
 export const checkUserAuth = createAsyncThunk(
   `api/checkUserAuth`,
   async () => {
+    const token = localStorage.getItem("accessToken");
     const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Authorization": token? token:"",
+      },
     };
-    return await fetchWithRefresh(API_RESETPASSWORD, options);
+    return await fetchWithRefresh(API_USER, options);
   }
 );

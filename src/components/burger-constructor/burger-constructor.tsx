@@ -11,12 +11,16 @@ import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructo
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
 import { resetConstructor } from '../../services/burger-constructor/burger-constructor-ingredients';
 import { postOrder } from '../../services/thunks/thunks';
-
+import { getUser } from "../../services/user/slice.ts";
+import { useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = () => {
+    const User = useSelector(getUser);
     const dispatch = useDispatch();
     const { bun, ingredients } = useSelector((state) => state.burgerConstructorIngredients);
     const { orderNumber } = useSelector((state) => state.BurgerConstructorOrder);
+    const navigate = useNavigate();
+
     const totalPrice = useMemo(() => {
         let totalPrice = 0;
         for (const item of ingredients) {
@@ -35,9 +39,13 @@ export const BurgerConstructor = () => {
 
     const handleOnOrderClick = (e: React.SyntheticEvent) => {
         e.stopPropagation();
-        if (ingredients !== null && bun !== null) {
-            dispatch(setOrderIngredients([bun, ...ingredients, bun]));
-            dispatch(postOrder([bun, ...ingredients, bun]));
+        if (User === null) {
+            navigate("/login"), { replace: true };
+        } else {
+            if (ingredients !== null && bun !== null) {
+                dispatch(setOrderIngredients([bun, ...ingredients, bun]));
+                dispatch(postOrder([bun, ...ingredients, bun]));
+            }
         }
     };
 

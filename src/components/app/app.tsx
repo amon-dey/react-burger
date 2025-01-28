@@ -28,7 +28,7 @@ const App: FC = () => {
       <AppHeader />
       <div className={styles.contentcontainer}>
         <Routes>
-          <Route path="/" element={<OnlyAuth component={<PageMain />} />} />
+          <Route path="/" element={<PageMain />} />
           <Route path="/login" element={<OnlyUnAuth component={<PageLogin />} />} />
           <Route path="/register" element={<OnlyUnAuth component={<PageRegister />} />} />
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />

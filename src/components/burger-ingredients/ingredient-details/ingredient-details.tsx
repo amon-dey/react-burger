@@ -2,9 +2,22 @@ import { NutritionValue } from "./nutrition-value/nutrition-value";
 
 import styles from "./styles.module.css";
 import { useSelector } from "./../../../services/store";
+import { useParams } from "react-router-dom";
+import { IngredientItemType } from './../../../utils/types';
 
 export const IngredientDetails = () => {
-    const { selectedIngredient } = useSelector((state) => state.burgerIngredientsSelectedIngredient);
+    const { isError, isLoading, ingredients } = useSelector((state) => state.burgerIngredientsIngredient);
+
+    const { id } = useParams();
+
+    const findIngeredientById = (id: string | undefined): IngredientItemType | null | undefined => {
+        if (ingredients === null) return null;
+        return ingredients.find((ingredient) => ingredient._id === id);
+    }
+    const selectedIngredient = findIngeredientById(id);
+
+    //const { selectedIngredient } = useSelector((state) => state.burgerIngredientsSelectedIngredient);
+    if (isLoading || isError) { return null; }
     if (!selectedIngredient) { return null; }
     return (
         <section className={styles.block}>

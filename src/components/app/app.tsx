@@ -4,6 +4,7 @@ import AppHeader from "./app-header/app-header";
 import { useDispatch } from "./../../services/store"
 import { userGetInfo } from './../../services/thunks/thunks'
 import { OnlyAuth, OnlyUnAuth } from "./protected-route.tsx";
+import { fetchIngredients } from "../../services/thunks/thunks";
 
 import styles from './styles.module.css'
 
@@ -17,10 +18,14 @@ import Orders from '../../pages/ordres.tsx'
 import PageUserDetails from '../../pages/user-details.tsx'
 import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'
-
+import PageIngredientDetails from '../../pages/ingredients.tsx'
 
 const App: FC = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(userGetInfo());
@@ -42,7 +47,7 @@ const App: FC = () => {
             <Route path="/profile/orders" element={<Orders />} />
             <Route path="/profile/orders/:number" element={<OrderDetails />} />
           </Route>
-          {/* </Route><Route path="/ingredients/:id" element={< />} > */}
+          <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

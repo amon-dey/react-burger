@@ -4,7 +4,6 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientItemTypes, IngredientItemGroupNameType } from "../../utils/types";
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
 import { Modal } from "../modal/modal";
-import { fetchIngredients } from "../../services/thunks/thunks";
 import { resetSelected } from '../../services/burger-ingredients/burger-ingredients-selected-ingredient';
 import { setCurrentActiveTab } from '../../services/burger-ingredients/burger-ingredients-current-activetab';
 import { IngredientDetails } from "./ingredient-details/ingredient-details";
@@ -28,11 +27,6 @@ export const BurgerIngredients = () => {
         if (!ingredients) return null;
         return Object.entries(groupBy(ingredients, (item) => String(item.type)));
     }, [ingredients]);
-
-    //грузим ингредиенты
-    useEffect(() => {
-        dispatch(fetchIngredients());
-    }, [dispatch]);
 
     //отрабатываем события скрола в списке ингредиентов
     useEffect(() => {

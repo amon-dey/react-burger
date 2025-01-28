@@ -1,27 +1,29 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {login, logout} from "./../thunks/thunks";
-import {TUser} from "../../utils/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { login, logout, postRegister } from "./../thunks/thunks";
+import { UserType } from "../../utils/types";
 
 type TUserState = {
-    user: TUser | null;
-    isAuthChecked: boolean;
+  user: UserType | null;
+  isAuthChecked: boolean;
+  lastError: string | null
 }
 
 const initialState: TUserState = {
-    user: null,
-    isAuthChecked: false,
+  user: null,
+  isAuthChecked: false,
+  lastError: null,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-      setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
-          state.isAuthChecked = action.payload;
-      },
-      setUser: (state, action: PayloadAction<TUser | null>) => {
-          state.user = action.payload;
-      }
+    setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
+      state.isAuthChecked = action.payload;
+    },
+    setUser: (state, action: PayloadAction<UserType | null>) => {
+      state.user = action.payload;
+    }
   },
   selectors: {
     getIsAuthChecked: (state) => state.isAuthChecked,
@@ -29,13 +31,42 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(login.fulfilled, (state, action) => {
-          state.user = action.payload;
-          state.isAuthChecked = true;
-        })
-        .addCase(logout.fulfilled, (state) => {
-          state.user = null;
-        })
+      .addCase(login.fulfilled, (state, action) => {
+        if (action.payload)
+          state.user = action.payload.user
+        localStorage.setItem("accessToken", action.payload.accessToken);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        state.isAuthChecked = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        state.user = null;
+      })
+      .addCase(logout.rejected, (state) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        state.user = null;
+      })
+      .addCase(postRegister.fulfilled, (state, action) => {
+        if (action.payload)
+          state.user = action.payload.user
+        localStorage.setItem("accessToken", action.payload.accessToken);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        state.isAuthChecked = true
+      })
+      .addCase(postRegister.rejected, (state, action) => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        state.isAuthChecked = true
+        state.lastError = "ошибка"
+        if (action.payload) {
+          if (typeof action.payload === 'string') {
+            state.lastError = action.payload
+          }
+        }
+      })
+
   }
 });
 

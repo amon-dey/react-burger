@@ -3,12 +3,24 @@ import { FC, useState } from "react";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import styles from "./login.module.css";
+import { postRegister } from './../services/thunks/thunks'
+import { useDispatch } from "../services/store";
 
 const PageRegister: FC = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const dispatch = useDispatch()
+
+
+    const handleOnClick = () => {
+        dispatch(postRegister({
+            name: username,
+            email: email,
+            password: password
+        }));
+    }
 
     return (
         <div className={styles.container}>
@@ -27,7 +39,7 @@ const PageRegister: FC = () => {
                 onIconClick={() => setShowPassword(!showPassword)}
             />
             <div className="m-6"></div>
-            <Button htmlType="button" type="primary" size="medium">
+            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
                 Зарегистрироваться
             </Button>
             <div className="m-20"></div>

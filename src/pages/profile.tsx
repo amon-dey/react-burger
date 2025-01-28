@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
+
 import styles from "./profile.module.css";
 import PageUserDetails from './profile-user-details';
+import PageLogout from './profile-logout'
+
 import Tab from '../components/tab/tab';
 
 const ProfilePage: FC = () => {
@@ -26,7 +29,7 @@ const ProfilePage: FC = () => {
             <div className={styles.subpage}>
                 {current === 'Профиль' && <PageUserDetails />}
                 {current === 'История заказов' && <div>Истрия заказов</div>}
-                {current === 'Выход' && <div>Выход</div>}
+                {current === 'Выход' && <PageLogout />}
             </div>
         </div>
     );

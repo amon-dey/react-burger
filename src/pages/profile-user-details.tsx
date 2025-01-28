@@ -1,11 +1,14 @@
 import { FC, useState } from "react";
+import { useSelector } from "../services/store";
 
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const PageUserDetails: FC = () => {
-    const [email, setEmail] = useState('email')
-    const [username, setUsername] = useState('username');
-    const [password, setPassword] = useState('password')
+    const user = useSelector((state) => state.user);
+    console.log(user);
+    const [email, setEmail] = useState(user.user ? user.user.name : "")
+    const [username, setUsername] = useState(user.user ? user.user.email : "");
+    const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
     return (

@@ -1,8 +1,19 @@
 
 import { API_TOKEN } from './../utils/constants'
+import { UserType } from "./../utils/types";
 
-const checkResponse = async (response: Response) => {
-    return response.ok ? response.json() : response.json().then(e => Promise.reject(e));
+const checkResponse = async (response: Response): Promise<any> => {
+    if (!response.ok) {
+        try {
+            const json = await response.json();
+            if (json.success === false) {
+                return Promise.reject(json.message);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    }
+    return response.json();
 };
 
 export const request = async (url: string, options: RequestInit) => {
@@ -79,12 +90,15 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     }
 };
 
-import {TUser} from "./../utils/types";
 
-const getUser = async (): Promise<TUser> => {
-    const request: Promise<TUser> = new Promise((resolve) => {
+const getUser = async (): Promise<UserType> => {
+    const request: Promise<UserType> = new Promise((resolve) => {
         setTimeout(() => {
-            resolve({});
+            const fakeuser: UserType = {
+                name: "Asdf",
+                email: "asdf"
+            }
+            resolve(fakeuser);
         }, 1000);
     });
 
@@ -97,26 +111,7 @@ const getUser = async (): Promise<TUser> => {
     }
 }
 
-const login = (): Promise<TUser> =>
-    new Promise((resolve) => {
-        setTimeout(() => {
-            localStorage.setItem("accessToken", "test-token");
-            localStorage.setItem("refreshToken", "test-refresh-token");
-            resolve({});
-        }, 1000);
-    });
-
-const logout = (): Promise<void> =>
-    new Promise((resolve) => {
-        setTimeout(() => {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            resolve();
-        }, 1000);
-    });
 
 export const api = {
     getUser,
-    login,
-    logout
 };

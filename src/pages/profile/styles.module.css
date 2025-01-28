@@ -17,4 +17,10 @@
     justify-self: center;
     align-content: center;
     box-sizing: border-box;
+    width: 28rem;
+}
+
+.logoutbutton {
+    width: 30rem;
+    min-width: 30rem;
 }

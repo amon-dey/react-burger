@@ -1,13 +1,22 @@
 import { FC, useState } from "react";
 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import styles from "./login.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./styles.module.css";
+import { useDispatch } from "../services/store";
+import { resetPassword } from "../services/thunks/thunks";
 
 const PageResetPassword: FC = () => {
-    const [emailcode, setEmailCode] = useState('')
+    const [token, setToken] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleOnClick = () => {
+        dispatch(resetPassword({ password: password, token: token }));
+        navigate("/login", { replace: true })
+    }
 
     return (
         <div className={styles.container}>
@@ -22,9 +31,10 @@ const PageResetPassword: FC = () => {
                 onIconClick={() => setShowPassword(!showPassword)}
             />
             <div className="m-6"></div>
-            <Input type={'text'} placeholder={'Введите код из письма'} onChange={e => setEmailCode(e.target.value)} value={emailcode} />
+            <Input type={'text'} placeholder={'Введите код из письма'} onChange={e => setToken(e.target.value)} value={token} />
             <div className="m-6"></div>
-            <Button htmlType="button" type="primary" size="medium">
+            <Button htmlType="button" type="primary" size="medium"
+                onClick={handleOnClick}>
                 Сохранить
             </Button>
             <div className="m-20"></div>

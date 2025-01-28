@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { useSelector } from "../services/store";
+import { useSelector } from "../../services/store";
 
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 

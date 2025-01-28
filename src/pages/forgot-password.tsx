@@ -1,11 +1,20 @@
 import { FC, useState } from "react";
 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
-import styles from "./login.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./styles.module.css";
+import { useDispatch } from "../services/store";
+import { forgotPassword } from "../services/thunks/thunks";
 
 const ForgotPasswordPage: FC = () => {
-    const [email, setEmail] = useState('email')
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('')
+    const dispatch = useDispatch();
+
+    const handleOnClick = () => {
+        dispatch(forgotPassword(email));
+        navigate("/reset-password", { replace: true })
+    }
 
     return (
         <div className={styles.container}>
@@ -13,7 +22,7 @@ const ForgotPasswordPage: FC = () => {
             <div className="m-6"></div>
             <Input type={'text'} placeholder={'e-mail'} onChange={e => setEmail(e.target.value)} value={email} />
             <div className="m-6"></div>
-            <Button htmlType="button" type="primary" size="medium">
+            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
                 Восстановить
             </Button>
             <div className="m-20"></div>

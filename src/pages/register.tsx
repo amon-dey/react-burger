@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import styles from "./login.module.css";
+import styles from "./styles.module.css";
 import { postRegister } from './../services/thunks/thunks'
 import { useDispatch } from "../services/store";
 
@@ -12,7 +12,6 @@ const PageRegister: FC = () => {
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const dispatch = useDispatch()
-
 
     const handleOnClick = () => {
         dispatch(postRegister({

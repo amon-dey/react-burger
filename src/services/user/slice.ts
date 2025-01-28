@@ -73,7 +73,6 @@ export const userSlice = createSlice({
         state.isAuthChecked = true
         state.user = action.payload
       })
-
   }
 });
 

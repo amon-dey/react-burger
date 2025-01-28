@@ -1,6 +1,5 @@
 
 import { API_TOKEN } from './../utils/constants'
-//import { UserType } from "./../utils/types";
 
 const checkResponse = async (response: Response): Promise<any> => {
     if (!response.ok) {

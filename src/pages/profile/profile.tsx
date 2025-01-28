@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 
-import styles from "./profile.module.css";
-import PageUserDetails from './profile-user-details';
-import PageLogout from './profile-logout'
+import styles from "./styles.module.css";
+import PageUserDetails from './user-details';
+import PageLogout from './logout'
 
-import Tab from '../components/tab/tab';
+import Tab from '../../components/tab/tab';
 
 const ProfilePage: FC = () => {
     const [current, setCurrent] = useState('Профиль');

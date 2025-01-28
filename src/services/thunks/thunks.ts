@@ -6,20 +6,7 @@ import {
 } from '../../utils/constants';
 
 import IngredientItemType from '../../utils/types';
-import {
-  request, fetchWithRefresh,
-} from '../utils';
-
-type RegisterPostType = {
-  email: string,
-  password: string,
-  name: string
-}
-
-type LoginPostType = {
-  email: string,
-  password: string,
-}
+import { request, fetchWithRefresh } from '../utils';
 
 export const postOrder = createAsyncThunk(
   `burger-constructor/order`,
@@ -44,9 +31,13 @@ export const fetchIngredients = createAsyncThunk<{ data: IngredientItemType[]; }
   }
 );
 
-export const postRegister = createAsyncThunk<any, RegisterPostType>(
+export const postRegister = createAsyncThunk(
   `user/register`,
-  async (data: RegisterPostType) => {
+  async (data: {
+    email: string,
+    password: string,
+    name: string
+  }) => {
     const options = {
       method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
       body: JSON.stringify(data),
@@ -55,9 +46,12 @@ export const postRegister = createAsyncThunk<any, RegisterPostType>(
   }
 );
 
-export const login = createAsyncThunk<any, LoginPostType>(
+export const login = createAsyncThunk(
   `api/login`,
-  async (data: LoginPostType) => {
+  async (data: {
+    email: string,
+    password: string,
+  }) => {
     const options = {
       method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify(data),
     };
@@ -88,10 +82,10 @@ export const forgotPassword = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
   `api/reset-password`,
-  async (pasword: string) => {
-    const token = localStorage.getItem("refreshToken")
+  async (data: { password: string, token: string }) => {
     const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify({ pasword: pasword, token: token }),
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
+      body: JSON.stringify(data),
     };
     return await fetchWithRefresh(API_RESETPASSWORD, options);
   }
@@ -101,7 +95,8 @@ export const checkUserAuth = createAsyncThunk(
   `api/checkUserAuth`,
   async () => {
     const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, };
+      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
+    };
     return await fetchWithRefresh(API_RESETPASSWORD, options);
   }
 );

@@ -14,6 +14,7 @@ import ForgotPasswordPage from "../../pages/forgot-password";
 import PageResetPassword from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile/profile.tsx";
 import Orders from '../../pages/ordres.tsx'
+import PageUserDetails from '../../pages/user-details.tsx'
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const App: FC = () => {
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
           <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} >
+            <Route path="/profile/" element={<PageUserDetails />} />
             <Route path="/profile/orders" element={<Orders />} />
           </Route>
           {/* </Route><Route path="/ingredients/:id" element={< />} > */}

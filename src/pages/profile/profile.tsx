@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
 
 import styles from "./styles.module.css";
-import PageUserDetails from './user-details';
-import { useNavigate } from "react-router-dom";
+//import PageUserDetails from '../user-details';
+import { useNavigate, Outlet } from "react-router-dom";
 import { useDispatch } from "../../services/store";
 import { logout } from "../../services/thunks/thunks";
 
@@ -16,6 +16,9 @@ const ProfilePage: FC = () => {
     useEffect(() => {
         if (current === 'История заказов') {
             navigate("/profile/orders", { replace: true, });
+        }
+        if (current === 'Профиль') {
+            navigate("/profile/", { replace: true, });
         }
         if (current === 'Выход') {
             dispatch(logout());
@@ -40,8 +43,9 @@ const ProfilePage: FC = () => {
                 </p>
             </div>
             <div className={styles.subpage}>
-                {current === 'Профиль' && <PageUserDetails />}
-                {current === 'История заказов' && <div>Истрия заказов</div>}
+                <Outlet />
+                {/* {current === 'Профиль' && <PageUserDetails />}
+                {current === 'История заказов' && <div>Истрия заказов</div>} */}
             </div>
         </div>
     );

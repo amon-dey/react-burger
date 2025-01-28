@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { useSelector } from "../../services/store";
-import { getUser } from "../../services/user/slice.ts";
+import { useSelector } from "../services/store.ts";
+import { getUser } from "../services/user/slice.ts";
 
 import { EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 

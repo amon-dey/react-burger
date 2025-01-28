@@ -94,16 +94,32 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
-export const checkUserAuth = createAsyncThunk(
-  `api/checkUserAuth`,
+export const userGetInfo = createAsyncThunk(
+  `api/userget`,
   async () => {
     const token = localStorage.getItem("accessToken");
     const options = {
       method: 'GET',
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        "Authorization": token? token:"",
+        "Authorization": token ? token : "",
       },
+    };
+    return await fetchWithRefresh(API_USER, options);
+  }
+);
+
+export const userSetInfo = createAsyncThunk(
+  `api/userset`,
+  async (data: { name: string, password: string, email: string, }) => {
+    const token = localStorage.getItem("accessToken");
+    const options = {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Authorization": token ? token : "",
+      },
+      body: JSON.stringify(data),
     };
     return await fetchWithRefresh(API_USER, options);
   }

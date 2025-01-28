@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import AppHeader from "./app-header/app-header";
 import { useDispatch } from "./../../services/store"
-import { checkUserAuth } from './../../services/thunks/thunks'
+import { userGetInfo } from './../../services/thunks/thunks'
 import { OnlyAuth, OnlyUnAuth } from "./protected-route.tsx";
 
 import styles from './styles.module.css'
@@ -20,7 +20,7 @@ const App: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkUserAuth());
+    dispatch(userGetInfo());
   }, [dispatch]);
 
   return (

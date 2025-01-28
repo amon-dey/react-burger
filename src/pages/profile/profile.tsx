@@ -44,8 +44,6 @@ const ProfilePage: FC = () => {
             </div>
             <div className={styles.subpage}>
                 <Outlet />
-                {/* {current === 'Профиль' && <PageUserDetails />}
-                {current === 'История заказов' && <div>Истрия заказов</div>} */}
             </div>
         </div>
     );

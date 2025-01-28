@@ -16,6 +16,9 @@ import ProfilePage from "../../pages/profile/profile.tsx";
 import Orders from '../../pages/ordres.tsx'
 import PageUserDetails from '../../pages/user-details.tsx'
 import OrderDetails from '../../pages/order-details.tsx'
+import NotFound from '../../pages/notfound.tsx'
+
+
 const App: FC = () => {
   const dispatch = useDispatch();
 
@@ -40,6 +43,7 @@ const App: FC = () => {
             <Route path="/profile/orders/:number" element={<OrderDetails />} />
           </Route>
           {/* </Route><Route path="/ingredients/:id" element={< />} > */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </main>

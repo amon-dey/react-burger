@@ -1,22 +1,16 @@
 import { useEffect, useRef, useMemo, useCallback, memo } from 'react';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from './../../services/store';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientItemTypes, IngredientItemGroupNameType } from "../../utils/types";
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
-import { Modal } from "../modal/modal";
-import { fetchIngredients } from "../../services/thunks/thunks";
-import { resetSelected } from '../../services/burger-ingredients/burger-ingredients-selected-ingredient';
 import { setCurrentActiveTab } from '../../services/burger-ingredients/burger-ingredients-current-activetab';
-import { IngredientDetails } from "./ingredient-details/ingredient-details";
-import { AppDispatch, RootState } from './../../services/store';
 import { getVisibleGroup, groupBy } from "./utils";
 import styles from './styles.module.css';
 
 export const BurgerIngredients = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { isError, isLoading, ingredients } = useSelector((state: RootState) => state.burgerIngredientsIngredient);
-    const { selectedIngredient } = useSelector((state: RootState) => state.burgerIngredientsSelectedIngredient);
-    const { currentActiveTab } = useSelector((state: RootState) => state.burgerIngredientsCurrentActiveTab);
+    const dispatch = useDispatch();
+    const { isError, isLoading, ingredients } = useSelector((state) => state.burgerIngredientsIngredient);
+    const { currentActiveTab } = useSelector((state) => state.burgerIngredientsCurrentActiveTab);
 
     const refGroups = useRef<HTMLDivElement>(null);
     const arrayOfGroupRefs = Array.from(
@@ -29,11 +23,6 @@ export const BurgerIngredients = () => {
         if (!ingredients) return null;
         return Object.entries(groupBy(ingredients, (item) => String(item.type)));
     }, [ingredients]);
-
-    //грузим ингредиенты
-    useEffect(() => {
-        dispatch(fetchIngredients());
-    }, [dispatch]);
 
     //отрабатываем события скрола в списке ингредиентов
     useEffect(() => {
@@ -86,11 +75,6 @@ export const BurgerIngredients = () => {
                     )}
                 </div>
             }
-            {selectedIngredient && (
-                <Modal closeModal={() => { dispatch(resetSelected()); }} headerText="Детали ингедиента">
-                    <IngredientDetails />
-                </Modal>
-            )}
         </section>
     );
 };

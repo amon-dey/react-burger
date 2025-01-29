@@ -1,5 +1,12 @@
-.main {    
-  display: flex;
-  justify-content: center;
-  min-width: min-content;
+.appcontainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.contentcontainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -44,3 +44,7 @@ export const ingredientItemTypes: Array<IngredientItemGroupNameType> = [
 
 export default IngredientItemType
 
+export type UserType = {
+    email: string
+    name: string
+}

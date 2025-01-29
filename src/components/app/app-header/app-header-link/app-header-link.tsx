@@ -1,23 +1,33 @@
+import { useLocation, Link } from 'react-router-dom';
+
 import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 import { FC } from 'react';
 
 type Props = {
-    active: boolean,
     icon: FC<TIconProps>;
     title: string;
+    linkLocation: string;
 };
 
 import styles from "./styles.module.css";
-export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Props>): JSX.Element => {
+export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Props>) => {
+    const location = useLocation();
+    let isActive = false
+    if (props.linkLocation === "/") {
+        isActive = location.pathname === props.linkLocation;
+    } else {
+        isActive = location.pathname.startsWith(props.linkLocation)
+    }
+
     const ButtonIcon = props.icon;
-    const typeButton = props.active ? 'primary' : 'secondary';
-    const textClass = props.active ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
+    const typeButton = isActive ? 'primary' : 'secondary';
+    const textClass = isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
 
     return (
-        <a className={`${styles.headerbutton} ${textClass} m-4`} >
+        <Link className={`${styles.headerbutton} ${textClass} m-4`} to={props.linkLocation} >
             <ButtonIcon type={typeButton} />
             {props.title}
-        </a>
+        </Link>
     );
 };
 

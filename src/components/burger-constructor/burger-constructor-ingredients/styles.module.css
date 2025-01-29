@@ -1,7 +1,7 @@
 .ul {
     padding: 0;
     overflow-y: auto;
-    max-height: calc(100vh - 31rem);
+    max-height: calc(100vh - 38rem);
 }
 
 .ishover {

@@ -2,22 +2,26 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Price } from "../price/price";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "./order-details/order-details";
+import { Spinner } from './../spinner/spinner.tsx'
 
 import styles from './styles.module.css';
-import { AppDispatch, RootState } from './../../services/store';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from './../../services/store';
 import { resetOrder, setOrderIngredients } from '../../services/burger-constructor/burger-constructor-order';
 import { useMemo } from 'react';
 import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructor-bun";
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
 import { resetConstructor } from '../../services/burger-constructor/burger-constructor-ingredients';
 import { postOrder } from '../../services/thunks/thunks';
-
+import { getUser } from "../../services/user/slice.ts";
+import { useNavigate } from "react-router-dom";
 
 export const BurgerConstructor = () => {
-    const dispatch = useDispatch<AppDispatch>();
-    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
-    const { orderNumber } = useSelector((state: RootState) => state.BurgerConstructorOrder);
+    const User = useSelector(getUser);
+    const dispatch = useDispatch();
+    const { bun, ingredients } = useSelector((state) => state.burgerConstructorIngredients);
+    const { orderNumber, isLoading } = useSelector((state) => state.BurgerConstructorOrder);
+    const navigate = useNavigate();
+
     const totalPrice = useMemo(() => {
         let totalPrice = 0;
         for (const item of ingredients) {
@@ -36,9 +40,13 @@ export const BurgerConstructor = () => {
 
     const handleOnOrderClick = (e: React.SyntheticEvent) => {
         e.stopPropagation();
-        if (ingredients !== null && bun !== null) {
-            dispatch(setOrderIngredients([bun, ...ingredients, bun]));
-            dispatch(postOrder([bun, ...ingredients, bun]));
+        if (User === null) {
+            navigate("/login"), { replace: true };
+        } else {
+            if (ingredients !== null && bun !== null) {
+                dispatch(setOrderIngredients([bun, ...ingredients, bun]));
+                dispatch(postOrder([bun, ...ingredients, bun]));
+            }
         }
     };
 
@@ -46,6 +54,15 @@ export const BurgerConstructor = () => {
         dispatch(resetConstructor());
         dispatch(resetOrder());
     };
+
+    if (isLoading)
+        return (
+            <section className={styles.row}>
+                <div className={styles.spinner}>
+                    <Spinner title='формирование заказа' />
+                </div>
+            </section>
+        )
 
     return (
         <section className={styles.row}>

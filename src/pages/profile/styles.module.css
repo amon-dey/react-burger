@@ -1,0 +1,26 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    align-items: start;
+}
+
+.tabs {
+    justify-self: end;
+    align-content: start;
+    max-width: 20rem;
+    min-width: 20rem;
+    width: 20rem;
+}
+
+.subpage {
+    justify-self: center;
+    align-content: center;
+    box-sizing: border-box;
+    width: 28rem;
+}
+
+.logoutbutton {
+    width: 30rem;
+    min-width: 30rem;
+}

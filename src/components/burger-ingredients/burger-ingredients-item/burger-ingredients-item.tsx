@@ -2,21 +2,19 @@ import { FC, memo, useMemo } from 'react';
 import IngredientItemType from "../../../utils/types";
 import { Price } from "../../price/price";
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { setSelected } from '../../../services/burger-ingredients/burger-ingredients-selected-ingredient';
 import styles from "./styles.module.css";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from './../../../services/store';
 import { useDrag } from "react-dnd";
-import { RootState } from './../../../services/store';
-import { useSelector } from 'react-redux';
+import { useSelector } from './../../../services/store';
+import { useNavigate, useLocation } from "react-router-dom";
 
 type Props = {
     ingredient: IngredientItemType,
 };
 
 export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
-    const { bun, ingredients } = useSelector((state: RootState) => state.burgerConstructorIngredients);
-    const dispatch = useDispatch<AppDispatch>();
+    const { bun, ingredients } = useSelector((state) => state.burgerConstructorIngredients);
+    const navigate = useNavigate();
+    const location = useLocation()
 
     const count = useMemo(() => {
         if (item.type === "bun" && bun) {
@@ -32,7 +30,7 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
     }, [ingredients, item._id, item.type, bun]);
 
     const handleOnClick = () => {
-        dispatch(setSelected(item));
+        navigate("/ingredients/" + item._id, { state: { from: location } })
     };
 
     const [, dragRef] = useDrag({
@@ -56,5 +54,4 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default memo(BurgerIngredientsItem);

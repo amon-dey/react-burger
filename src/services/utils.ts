@@ -1,6 +1,18 @@
 
-const checkResponse = async (response: Response) => {
-    return response.ok ? response.json() : response.json().then(e => Promise.reject(e));
+import { API_TOKEN } from './../utils/constants'
+
+const checkResponse = async (response: Response): Promise<any> => {
+    if (!response.ok) {
+        try {
+            const json = await response.json();
+            if (json.success === false) {
+                return Promise.reject(json.message);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    }
+    return response.json();
 };
 
 export const request = async (url: string, options: RequestInit) => {
@@ -28,5 +40,51 @@ export const saveToLocalStorage = (key: string, item: string) => {
         localStorage.setItem(key, serializedItem);
     } catch (error) {
         console.error('Ошибка при сохранении в localStorage:', error);
+    }
+};
+
+const checkReponse = (res: Response) => {
+    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export const refreshToken = async () => {
+    const res = await fetch(API_TOKEN, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify({
+            token: localStorage.getItem("refreshToken"),
+        }),
+    });
+    const refreshData = await checkReponse(res);
+    if (!refreshData.success) {
+        return Promise.reject(refreshData);
+    }
+    localStorage.setItem("refreshToken", refreshData.refreshToken);
+    localStorage.setItem("accessToken", refreshData.accessToken);
+    return refreshData;
+};
+
+export const fetchWithRefresh = async (url: string, options: RequestInit) => {
+    try {
+        const res = await fetch(url, options);
+        return await checkReponse(res);
+    } catch (err) {
+        if (err.message === "jwt expired") {
+            const refreshData = await refreshToken();
+            options = {
+                ...options,
+                headers: {
+                    ...options.headers,
+                    "Authorization": refreshData.accessToken
+                }
+            }
+            //options.headers.authorization = refreshData.accessToken;
+            const res = await fetch(url, options);
+            return await checkReponse(res);
+        } else {
+            return Promise.reject(err);
+        }
     }
 };

@@ -24,8 +24,6 @@ export const BurgerConstructorOrderSlice = createSlice({
     reducers: {
         setOrderIngredients: (state, action) => {
             state.ingredintIdList = action.payload;
-            //const data = action.payload as ingredientItem[];
-            //state.ingredintIdList = data.map(item => item._id);
         },
         resetOrder: (state) => {
             state.ingredintIdList = [];

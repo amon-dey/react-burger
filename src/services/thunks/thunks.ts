@@ -14,13 +14,17 @@ export const postOrder = createAsyncThunk(
   async (data: IngredientItemType[]) => {
     const data1 = data as unknown as IngredientItemType[];
     const idList: string[] = data1.map(item => item._id);
+    const token = localStorage.getItem("accessToken");
     const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
+      method: 'POST', headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "Authorization": token ? token : "",
+      },
       body: JSON.stringify({
         ingredients: idList,
       }),
     };
-    return await request(API_MAKE_ORDER, options);
+    return await fetchWithRefresh(API_MAKE_ORDER, options);
   }
 );
 

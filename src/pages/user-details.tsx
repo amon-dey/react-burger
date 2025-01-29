@@ -14,7 +14,8 @@ const PageUserDetails: FC = () => {
     const [email, setEmail] = useState<string>(User ? User.email : "")
     const [password, setPassword] = useState('')
 
-    const handleOnSubmit = () => {
+    const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(userSetInfo({ email: email, password: password, name: username }));
     }
     const handleOnRevert = () => {
@@ -29,7 +30,7 @@ const PageUserDetails: FC = () => {
     }, [User, email, password, username])
 
     return (
-        <form title="Профиль">
+        <form title="Профиль" onSubmit={handleOnSubmit}>
             <Input id="username" type={'text'} placeholder={'Имя'} onChange={e => setUsername(e.target.value)}
                 value={username} extraClass="mb-6" autoComplete="username" />
 
@@ -38,16 +39,18 @@ const PageUserDetails: FC = () => {
 
             <PasswordInput id="password" onChange={e => setPassword(e.target.value)}
                 value={password} name={'Пароль'} autoComplete="current-password" />
-            <span>
-                <Button htmlType="button" type="primary" size="medium"
-                    onClick={handleOnRevert} extraClass="m-6" disabled={!isChanged}>
-                    Отменить
-                </Button>
-                <Button htmlType="button" type="primary" size="medium"
-                    onClick={handleOnSubmit} extraClass="m-6" disabled={!isChanged}>
-                    Сохранить
-                </Button>
-            </span>
+            {
+                isChanged &&
+                <span>
+                    <Button htmlType="button" type="primary" size="medium"
+                        onClick={handleOnRevert} extraClass="m-6">
+                        Отмена
+                    </Button>
+                    <Button htmlType="submit" type="primary" size="medium" extraClass="m-6">
+                        Сохранить
+                    </Button>
+                </span>
+            }
         </form>
     );
 };

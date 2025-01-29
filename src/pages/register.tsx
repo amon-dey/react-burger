@@ -12,7 +12,8 @@ const PageRegister: FC = () => {
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
 
-    const handleOnClick = () => {
+    const handleOnClick = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(postRegister({
             name: username,
             email: email,
@@ -33,7 +34,7 @@ const PageRegister: FC = () => {
             <PasswordInput id="password" onChange={e => setPassword(e.target.value)}
                 value={password} name={'Пароль'} extraClass="m-6" autoComplete="current-password" />
 
-            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
+            <Button htmlType="submit" type="primary" size="medium">
                 Зарегистрироваться
             </Button>
 

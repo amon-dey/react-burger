@@ -12,9 +12,10 @@ const PageLogin: FC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleOnClick = () => {
+    const handleOnClick = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(login({ email: email, password: password }));
-        navigate(-1);
+        //navigate(-1);
     }
 
     return (
@@ -26,7 +27,7 @@ const PageLogin: FC = () => {
             <PasswordInput id="password" onChange={e => setPassword(e.target.value)}
                 value={password} name={'Пароль'} extraClass="m-6" autoComplete="current-password" />
 
-            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
+            <Button htmlType="submit" type="primary" size="medium">
                 Войти
             </Button>
 

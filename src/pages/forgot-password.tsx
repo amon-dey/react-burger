@@ -11,7 +11,8 @@ const ForgotPasswordPage: FC = () => {
     const [email, setEmail] = useState('')
     const dispatch = useDispatch();
 
-    const handleOnClick = () => {
+    const handleOnClick = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(forgotPassword(email));
         navigate("/reset-password", { replace: true, state: { fromForgotPassword: true } })
     }
@@ -21,7 +22,7 @@ const ForgotPasswordPage: FC = () => {
             <p className="text text_type_main-medium">Востановление пароля</p>
             <EmailInput id="email" onChange={e => setEmail(e.target.value)}
                 value={email} name={'e-mail'} isIcon={false} extraClass="m-6" autoComplete="email" />
-            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
+            <Button htmlType="submit" type="primary" size="medium">
                 Восстановить
             </Button>
             <div className="m-20"></div>

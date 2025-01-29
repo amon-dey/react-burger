@@ -19,8 +19,6 @@ export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Pr
         isActive = location.pathname.startsWith(props.linkLocation)
     }
 
-
-    console.log(location.pathname, props.linkLocation, isActive)
     const ButtonIcon = props.icon;
     const typeButton = isActive ? 'primary' : 'secondary';
     const textClass = isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";

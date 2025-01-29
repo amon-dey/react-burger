@@ -22,7 +22,8 @@ const PageResetPassword: FC = () => {
     }, [navigate, state]);
 
 
-    const handleOnClick = () => {
+    const handleOnClick = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         dispatch(resetPassword({ password: password, token: token }));
         navigate("/login", { replace: true })
     }
@@ -36,7 +37,7 @@ const PageResetPassword: FC = () => {
             <Input id="emailtoken" type={'text'} placeholder={'Введите код из письма'}
                 onChange={e => setToken(e.target.value)} value={token} extraClass="m-6" />
 
-            <Button htmlType="button" type="primary" size="medium" onClick={handleOnClick}>
+            <Button htmlType="submit" type="primary" size="medium">
                 Сохранить
             </Button>
             <p className="text text_type_main-default text_color_inactive mt-20">

@@ -14,7 +14,7 @@ const AppHeader: FC = () => {
           <AppHeaderLink icon={ListIcon} title="Лента заказов" linkLocation='/orders' />
         </AppHeaderBlock>
         <AppHeaderBlock>
-          <Logo />
+          <AppHeaderLink icon={Logo} title="" linkLocation='/' />
         </AppHeaderBlock>
         <AppHeaderBlock>
           <AppHeaderLink icon={ProfileIcon} title="Личный кабинет" linkLocation='/profile' />

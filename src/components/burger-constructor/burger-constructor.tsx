@@ -2,6 +2,7 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Price } from "../price/price";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "./order-details/order-details";
+import { Spinner } from './../spinner/spinner.tsx'
 
 import styles from './styles.module.css';
 import { useSelector, useDispatch } from './../../services/store';
@@ -18,7 +19,7 @@ export const BurgerConstructor = () => {
     const User = useSelector(getUser);
     const dispatch = useDispatch();
     const { bun, ingredients } = useSelector((state) => state.burgerConstructorIngredients);
-    const { orderNumber } = useSelector((state) => state.BurgerConstructorOrder);
+    const { orderNumber, isLoading } = useSelector((state) => state.BurgerConstructorOrder);
     const navigate = useNavigate();
 
     const totalPrice = useMemo(() => {
@@ -53,6 +54,15 @@ export const BurgerConstructor = () => {
         dispatch(resetConstructor());
         dispatch(resetOrder());
     };
+
+    if (isLoading)
+        return (
+            <section className={styles.row}>
+                <div className={styles.spinner}>
+                    <Spinner title='формирование заказа' />
+                </div>
+            </section>
+        )
 
     return (
         <section className={styles.row}>

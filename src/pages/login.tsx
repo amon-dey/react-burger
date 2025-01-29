@@ -15,7 +15,7 @@ const PageLogin: FC = () => {
     const handleOnClick = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(login({ email: email, password: password }));
-        //navigate(-1);
+        navigate(-1);
     }
 
     return (

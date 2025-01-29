@@ -12,8 +12,15 @@ type Props = {
 import styles from "./styles.module.css";
 export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Props>) => {
     const location = useLocation();
-    const isActive = location.pathname === props.linkLocation;
+    let isActive = false
+    if (props.linkLocation === "/") {
+        isActive = location.pathname === props.linkLocation;
+    } else {
+        isActive = location.pathname.startsWith(props.linkLocation)
+    }
 
+
+    console.log(location.pathname, props.linkLocation, isActive)
     const ButtonIcon = props.icon;
     const typeButton = isActive ? 'primary' : 'secondary';
     const textClass = isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";

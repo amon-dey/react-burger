@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import AppHeader from "./app-header/app-header";
 import { useDispatch } from "./../../services/store"
 import { userGetInfo } from './../../services/thunks/thunks'
@@ -19,9 +19,11 @@ import PageUserDetails from '../../pages/user-details.tsx'
 import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'
 import PageIngredientDetails from '../../pages/ingredients.tsx'
+import IngredientDetailsModal from '../burger-ingredients/ingredient-details-modal/ingredient-details-modal.tsx'
 
 const App: FC = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -50,6 +52,13 @@ const App: FC = () => {
           <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        {
+          location.state && location.state.from && (
+            <Routes>
+              <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
+            </Routes>
+          )
+        }
       </div>
     </main>
   );

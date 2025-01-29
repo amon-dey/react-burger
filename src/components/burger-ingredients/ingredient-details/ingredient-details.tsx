@@ -16,9 +16,14 @@ export const IngredientDetails = () => {
     }
     const selectedIngredient = findIngeredientById(id);
 
-    //const { selectedIngredient } = useSelector((state) => state.burgerIngredientsSelectedIngredient);
     if (isLoading || isError) { return null; }
-    if (!selectedIngredient) { return null; }
+    if (!selectedIngredient) {
+        return (
+            <>
+                <p className="text text_type_main-medium p-20 text_color_inactive">Ингредиент не найден</p>
+            </>
+        )
+    }
     return (
         <section className={styles.block}>
             <span className={styles.img}>

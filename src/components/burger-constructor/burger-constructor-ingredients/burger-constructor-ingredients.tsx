@@ -17,8 +17,6 @@ export const BurgerConstructorIngredients: FC = () => {
         return ingredientItemTypes.filter((item) => item.type !== ingredientItemTypes[0].type).map((item) => item.type + "addingredient");
     }, []);
 
-    //ingredientItemTypes[0].type
-
     const [isHover, drop] = useDrop({
         accept: dropIngredientTypes,
         collect: monitor => ({

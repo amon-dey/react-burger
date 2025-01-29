@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
 import styles from "./styles.module.css";
-//import PageUserDetails from '../user-details';
 import { useNavigate, Outlet } from "react-router-dom";
 import { useDispatch } from "../../services/store";
 import { logout } from "../../services/thunks/thunks";

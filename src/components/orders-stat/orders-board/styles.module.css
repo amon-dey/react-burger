@@ -1,9 +1,7 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* Два столбца равной ширины */
     gap: 9px;
-    /* Расстояние между столбцами */
 }
 
 .column {

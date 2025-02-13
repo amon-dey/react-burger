@@ -20,6 +20,8 @@ import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'
 import PageIngredientDetails from '../../pages/ingredients.tsx'
 import IngredientDetailsModal from '../burger-ingredients/ingredient-details-modal/ingredient-details-modal.tsx'
+import ProfileOrdersFeed from '../profile-orders/profile-orders.tsx'
+import OrderInfo from './../order-info/order-info'
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -46,10 +48,11 @@ const App: FC = () => {
           <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} >
             <Route path="/profile/" element={<PageUserDetails />} />
-            <Route path="/profile/orders" element={<Orders />} />
+            <Route path="/profile/orders" element={<ProfileOrdersFeed />} />
             <Route path="/profile/orders/:number" element={<OrderDetails />} />
           </Route>
           <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
+          <Route path="/feed/:id" element={<OrderInfo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {

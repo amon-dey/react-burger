@@ -19,3 +19,5 @@ export const OrderCard = () => {
         </section>
     )
 }
+
+export default OrderCard

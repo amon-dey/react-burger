@@ -1,0 +1,23 @@
+.ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.row {
+    composes: main-card-row from global;
+}
+
+.done {
+    color: #00CCCC
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ordernumber {
+    text-align: center;
+}

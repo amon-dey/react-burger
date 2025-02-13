@@ -26,5 +26,3 @@ export const OrdersBoard = () => {
 };
 
 export default OrdersBoard;
-//{`${styles.item} p-4 m-4}`}
-//#F2F2F3

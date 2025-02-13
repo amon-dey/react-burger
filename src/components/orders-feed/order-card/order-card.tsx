@@ -1,11 +1,10 @@
-import { memo } from 'react';
-import { IngredientsImageList } from './ingredients-list/ingredients-list'
 import styles from './styles.module.css';
-import { Price } from '../price/price'
+import { Price } from '../../price/price'
+import { IngredientsImageList } from '../ingredients-list/ingredients-list'
 
 export const OrderCard = () => {
     return (
-        <section className={`${styles.ordercard} p-6`}>
+        <section className={`${styles.ordercard} p-6 mb-6`}>
             <div className={`${styles.container} mb-6`}>
                 <div className="text text_type_digits-default">#034535</div>
                 <div className="text text_type_main-default text_color_inactive">Сегодня, 16:20</div>
@@ -20,14 +19,3 @@ export const OrderCard = () => {
         </section>
     )
 }
-
-export const OrderList = () => {
-
-    return (
-        <section className={`${styles.row} m-6`}>
-            <OrderCard />
-        </section>
-    );
-};
-
-export default memo(OrderList);

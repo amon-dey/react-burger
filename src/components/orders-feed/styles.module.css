@@ -1,0 +1,12 @@
+.ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.row {
+    composes: main-card-row from global;
+    overflow-y: auto;
+    max-height: calc(100vh - 50rem);
+
+}

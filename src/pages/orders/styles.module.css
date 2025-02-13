@@ -1,0 +1,30 @@
+.main {
+  display: flex;
+  justify-content: center;
+  min-width: min-content;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Высота контейнера на всю высоту видимой области */
+}
+
+.top {
+  flex: 1; /* Занимает оставшееся пространство сверху */
+  border: 1px solid #000;
+  text-align: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.bottom {
+  display: flex; /* Используем flex для дочерних элементов */
+  flex: 1; /* Занимает оставшееся пространство снизу */
+}
+
+.left, .right {
+  flex: 1; /* Каждый элемент занимает половину пространства */
+  border: 1px solid #000;
+  padding: 20px;
+}

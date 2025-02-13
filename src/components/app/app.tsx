@@ -14,7 +14,7 @@ import PageRegister from "../../pages/register";
 import ForgotPasswordPage from "../../pages/forgot-password";
 import PageResetPassword from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile/profile.tsx";
-import Orders from '../../pages/ordres.tsx'
+import Orders from '../../pages/orders/ordres.tsx'
 import PageUserDetails from '../../pages/user-details.tsx'
 import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'

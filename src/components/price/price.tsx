@@ -5,7 +5,7 @@ import styles from './style.module.css';
 
 type Props = {
     price: number;
-    extra_class: string;
+    extra_class?: string;
 };
 
 export const Price: FC<Props> = (props: Props) => {

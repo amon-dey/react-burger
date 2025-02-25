@@ -57,11 +57,11 @@ export const BurgerConstructor = () => {
 
     if (isLoading)
         return (
-            <section className={styles.row}>
+            <Modal closeModal={() => { }} noClosable={true} >
                 <div className={styles.spinner}>
                     <Spinner title='формирование заказа' />
                 </div>
-            </section>
+            </Modal>
         )
 
     return (

@@ -6,8 +6,9 @@ import { ModalOverlay } from "./modal-overlay/modal-overlay";
 
 type Props = {
     children: React.ReactNode;
-    closeModal: () => void;
+    closeModal: () => void
     title?: string;
+    noClosable?: boolean
 };
 
 import styles from './styles.module.css';
@@ -40,7 +41,8 @@ export const Modal: FC<Props> = (props: Props) => {
             <ModalOverlay closeModal={props.closeModal} />
             <div className={`${styles.modal}`} onClick={handleClick}>
                 <div className="mt-10 mr-10 ml-10">
-                    <ModalHeader closeModal={props.closeModal} title={props.title} />
+                    <ModalHeader closeModal={props.closeModal} title={props.title}
+                        noClosable={props.noClosable} />
                     {props.children}
                 </div>
             </div>

@@ -9,3 +9,4 @@ export const API_RESETPASSWORD = BASE_URL + "/api/password-reset/reset"
 export const API_FORGOTPASSWORD = BASE_URL + "/api/password-reset"
 export const API_USER = BASE_URL + "/api/auth/user"
 
+export const WS_ALLFEED = "wss://norma.nomoreparties.space/orders/all"

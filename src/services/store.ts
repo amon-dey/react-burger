@@ -10,7 +10,20 @@ import { currentActiveTabSlice } from './burger-ingredients/burger-ingredients-c
 import { selectedIngredientSlice } from './burger-ingredients/burger-ingredients-selected-ingredient';
 import { BurgerConstructorSlice } from './burger-constructor/burger-constructor-ingredients';
 import { BurgerConstructorOrderSlice } from './burger-constructor/burger-constructor-order';
+import { feedSlice, wsClose, wsError, wsMessage, wsOpen } from './feed/feed-slice';
+import { wsConnect, wsDisconnect } from "./feed/actions";
+import { socketMiddleware } from './middleware/socket-middleware';
+
 import { userSlice } from './user/slice'
+
+const feedMiddleware = socketMiddleware({
+    connect: wsConnect,
+    disconnect: wsDisconnect,
+    onOpen: wsOpen,
+    onClose: wsClose,
+    onError: wsError,
+    onMessage: wsMessage
+});
 
 export const rootReducer = combineReducers({
     burgerIngredientsIngredient: BurgerIngredientsSlice.reducer,
@@ -19,10 +32,14 @@ export const rootReducer = combineReducers({
     burgerConstructorIngredients: BurgerConstructorSlice.reducer,
     BurgerConstructorOrder: BurgerConstructorOrderSlice.reducer,
     [userSlice.reducerPath]: userSlice.reducer,
+    Feed: feedSlice.reducer,
 });
 
 export const store = configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMidlewares) => {
+        return getDefaultMidlewares().concat(feedMiddleware);
+    },
     devTools: process.env.NODE_ENV !== 'production',
 });
 

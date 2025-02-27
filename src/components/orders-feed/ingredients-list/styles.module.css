@@ -67,3 +67,9 @@
     z-index: 6;
     font-weight: bold;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

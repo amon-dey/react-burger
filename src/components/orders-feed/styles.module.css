@@ -1,12 +1,10 @@
 .ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    padding-right: 1rem;
+    padding-left: 1rem;
 }
 
 .row {
     composes: main-card-row from global;
     overflow-y: auto;
     max-height: calc(100vh - 50rem);
-
 }

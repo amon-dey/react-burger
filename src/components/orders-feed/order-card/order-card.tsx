@@ -1,21 +1,33 @@
 import styles from './styles.module.css';
-import { Price } from '../../price/price'
 import { IngredientsImageList } from '../ingredients-list/ingredients-list'
+import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
+import { IOrder } from '../../../utils/types';
+import { useNavigate, useLocation } from "react-router-dom";
 
-export const OrderCard = () => {
+type Props = {
+    order: IOrder
+}
+
+export const OrderCard = (props: Props) => {
+    const navigate = useNavigate();
+    const location = useLocation()
+
+    const handleOnClick = () => {
+        navigate("/feed/" + props.order._id, { state: { from: location } })
+    };
+
     return (
-        <section className={`${styles.ordercard} p-6 mb-6`}>
+        <section className={`${styles.ordercard} p-6 mb-6`} onClick={handleOnClick}>
             <div className={`${styles.container} mb-6`}>
-                <div className="text text_type_digits-default">#034535</div>
-                <div className="text text_type_main-default text_color_inactive">Сегодня, 16:20</div>
+                <div className="text text_type_digits-default">#{props.order.number}</div>
+                <div className="text text_type_main-default text_color_inactive">
+                    <FormattedDate date={new Date(props.order.updatedAt)}></FormattedDate>
+                </div>
             </div>
             <p className="text text_type_main-medium mb-6">
-                Death Star Starship Main бургер
+                {props.order.name}
             </p>
-            <div className={`${styles.container}`}>
-                <IngredientsImageList />
-                <Price price={10} extra_class='text text_type_main-default'/>
-            </div>
+            <IngredientsImageList ingredients={props.order.ingredients} />
         </section>
     )
 }

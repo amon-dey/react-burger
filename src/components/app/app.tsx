@@ -14,7 +14,7 @@ import PageRegister from "../../pages/register";
 import ForgotPasswordPage from "../../pages/forgot-password";
 import PageResetPassword from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile/profile.tsx";
-import Orders from '../../pages/orders/ordres.tsx'
+import Feed from '../../pages/feed/feed.tsx'
 import PageUserDetails from '../../pages/user-details.tsx'
 import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'
@@ -41,7 +41,8 @@ const App: FC = () => {
       <div className={styles.contentcontainer}>
         <Routes>
           <Route path="/" element={<PageMain />} />
-          <Route path="/orders" element={<OnlyAuth component={<Orders />} />} ></Route>
+          <Route path="/feed" element={<OnlyAuth component={<Feed />} />} ></Route>
+          <Route path="/feed/:id" element={<OrderInfo />} />
           <Route path="/login" element={<OnlyUnAuth component={<PageLogin />} />} />
           <Route path="/register" element={<OnlyUnAuth component={<PageRegister />} />} />
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
@@ -52,7 +53,6 @@ const App: FC = () => {
             <Route path="/profile/orders/:number" element={<OrderDetails />} />
           </Route>
           <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
-          <Route path="/feed/:id" element={<OrderInfo />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {

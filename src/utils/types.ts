@@ -48,3 +48,26 @@ export type UserType = {
     email: string
     name: string
 }
+
+export enum WebsocketStatus {
+    CONNECTING = 'CONNECTING...',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE'
+}
+
+export interface IOrder {
+    ingredients: Array<string>;
+    _id: string;
+    name: string;
+    status: "created" | "pending" | "done";
+    number: number;
+    createdAt: string
+    updatedAt: string
+}
+
+export interface IFeed {
+    status: boolean;
+    orders: Array<IOrder>;
+    total: number;
+    totalToday: number;
+}

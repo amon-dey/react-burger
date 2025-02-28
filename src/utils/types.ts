@@ -72,3 +72,4 @@ export interface IFeed {
     total: number;
     totalToday: number;
 }
+

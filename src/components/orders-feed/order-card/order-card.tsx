@@ -13,7 +13,7 @@ export const OrderCard = (props: Props) => {
     const location = useLocation()
 
     const handleOnClick = () => {
-        navigate("/feed/" + props.order._id, { state: { from: location } })
+        navigate("/feed/" + props.order.number, { state: { from: location } })
     };
 
     return (
@@ -27,7 +27,7 @@ export const OrderCard = (props: Props) => {
             <p className="text text_type_main-medium mb-6">
                 {props.order.name}
             </p>
-            <IngredientsImageList ingredients={props.order.ingredients} />
+            <IngredientsImageList ingredients={props.order.ingredientsFull} />
         </section>
     )
 }

@@ -57,6 +57,7 @@ export enum WebsocketStatus {
 
 export interface IOrder {
     ingredients: Array<string>;
+    ingredientsFull: Array<IngredientItemType>;
     _id: string;
     name: string;
     status: "created" | "pending" | "done";

@@ -1,6 +1,7 @@
 import { ActionCreatorWithoutPayload, ActionCreatorWithPayload, Middleware } from "@reduxjs/toolkit"
 import { RootState } from "../store";
 import { wsConnect } from "../feed/actions";
+import { IFeed, IngredientItemType } from "../../utils/types";
 
 export type TWsActionTypes<R> = {
     connect: ActionCreatorWithPayload<string>;
@@ -12,6 +13,27 @@ export type TWsActionTypes<R> = {
 }
 
 const RECONNECT_PERIOD = 3000;
+
+function getIngredientsByIds(list1: string[], list2: Array<IngredientItemType> | null): Array<IngredientItemType> {
+    const result: Array<IngredientItemType> = [];
+    if (list2 === null) {
+        return result
+    }
+    const ingredientMap = new Map<string, IngredientItemType>();
+
+    list2.forEach(item => {
+        ingredientMap.set(item._id, item);
+    });
+
+    list1.forEach(id => {
+        if (ingredientMap.has(id)) {
+            result.push(ingredientMap.get(id)!);
+        }
+    });
+
+    return result;
+}
+
 
 export const socketMiddleware = <R>(
     wsActions: TWsActionTypes<R>,
@@ -54,24 +76,31 @@ export const socketMiddleware = <R>(
                         const parsedData = JSON.parse(data);
 
                         if (withTokenRefresh && parsedData.message === "Invalid or missing token") {
-                        //     refreshToken()
-                        //        .then(refreshData => {
-                        //           const wssUrl = new URL(url);
-                        //           wssUrl.searchParams.set(
-                        //             "token",
-                        //             refreshData.accessToken.replace("Bearer ", "")
-                        //           );
-                        //           dispatch(connect(wssUrl.toString()));
-                        //        })
-                        //        .catch(err => {
-                        //          dispatch(onError((err as Error).message));
-                        //        });
+                            //     refreshToken()
+                            //        .then(refreshData => {
+                            //           const wssUrl = new URL(url);
+                            //           wssUrl.searchParams.set(
+                            //             "token",
+                            //             refreshData.accessToken.replace("Bearer ", "")
+                            //           );
+                            //           dispatch(connect(wssUrl.toString()));
+                            //        })
+                            //        .catch(err => {
+                            //          dispatch(onError((err as Error).message));
+                            //        });
 
-                        //     dispatch(disconnect());
+                            //     dispatch(disconnect());
 
-                        //     return;
+                            //     return;
                         }
-
+                        const state = store.getState()
+                        const ingredients = state.burgerIngredientsIngredient.ingredients;
+                        const source = parsedData as IFeed;
+                        source.orders.forEach(element => {
+                            element.ingredientsFull = getIngredientsByIds(element.ingredients, ingredients)
+                        });
+                        // console.log(ingredients)
+                        // console.log(source)
                         dispatch(onMessage(parsedData));
                     } catch (err) {
                         dispatch(onError((err as Error).message));

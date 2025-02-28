@@ -57,7 +57,7 @@ export const BurgerConstructor = () => {
 
     if (isLoading)
         return (
-            <Modal closeModal={() => { }} noClosable={true} >
+            <Modal closeModal={() => { }} noClosable={true} modalHeaderStyle='text text_type_main-large'>
                 <div className={styles.spinner}>
                     <Spinner title='формирование заказа' />
                 </div>

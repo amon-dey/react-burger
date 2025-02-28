@@ -9,6 +9,7 @@ type Props = {
     closeModal: () => void
     title?: string;
     noClosable?: boolean
+    modalHeaderStyle: string
 };
 
 import styles from './styles.module.css';
@@ -42,7 +43,7 @@ export const Modal: FC<Props> = (props: Props) => {
             <div className={`${styles.modal}`} onClick={handleClick}>
                 <div className="mt-10 mr-10 ml-10">
                     <ModalHeader closeModal={props.closeModal} title={props.title}
-                        noClosable={props.noClosable} />
+                        noClosable={props.noClosable} modalHeaderStyle={props.modalHeaderStyle} />
                     {props.children}
                 </div>
             </div>

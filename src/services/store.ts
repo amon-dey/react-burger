@@ -22,8 +22,8 @@ const feedMiddleware = socketMiddleware({
     onOpen: wsOpen,
     onClose: wsClose,
     onError: wsError,
-    onMessage: wsMessage
-});
+    onMessage: wsMessage,
+}, true);
 
 export const rootReducer = combineReducers({
     burgerIngredientsIngredient: BurgerIngredientsSlice.reducer,

@@ -1,9 +1,11 @@
 import styles from './styles.module.css';
-import { useSelector } from "../../../services/store";
+import { IFeed } from '../../../utils/types'
 
-export const OrdersBoard = () => {
+type Props = {
+    feed: IFeed
+}
 
-    const { feed } = useSelector((state) => state.Feed);
+export const OrdersBoard = (props: Props) => {
 
     return (
         <div className={styles.container}>
@@ -11,7 +13,7 @@ export const OrdersBoard = () => {
                 <p className="text text_type_main-medium mb-6">Готовы:</p>
                 <div className={styles.done}>
                     {
-                        feed.orders
+                        props.feed.orders
                             .filter(order => order.status === 'done')
                             .slice(0, 10)
                             .map(order =>
@@ -23,7 +25,7 @@ export const OrdersBoard = () => {
             <div className={styles.column}>
                 <p className="text text_type_main-medium mb-6">В работе</p>
                 {
-                    feed.orders
+                    props.feed.orders
                         .filter(order => order.status !== 'done')
                         .slice(0, 10)
                         .map(order =>

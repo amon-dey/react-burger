@@ -20,6 +20,7 @@ import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'
 import PageIngredientDetails from '../../pages/ingredients.tsx'
 import IngredientDetailsModal from '../burger-ingredients/ingredient-details-modal/ingredient-details-modal.tsx'
+import OrderInfoModal from '../order-info/order-info-modal.tsx'
 import ProfileOrdersFeed from '../profile-orders/profile-orders.tsx'
 import OrderInfo from './../order-info/order-info'
 
@@ -41,8 +42,8 @@ const App: FC = () => {
       <div className={styles.contentcontainer}>
         <Routes>
           <Route path="/" element={<PageMain />} />
-          <Route path="/feed" element={<OnlyAuth component={<Feed />} />} ></Route>
-          <Route path="/feed/:id" element={<OrderInfo />} />
+          <Route path="/feed" element={<Feed />}></Route>
+          <Route path="/feed/:number" element={<OrderInfo />} />
           <Route path="/login" element={<OnlyUnAuth component={<PageLogin />} />} />
           <Route path="/register" element={<OnlyUnAuth component={<PageRegister />} />} />
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
@@ -59,6 +60,7 @@ const App: FC = () => {
           location.state && location.state.from && (
             <Routes>
               <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
+              <Route path="/feed/:number" element={<OrderInfoModal />} />
             </Routes>
           )
         }

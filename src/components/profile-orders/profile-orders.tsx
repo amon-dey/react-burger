@@ -7,10 +7,7 @@ export const ProfileOrdersFeed = () => {
     return (
         <section className={`${styles.row} m-6`}>
             <ul>
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
-                <OrderCard />
+   
             </ul>
         </section>
     );

@@ -19,7 +19,6 @@ export const request = async (url: string, options: RequestInit) => {
     return await fetch(url, options).then(checkResponse);
 };
 
-// Функция для чтения данных из localStorage
 export const loadFromLocalStorage = (key: string, defaultvalue: string): string => {
     try {
         const storedValue = localStorage.getItem(key);
@@ -33,7 +32,6 @@ export const loadFromLocalStorage = (key: string, defaultvalue: string): string 
     }
 };
 
-// Функция для сохранения данных в localStorage
 export const saveToLocalStorage = (key: string, item: string) => {
     try {
         const serializedItem = JSON.stringify(item);
@@ -80,7 +78,6 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
                     "Authorization": refreshData.accessToken
                 }
             }
-            //options.headers.authorization = refreshData.accessToken;
             const res = await fetch(url, options);
             return await checkReponse(res);
         } else {

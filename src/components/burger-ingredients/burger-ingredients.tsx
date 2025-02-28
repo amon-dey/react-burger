@@ -24,7 +24,6 @@ export const BurgerIngredients = () => {
         return Object.entries(groupBy(ingredients, (item) => String(item.type)));
     }, [ingredients]);
 
-    //отрабатываем события скрола в списке ингредиентов
     useEffect(() => {
         const refGroupCopy = refGroups.current;
         if (!refGroupCopy) return;
@@ -38,7 +37,6 @@ export const BurgerIngredients = () => {
         };
     }, [arrayOfGroupRefs, dispatch]);
 
-    // скролим до необходимой группы ингредиентов, реакция на клик в табе
     const handleTabClick = useCallback((tabItemType: string) => {
         const scrollToGroup = (tabItemType: string) => {
             const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType);

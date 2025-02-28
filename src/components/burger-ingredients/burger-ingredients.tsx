@@ -15,7 +15,6 @@ export const BurgerIngredients = () => {
     const refGroups = useRef<HTMLDivElement>(null);
     const arrayOfGroupRefs = Array.from(
         { length: ingredientItemTypes.length },
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         () => useRef<HTMLDivElement>(null),
     );
 
@@ -77,5 +76,4 @@ export const BurgerIngredients = () => {
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default memo(BurgerIngredients);

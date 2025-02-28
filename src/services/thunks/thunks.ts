@@ -3,10 +3,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
   API_LOGOUT, API_FORGOTPASSWORD, API_RESETPASSWORD,
-  API_USER
+  API_USER, API_ORDER
 } from '../../utils/constants';
 
-import IngredientItemType from '../../utils/types';
+import { IngredientItemType } from '../../utils/types';
 import { request, fetchWithRefresh } from '../utils';
 
 export const postOrder = createAsyncThunk(
@@ -25,6 +25,14 @@ export const postOrder = createAsyncThunk(
       }),
     };
     return await fetchWithRefresh(API_MAKE_ORDER, options);
+  }
+);
+
+export const getOrder = createAsyncThunk(
+  `order-info/fetch`,
+  async (number: string) => {
+    const options = { method: 'GET' };
+    return await request(API_ORDER + number, options);
   }
 );
 

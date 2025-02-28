@@ -11,5 +11,6 @@ export const API_TOKEN = BASE_URL + "/api/auth/token"
 export const API_RESETPASSWORD = BASE_URL + "/api/password-reset/reset"
 export const API_FORGOTPASSWORD = BASE_URL + "/api/password-reset"
 export const API_USER = BASE_URL + "/api/auth/user"
+export const API_ORDER = BASE_URL + "/api/orders/"
 
 export const API_WS_ALLFEED = BASE_WSURL + "/orders/all"

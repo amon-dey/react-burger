@@ -9,18 +9,18 @@ export default defineConfig({
 
 export default defineConfig({
   plugins: [react()],
-  // server: {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://localhost:3000',
-  //       changeOrigin: true,
-  //       secure: false, // если используете самоподписанные сертификаты
-  //     },
-  //   },
-  //   cors: {
-  //     origin: '*', // разрешаем все источники
-  //     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  //     allowedHeaders: ['Content-Type', 'Authorization'],
-  //   },
-  // },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false, // если используете самоподписанные сертификаты
+      },
+    },
+    cors: {
+      origin: '*', // разрешаем все источники
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    },
+  },
 });

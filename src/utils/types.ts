@@ -55,7 +55,7 @@ export enum WebsocketStatus {
     OFFLINE = 'OFFLINE'
 }
 
-export interface IOrder {
+export interface IOrderType {
     ingredients: Array<string>;
     ingredientsFull: Array<IngredientItemType>;
     _id: string;
@@ -68,7 +68,7 @@ export interface IOrder {
 
 export interface IFeed {
     status: boolean;
-    orders: Array<IOrder>;
+    orders: Array<IOrderType>;
     total: number;
     totalToday: number;
 }

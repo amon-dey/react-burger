@@ -10,6 +10,8 @@ import { currentActiveTabSlice } from './burger-ingredients/burger-ingredients-c
 import { selectedIngredientSlice } from './burger-ingredients/burger-ingredients-selected-ingredient';
 import { BurgerConstructorSlice } from './burger-constructor/burger-constructor-ingredients';
 import { BurgerConstructorOrderSlice } from './burger-constructor/burger-constructor-order';
+import { OrderInfoSlice } from './order-info/order-info'
+
 import { feedSlice, wsClose, wsError, wsMessage, wsOpen } from './feed/feed-slice';
 import { wsConnect, wsDisconnect } from "./feed/actions";
 import { socketMiddleware } from './middleware/socket-middleware';
@@ -31,6 +33,7 @@ export const rootReducer = combineReducers({
     burgerIngredientsSelectedIngredient: selectedIngredientSlice.reducer,
     burgerConstructorIngredients: BurgerConstructorSlice.reducer,
     BurgerConstructorOrder: BurgerConstructorOrderSlice.reducer,
+    OrderInfo: OrderInfoSlice.reducer,
     [userSlice.reducerPath]: userSlice.reducer,
     Feed: feedSlice.reducer,
 });

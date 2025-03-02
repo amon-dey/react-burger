@@ -15,7 +15,7 @@ export const OrdersFeed = (props: Props) => {
             <ul className={`${styles.ul} mr-2`}>
                 {
                     props.feed.orders.map(order =>
-                        <OrderCard order={order} key={order._id}/>
+                        <OrderCard order={order} key={order._id} />
                     )
                 }
             </ul>

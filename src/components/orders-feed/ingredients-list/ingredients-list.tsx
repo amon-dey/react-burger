@@ -12,7 +12,7 @@ function calculateTotalPrice(items: Array<IngredientItemType>) {
 }
 
 export const IngredientsImageList = (props: Props) => {
-    
+
     const totalPrice = calculateTotalPrice(props.ingredients)
     const visibleItems = props.ingredients.slice(0, 5);
     const remainingCount = props.ingredients.length - visibleItems.length;

@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import { OrdersFeed } from "../../components/orders-feed/orders-feed";
 import { OrdersStat } from "../../components/orders-stat/orders-stat";
 import { useDispatch, useSelector } from "../../services/store";
-import { wsConnect } from "../../services/feed/actions";
+import { wsConnect, wsDisconnect } from "../../services/feed/actions";
 import { API_WS_ALLFEED } from './../../utils/constants'
 
 export const Feed: FC = () => {
@@ -12,6 +12,9 @@ export const Feed: FC = () => {
 
     useEffect(() => {
         dispatch(wsConnect(API_WS_ALLFEED));
+        return () => {
+            dispatch(wsDisconnect());
+        }
     }, [dispatch])
 
     return (

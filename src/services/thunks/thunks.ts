@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IUserPayload, ICreateOrderPaylod } from './../../utils/types'
+import { IUserPayload, ICreateOrderPaylod, IFeed } from './../../utils/types'
 
 import {
   API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
@@ -31,9 +31,12 @@ export const postOrder = createAsyncThunk<
   }
 );
 
-export const getOrder = createAsyncThunk(
+export const getOrder = createAsyncThunk<
+  IFeed,
+  { number: string }
+>(
   `order-info/fetch`,
-  async (number: string) => {
+  async (number) => {
     const options = { method: 'GET' };
     return await request(API_ORDER + number, options);
   }

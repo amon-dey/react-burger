@@ -22,7 +22,7 @@ export const OrderInfo = () => {
     const { orders: feedProfileOrder } = useSelector((state) => state.FeedProfile.feed);
 
     const { orderIsLoading, fetchedOrder } = useSelector((state) => state.OrderInfo);
-    const { number } = useParams()
+    const { number } = useParams();
 
     useEffect(() => {
         const findOrder = () => {

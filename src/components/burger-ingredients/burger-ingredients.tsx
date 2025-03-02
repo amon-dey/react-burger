@@ -13,10 +13,9 @@ export const BurgerIngredients = () => {
     const { currentActiveTab } = useSelector((state) => state.burgerIngredientsCurrentActiveTab);
 
     const refGroups = useRef<HTMLDivElement>(null);
-    const arrayOfGroupRefs = Array.from(
-        { length: ingredientItemTypes.length },
-        () => useRef<HTMLDivElement>(null),
-    );
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const arrayOfGroupRefs = ingredientItemTypes.map(() => useRef<HTMLDivElement>(null));
 
     const groupedItems = useMemo(() => {
         if (!ingredients) return null;

@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { IOrderType } from '../../utils/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IFeed, IOrderType } from '../../utils/types';
 import { getOrder } from '../thunks/thunks';
 
 type TOrderInfo = {
@@ -22,7 +22,7 @@ export const OrderInfoSlice = createSlice({
             .addCase(getOrder.pending, (state) => {
                 state.orderIsLoading = true
             })
-            .addCase(getOrder.fulfilled, (state, action) => {
+            .addCase(getOrder.fulfilled, (state, action: PayloadAction<IFeed>) => {
                 state.orderIsLoading = false
                 state.fetchedOrder = action.payload.orders[0];
             })

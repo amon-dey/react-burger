@@ -16,12 +16,11 @@ import PageResetPassword from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile/profile.tsx";
 import Feed from '../../pages/feed/feed.tsx'
 import PageUserDetails from '../../pages/user-details.tsx'
-import OrderDetails from '../../pages/order-details.tsx'
 import NotFound from '../../pages/notfound.tsx'
 import PageIngredientDetails from '../../pages/ingredients.tsx'
 import IngredientDetailsModal from '../burger-ingredients/ingredient-details-modal/ingredient-details-modal.tsx'
 import OrderInfoModal from '../order-info/order-info-modal.tsx'
-import ProfileOrdersFeed from '../profile-orders/profile-orders.tsx'
+import FeedProfile from '../profile-orders/profile-orders.tsx'
 import OrderInfo from './../order-info/order-info'
 
 const App: FC = () => {
@@ -40,6 +39,15 @@ const App: FC = () => {
     <main className={styles.appcontainer}>
       <AppHeader />
       <div className={styles.contentcontainer}>
+        {
+          location.state && location.state.from && (
+            <Routes>
+              <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
+              <Route path="/feed/:number" element={<OrderInfoModal />} />
+              <Route path="/profile/orders/:number" element={<OrderInfoModal />} />
+            </Routes>
+          )
+        }
         <Routes>
           <Route path="/" element={<PageMain />} />
           <Route path="/feed" element={<Feed />}></Route>
@@ -50,20 +58,12 @@ const App: FC = () => {
           <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} >
             <Route path="/profile/" element={<PageUserDetails />} />
-            <Route path="/profile/orders" element={<ProfileOrdersFeed />} />
-            <Route path="/profile/orders/:number" element={<OrderDetails />} />
+            <Route path="/profile/orders" element={<FeedProfile />} />
+            {/* <Route path="/profile/orders/:number" element={<OrderInfo />} /> */}
           </Route>
           <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {
-          location.state && location.state.from && (
-            <Routes>
-              <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
-              <Route path="/feed/:number" element={<OrderInfoModal />} />
-            </Routes>
-          )
-        }
       </div>
     </main>
   );

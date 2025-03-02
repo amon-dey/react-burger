@@ -47,7 +47,7 @@ export const OrderInfo = () => {
 
         }
         findOrder()
-    }, [fetchedOrder, dispatch, number, feedOrder, localOrder, isLoading])
+    }, [fetchedOrder, dispatch, number, feedOrder, localOrder, isLoading, orderIsLoading, ingredients])
 
     if (localOrder === null) {
         return (

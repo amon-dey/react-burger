@@ -44,7 +44,7 @@ export const ingredientItemTypes: Array<IngredientItemGroupNameType> = [
 
 export default IngredientItemType
 
-export type UserType = {
+export interface IUserType {
     email: string
     name: string
 }
@@ -73,3 +73,14 @@ export interface IFeed {
     totalToday: number;
 }
 
+export interface IUserPayload {
+    accessToken: string;
+    refreshToken: string;
+    user: IUserType;
+}
+
+export interface ICreateOrderPaylod {
+    success: boolean
+    name: string
+    order: IOrderType
+}

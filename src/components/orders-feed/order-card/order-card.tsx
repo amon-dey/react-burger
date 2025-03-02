@@ -11,9 +11,9 @@ type Props = {
 export const OrderCard = (props: Props) => {
     const navigate = useNavigate();
     const location = useLocation()
-
     const handleOnClick = () => {
-        navigate("/feed/" + props.order.number, { state: { from: location } })
+        const to = location.pathname + "/" + props.order.number;
+        navigate(to, { state: { from: location } });
     };
 
     return (

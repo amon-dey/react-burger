@@ -45,7 +45,7 @@ export const BurgerConstructor = () => {
         } else {
             if (ingredients !== null && bun !== null) {
                 dispatch(setOrderIngredients([bun, ...ingredients, bun]));
-                dispatch(postOrder([bun, ...ingredients, bun]));
+                dispatch(postOrder({ data: [bun, ...ingredients, bun] }));
             }
         }
     };
@@ -83,7 +83,7 @@ export const BurgerConstructor = () => {
                 </Button>
             </li>
             {orderNumber && (
-                <Modal closeModal={handleCloseOrderModal}>
+                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle=''>
                     <OrderDetails />
                 </Modal>
             )}

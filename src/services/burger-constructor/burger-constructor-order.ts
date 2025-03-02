@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import IngredientItemType from '../../utils/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IngredientItemType, ICreateOrderPaylod } from '../../utils/types';
 import { postOrder } from '../thunks/thunks';
 
 type BurgerConstructorOrderInitialStateType = {
@@ -37,17 +37,15 @@ export const BurgerConstructorOrderSlice = createSlice({
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(postOrder.fulfilled, (state, action) => {
+            .addCase(postOrder.fulfilled, (state, action: PayloadAction<ICreateOrderPaylod>) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.orderNumber = null;
                 state.orederBurgerName = "";
                 if (action.payload) {
-                    if (action.payload.success) {
-                        state.orderNumber = action.payload.order.number;
-                        state.orederBurgerName = action.payload.name;
-                        state.isError = false;
-                    }
+                    state.orderNumber = action.payload.order.number;
+                    state.orederBurgerName = action.payload.order.name;
+                    state.isError = false;
                 }
             })
             .addCase(postOrder.rejected, (state) => {

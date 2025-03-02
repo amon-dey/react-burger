@@ -14,3 +14,4 @@ export const API_USER = BASE_URL + "/api/auth/user"
 export const API_ORDER = BASE_URL + "/api/orders/"
 
 export const API_WS_ALLFEED = BASE_WSURL + "/orders/all"
+export const API_WS_PROFILE_FEED = BASE_WSURL+"/orders"

@@ -13,7 +13,7 @@ export const OrderInfoModal = () => {
         navigate(-1);
     }
     const { number } = useParams()
-    
+
     return (
         <Modal closeModal={handleCloseModal} title={`#${number}`} modalHeaderStyle="text text_type_digits-default">
             <OrderInfo />

@@ -13,7 +13,7 @@ export type TWsActionTypes<R> = {
     onMessage: ActionCreatorWithPayload<R>;
 }
 
-const RECONNECT_PERIOD = 3000;
+const RECONNECT_PERIOD = 5000;
 
 export const socketMiddleware = <R>(
     wsActions: TWsActionTypes<R>,

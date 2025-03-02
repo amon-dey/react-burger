@@ -19,6 +19,8 @@ export const OrderInfo = () => {
 
     const [localOrder, setLocalOrder] = useState<IOrderType | null>(null);
     const { orders: feedOrder } = useSelector((state) => state.Feed.feed);
+    const { orders: feedProfileOrder } = useSelector((state) => state.FeedProfile.feed);
+
     const { orderIsLoading, fetchedOrder } = useSelector((state) => state.OrderInfo);
     const { number } = useParams()
 
@@ -37,17 +39,20 @@ export const OrderInfo = () => {
                 return
             }
 
-            const findOrder = feedOrder.find(item => item.number === orderNumber);
-
-            if (findOrder === undefined) {
-                dispatch(getOrder(number))
+            let findOrder = feedOrder.find(item => item.number === orderNumber);
+            if (findOrder !== undefined) {
+                setLocalOrder(findOrder)
+                return;
+            }
+            findOrder = feedProfileOrder.find(item => item.number === orderNumber);
+            if (findOrder !== undefined) {
+                setLocalOrder(findOrder)
                 return
             }
-            setLocalOrder(findOrder)
-
+            dispatch(getOrder(number))
         }
         findOrder()
-    }, [fetchedOrder, dispatch, number, feedOrder, localOrder, isLoading, orderIsLoading, ingredients])
+    }, [fetchedOrder, dispatch, number, feedOrder, localOrder, isLoading, orderIsLoading, ingredients, feedProfileOrder])
 
     if (localOrder === null) {
         return (

@@ -44,7 +44,7 @@ const App: FC = () => {
             <Routes>
               <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
               <Route path="/feed/:number" element={<OrderInfoModal />} />
-              <Route path="/profile/orders/:number" element={<OrderInfoModal />} />
+              <Route path="/profile/orders/:number" element={<OnlyAuth component={<OrderInfoModal />} />} />
             </Routes>
           )
         }
@@ -56,10 +56,10 @@ const App: FC = () => {
           <Route path="/register" element={<OnlyUnAuth component={<PageRegister />} />} />
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
           <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
+          <Route path="/profile/orders/:number" element={<OrderInfo />} />
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} >
             <Route path="/profile/" element={<PageUserDetails />} />
             <Route path="/profile/orders" element={<FeedProfile />} />
-            {/* <Route path="/profile/orders/:number" element={<OrderInfo />} /> */}
           </Route>
           <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
           <Route path="*" element={<NotFound />} />

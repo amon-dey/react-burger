@@ -8,7 +8,7 @@ import { logout } from "../../services/thunks/thunks";
 import Tab from '../../components/tab/tab';
 
 const ProfilePage: FC = () => {
-    const [current, setCurrent] = useState('Профиль');
+    const [current, setCurrent] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const ProfilePage: FC = () => {
             navigate("/profile/orders", { replace: true, });
         }
         if (current === 'Профиль') {
-            navigate("/profile/", { replace: true, });
+            navigate("/profile", { replace: true, });
         }
         if (current === 'Выход') {
             dispatch(logout());

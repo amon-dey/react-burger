@@ -3,12 +3,12 @@ import { useSelector } from "../../services/store.ts";
 import { Navigate, useLocation } from "react-router-dom";
 import { getIsAuthChecked, getUser } from "../../services/user/slice.ts";
 
-type Props = {
+type ProtectedRouteProps<T extends object = object> = {
     onlyUnAuth?: boolean;
-    component: React.JSX.Element;
-}
+    component: React.ComponentType<T>;
+};
 
-const ProtectedRouteElement = ({ onlyUnAuth = false, component }: Props): React.JSX.Element => {
+const ProtectedRouteElement = <T extends object>({ onlyUnAuth = false, component: Component }: ProtectedRouteProps<T>): React.JSX.Element => {
     const isAuthChecked = useSelector(getIsAuthChecked);
     const user = useSelector(getUser);
     const location = useLocation();
@@ -18,18 +18,21 @@ const ProtectedRouteElement = ({ onlyUnAuth = false, component }: Props): React.
     }
 
     if (onlyUnAuth && user) {
-        const { from } = location.state ?? { from: { pathname: "/ " } };
+        const { from } = location.state ?? { from: { pathname: "/" } };
         return <Navigate to={from} />;
     }
 
     if (!onlyUnAuth && !user) {
-        return <Navigate to="/login" state={{ from: location }} />;
+        return <Navigate to="/login" state={{ from: location }} replace={true}/>;
     }
 
-    return component;
-}
+    return <Component {...({} as T)} />;
+};
 
-export const OnlyAuth = ProtectedRouteElement;
-export const OnlyUnAuth = ({ component }: { component: React.JSX.Element }): React.JSX.Element => (
-    <ProtectedRouteElement onlyUnAuth={true} component={component} />
+export const OnlyAuth = <T extends object>(props: ProtectedRouteProps<T>) => (
+    <ProtectedRouteElement<T> onlyUnAuth={false} {...props} />
+);
+
+export const OnlyUnAuth = <T extends object>(props: ProtectedRouteProps<T>) => (
+    <ProtectedRouteElement<T> onlyUnAuth={true} {...props} />
 );

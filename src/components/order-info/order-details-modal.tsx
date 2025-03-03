@@ -20,14 +20,10 @@ export const OrdersDetailsModal = () => {
     }
 
     const { number } = useParams()
-    if (location.state && location.state.from)
-        return (
-            <Modal closeModal={handleCloseModal} title={`#${number}`} modalHeaderStyle="text text_type_digits-default">
-                <OrdersDetails />
-            </Modal>
-        )
-    else {
-        return null
-    }
+    return (
+        <Modal closeModal={handleCloseModal} title={`#${number}`} modalHeaderStyle="text text_type_digits-default">
+            <OrdersDetails />
+        </Modal>
+    )
 }
 export default OrdersDetailsModal

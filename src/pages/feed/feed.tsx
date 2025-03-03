@@ -21,9 +21,7 @@ export const Feed: FC = () => {
         <div className={styles.container}>
 
             <ul className={styles.main} >
-                <OrdersFeed feed={feed} >
-                    <p className="text text_type_main-large mb-6">Лента заказов</p>
-                </OrdersFeed>
+                <OrdersFeed feed={feed} />
                 <OrdersStat feed={feed} />
             </ul>
         </div>

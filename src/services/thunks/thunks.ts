@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IUserPayload, ICreateOrderPaylod, IFeed } from './../../utils/types'
+import { IUserPayload, ICreateOrderPaylod, IFeed, ApiResponseError } from './../../utils/types'
 
 import {
   API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
@@ -67,8 +67,9 @@ export const postRegister = createAsyncThunk<
       const response = await request<IUserPayload>(API_REGISTER, options);
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message || "Не известная ошибка");
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
       }
       return rejectWithValue("Не известная ошибка");
     }
@@ -92,8 +93,9 @@ export const login = createAsyncThunk<
       const response = await request<IUserPayload>(API_LOGIN, options);
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message || "Не известная ошибка");
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
       }
       return rejectWithValue("Не известная ошибка");
     }
@@ -154,8 +156,9 @@ export const userGetInfo = createAsyncThunk<
       const response = await fetchWithRefresh<IUserPayload>(API_USER, options);
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message || "Не известная ошибка");
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
       }
       return rejectWithValue("Не известная ошибка");
     }
@@ -183,8 +186,9 @@ export const userSetInfo = createAsyncThunk<
       const response = await request<IUserPayload>(API_USER, options);
       return response;
     } catch (error) {
-      if (error instanceof Error) {
-        return rejectWithValue(error.message || "Не известная ошибка");
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
       }
       return rejectWithValue("Не известная ошибка");
     }

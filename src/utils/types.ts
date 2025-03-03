@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
 
+export interface ApiResponseError {
+    success: boolean;
+    message?: string;
+}
+
 export interface IngredientItemType {
     "_id": string
     "name": string

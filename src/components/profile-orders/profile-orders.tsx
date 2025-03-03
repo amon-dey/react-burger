@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react';
 import { OrdersFeed } from "../../components/orders-feed/orders-feed";
 import { useDispatch, useSelector } from "../../services/store";
-import { wsConnect } from "../../services/feed/actions";
+import { wsConnect, wsDisconnect } from "../../services/feed/actions";
 import { API_WS_PROFILE_FEED } from './../../utils/constants'
 
 export const FeedProfile = () => {
@@ -15,6 +15,9 @@ export const FeedProfile = () => {
         accessToken = accessToken.replace("Bearer ", "");
 
         dispatch(wsConnect(API_WS_PROFILE_FEED + "?token=" + accessToken));
+        return () => {
+            dispatch(wsDisconnect());
+        }
     }, [dispatch])
 
     return (

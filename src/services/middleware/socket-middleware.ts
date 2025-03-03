@@ -3,6 +3,7 @@ import { RootState } from "../store";
 import { wsConnect } from "../feed/actions";
 import { IFeed } from "../../utils/types";
 import { fillIngredientsByIds } from '../../utils/utils'
+import { refreshToken } from './../utils'
 
 export type TWsActionTypes<R> = {
     connect: ActionCreatorWithPayload<string>;
@@ -56,22 +57,20 @@ export const socketMiddleware = <R>(
                         const parsedData = JSON.parse(data);
 
                         if (withTokenRefresh && parsedData.message === "Invalid or missing token") {
-                            //     refreshToken()
-                            //        .then(refreshData => {
-                            //           const wssUrl = new URL(url);
-                            //           wssUrl.searchParams.set(
-                            //             "token",
-                            //             refreshData.accessToken.replace("Bearer ", "")
-                            //           );
-                            //           dispatch(connect(wssUrl.toString()));
-                            //        })
-                            //        .catch(err => {
-                            //          dispatch(onError((err as Error).message));
-                            //        });
-
-                            //     dispatch(disconnect());
-
-                            //     return;
+                            refreshToken()
+                                .then(refreshData => {
+                                    const wssUrl = new URL(url);
+                                    wssUrl.searchParams.set(
+                                        "token",
+                                        refreshData.accessToken.replace("Bearer ", "")
+                                    );
+                                    dispatch(connect(wssUrl.toString()));
+                                })
+                                .catch(err => {
+                                    dispatch(onError((err as Error).message));
+                                });
+                            dispatch(disconnect());
+                            return;
                         }
                         const state = store.getState()
                         const ingredients = state.burgerIngredientsIngredient.ingredients;

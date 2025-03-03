@@ -1,37 +1,19 @@
 
 import { API_TOKEN } from './../utils/constants'
-
-interface ApiResponseError {
-    success: boolean;
-    message?: string;
-}
+import { ApiResponseError } from './../utils/types'
 
 const checkResponse = async <T>(response: Response): Promise<T> => {
     if (!response.ok) {
+        let error: ApiResponseError = { message: "Не известная ошибка", success: false }
         try {
             const json = await response.json();
-
             if (json && typeof json === "object" && "success" in json && json.success === false) {
                 const error: ApiResponseError = json;
-
-                return Promise.reject({
-                    status: response.status,
-                    statusText: response.statusText,
-                    message: error.message || "Не известная ошибка"
-                });
+                return Promise.reject(error);
             }
-
-            return Promise.reject({
-                status: response.status,
-                statusText: response.statusText,
-                body: json
-            });
+            return Promise.reject(error);
         } catch (error) {
-            return Promise.reject({
-                status: response.status,
-                statusText: response.statusText,
-                message: "Ошибка обработки JSON"
-            });
+            return Promise.reject(error);
         }
     }
 
@@ -40,7 +22,6 @@ const checkResponse = async <T>(response: Response): Promise<T> => {
 
 export const request = async <T>(url: string, options: RequestInit): Promise<T> => {
     const response = await fetch(url, options);
-
     return checkResponse<T>(response);
 };
 

@@ -27,16 +27,21 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(login.pending, (state) => {
+        state.lastError = '';
+      })
       .addCase(login.fulfilled, (state, action: PayloadAction<IUserPayload>) => {
         state.user = action.payload.user;
         localStorage.setItem("accessToken", action.payload.accessToken);
         localStorage.setItem("refreshToken", action.payload.refreshToken);
         state.isAuthChecked = true;
+        state.lastError = '';
       })
       .addCase(login.rejected, (state, action: PayloadAction<string | undefined>) => {
-        state.lastError = action.payload || "An unknown error occurred";
+        state.lastError = action.payload || "Не известная ошибка";
       })
       .addCase(logout.fulfilled, (state) => {
+        state.lastError = '';
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         state.user = null;
@@ -74,6 +79,6 @@ export const userSlice = createSlice({
 
 export const { setIsAuthChecked, setUser } = userSlice.actions;
 
-// Selectors
 export const getIsAuthChecked = (state: { user: TUserState }) => state.user.isAuthChecked;
 export const getUser = (state: { user: TUserState }) => state.user.user;
+export const getLastLoginError = (state: { user: TUserState }) => state.user.lastError;

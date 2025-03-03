@@ -19,7 +19,7 @@ export const initialState: TFeedStore = {
 };
 
 export const feedProfileSlice = createSlice({
-    name: "feed",
+    name: "feedprofile",
     initialState,
     reducers: {
         wsOpen: (state) => {
@@ -33,7 +33,9 @@ export const feedProfileSlice = createSlice({
             state.error = action.payload;
         },
         wsMessage: (state, action: PayloadAction<IFeed>) => {
-            state.feed = action.payload;
+            let feedin = action.payload;
+            feedin.orders.sort((a, b) => b.number - a.number);
+            state.feed = feedin;
         }
     },
 })

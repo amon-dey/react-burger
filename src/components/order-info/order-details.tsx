@@ -1,20 +1,21 @@
 import { memo, useEffect, useState } from 'react';
 import { Price } from '../price/price'
 import styles from './styles.module.css';
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from '../../services/store';
 import { IngredientItemType, IOrderType } from '../../utils/types';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getOrder } from './../../services/thunks/thunks'
-import { fillIngredientsByIds } from './../../utils/utils'
+import { getOrder } from '../../services/thunks/thunks'
+import { fillIngredientsByIds } from '../../utils/utils'
 
 function calculateTotalPrice(items: Array<IngredientItemType>) {
     return items.reduce((total, item) => total + item.price, 0);
 }
 
-export const OrderInfo = () => {
+export const OrdersDetails = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const { isLoading, ingredients } = useSelector((state) => state.burgerIngredientsIngredient);
 
     const [localOrder, setLocalOrder] = useState<IOrderType | null>(null);
@@ -49,7 +50,7 @@ export const OrderInfo = () => {
                 setLocalOrder(findOrder)
                 return
             }
-            dispatch(getOrder(number))
+            dispatch(getOrder({ number: number }))
         }
         findOrder()
     }, [fetchedOrder, dispatch, number, feedOrder, localOrder, isLoading, orderIsLoading, ingredients, feedProfileOrder])
@@ -76,12 +77,12 @@ export const OrderInfo = () => {
 
     return (
         <section className={`${styles.row} m-6`}>
-            {/* <p className={`${styles.ordernumber} text text_type_digits-default`}>#{order.number}</p> */}
+            {!!!location.state && <p className={`${styles.ordernumber} text text_type_digits-default`}>#{number}</p>}
             <p className="text text_type_main-medium mt-10 mb-3">{localOrder.name}</p>
             <p className={`${styles.done} text text_type_main-default mb-15}`}>Выполнен</p>
             <p className="text text_type_main-medium mt-10 mb-6">Состав:</p>
             <div className={styles.ingredientlist}>
-                {uniqueIngredients.map((item, count) => (
+                {uniqueIngredients.map((item) => (
                     <ul className={`${styles.container} mb-4 p-0`} key={item.item._id}>
                         <div className={styles.container}>
                             <div key={item.item._id} className={styles.ingredientWrapper} >
@@ -93,7 +94,7 @@ export const OrderInfo = () => {
                         </div>
                         <div className={`${styles.ingredientprice} mr-4`}>
                             <span className="text text_type_digits-default p-2">
-                                {count + 1} x {item.item.price}
+                                {item.count} x {item.item.price}
                             </span>
                             <CurrencyIcon type="primary" />
                         </div>
@@ -110,4 +111,4 @@ export const OrderInfo = () => {
     );
 };
 
-export default memo(OrderInfo);
+export default memo(OrdersDetails);

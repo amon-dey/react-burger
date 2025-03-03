@@ -38,7 +38,7 @@ export const getOrder = createAsyncThunk<
   `order-info/fetch`,
   async (number) => {
     const options = { method: 'GET' };
-    return await request(API_ORDER + number, options);
+    return await request(API_ORDER + number.number, options);
   }
 );
 
@@ -52,7 +52,7 @@ export const fetchIngredients = createAsyncThunk<{ data: IngredientItemType[]; }
 
 export const postRegister = createAsyncThunk<
   IUserPayload,
-  { email: string; password: string; name: string }, // Тип параметров
+  { email: string; password: string; name: string },
   { rejectValue: string }
 >(
   "user/register",

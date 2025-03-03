@@ -2,10 +2,10 @@ import { Modal } from "../modal/modal";
 
 import { useModal } from "../../hooks/useModal";
 import { useLocation, useNavigate } from "react-router-dom";
-import OrderInfo from "./order-info";
+import OrdersDetails from "./order-details";
 import { useParams } from "react-router-dom";
 
-export const OrderInfoModal = () => {
+export const OrdersDetailsModal = () => {
     const navigate = useNavigate();
     const location = useLocation()
     const { closeModal } = useModal();
@@ -23,11 +23,11 @@ export const OrderInfoModal = () => {
     if (location.state && location.state.from)
         return (
             <Modal closeModal={handleCloseModal} title={`#${number}`} modalHeaderStyle="text text_type_digits-default">
-                <OrderInfo />
+                <OrdersDetails />
             </Modal>
         )
     else {
-        return
+        return null
     }
 }
-export default OrderInfoModal
+export default OrdersDetailsModal

@@ -5,19 +5,20 @@ import { IFeed } from "../../utils/types";
 import { fillIngredientsByIds } from '../../utils/utils'
 import { refreshToken } from './../utils'
 
-export type TWsActionTypes<R> = {
+export type TWsActionTypes<R, S> = {
     connect: ActionCreatorWithPayload<string>;
     disconnect: ActionCreatorWithoutPayload;
     onOpen?: ActionCreatorWithoutPayload;
     onClose?: ActionCreatorWithoutPayload;
     onError: ActionCreatorWithPayload<string>;
     onMessage: ActionCreatorWithPayload<R>;
+    sendMessage?: ActionCreatorWithPayload<S>;
 }
 
 const RECONNECT_PERIOD = 5000;
 
-export const socketMiddleware = <R>(
-    wsActions: TWsActionTypes<R>,
+export const socketMiddleware = <R, S>(
+    wsActions: TWsActionTypes<R, S>,
     withTokenRefresh: boolean = false
 ): Middleware<Record<string, never>, RootState> => {
     return (store) => {
@@ -29,6 +30,7 @@ export const socketMiddleware = <R>(
             onClose,
             onError,
             onMessage,
+            sendMessage,
         } = wsActions;
         let isConnected = false;
         let reconnectTimer = 0;
@@ -93,6 +95,14 @@ export const socketMiddleware = <R>(
                         }, RECONNECT_PERIOD);
                     }
                 };
+            }
+
+            if (socket && sendMessage?.match(action)) {
+                try {
+                    socket.send(JSON.stringify(action.payload));
+                } catch (err) {
+                    dispatch(onError((err as Error).message));
+                }
             }
 
             if (socket && disconnect.match(action)) {

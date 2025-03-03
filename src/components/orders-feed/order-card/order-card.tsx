@@ -16,6 +16,22 @@ export const OrderCard = (props: Props) => {
         navigate(to, { state: { from: location } });
     };
 
+    let status: string
+    let status_color: string = ""
+
+    switch (props.order.status) {
+        case 'done':
+            status = "Выполнен"
+            status_color = styles.done
+            break;
+        case 'created':
+            status = "Создан"
+            break;
+        case 'pending':
+            status = "Готовится"
+            break;
+    }
+
     return (
         <section className={`${styles.ordercard} p-6 mb-6`} onClick={handleOnClick}>
             <div className={`${styles.container} mb-6`}>
@@ -24,9 +40,11 @@ export const OrderCard = (props: Props) => {
                     <FormattedDate date={new Date(props.order.updatedAt)}></FormattedDate>
                 </div>
             </div>
-            <p className="text text_type_main-medium mb-6">
+
+            <p className="text text_type_main-medium">
                 {props.order.name}
             </p>
+            <p className={`${status_color} text text_type_main-default pt-1 mb-6`}>{status}</p>
             <IngredientsImageList ingredients={props.order.ingredientsFull} />
         </section>
     )

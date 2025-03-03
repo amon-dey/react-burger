@@ -35,33 +35,33 @@ const App: FC = () => {
     dispatch(userGetInfo());
   }, [dispatch]);
 
+
   return (
     <main className={styles.appcontainer}>
       <AppHeader />
       <div className={styles.contentcontainer}>
         {
           location.state && location.state.from && (
-            <Routes>
+            <Routes >
               <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
               <Route path="/feed/:number" element={<OrdersDetailsModal />} />
               <Route path="/profile/orders/:number" element={<OnlyAuth component={<OrdersDetailsModal />} />} />
             </Routes>
           )
         }
-        <Routes>
-          <Route path="/" element={<PageMain />} />
-          <Route path="/feed" element={<Feed />}></Route>
-          <Route path="/feed/:number" element={<OrdersDetails />} />
+        <Routes location={location.state?.from || location}>
           <Route path="/login" element={<OnlyUnAuth component={<PageLogin />} />} />
           <Route path="/register" element={<OnlyUnAuth component={<PageRegister />} />} />
           <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
           <Route path="/reset-password" element={<OnlyUnAuth component={<PageResetPassword />} />} />
+          <Route path="/" element={<PageMain />} />
+          <Route path="/feed" element={<Feed />}></Route>
+          <Route path="/feed/:number" element={<OrdersDetails />} />
           <Route path="/profile/orders/:number" element={<OrdersDetails />} />
           <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} >
             <Route path="/profile/" element={<PageUserDetails />} />
             <Route path="/profile/orders" element={<FeedProfile />} />
           </Route>
-          <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

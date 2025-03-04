@@ -34,7 +34,7 @@ const App: FC = () => {
     dispatch(userGetInfo());
   }, [dispatch]);
 
-  let isModal = !!(location.state?.modal);
+  const isModal = !!(location.state?.modal);
 
   const newlocation = isModal ? location.state.from : location
 

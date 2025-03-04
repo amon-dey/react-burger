@@ -67,7 +67,7 @@ const App: FC = () => {
         </Routes>
 
         {isModal && (
-          <Routes location={location.state?.from || location}>
+          <Routes>
             <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
             <Route path="/feed/:number" element={<OrdersDetailsModal />} />
             <Route path="/profile/orders/:number" element={<OnlyAuth component={OrdersDetailsModal} />} />

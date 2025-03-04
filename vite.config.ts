@@ -23,4 +23,8 @@ export default defineConfig({
       allowedHeaders: ['Content-Type', 'Authorization'],
     },
   },
+  base: '/react-burger/',
+  build: {
+    assetsDir: 'static',
+  }
 });

@@ -34,26 +34,31 @@ const App: FC = () => {
     dispatch(userGetInfo());
   }, [dispatch]);
 
-  const isModal = location.state && location.state.from;
+  let isModal = !!(location.state?.from);
+  if (isModal) {
+    if (location.state.from.pathname === "/profile") {
+      isModal = false;
+    }
+  }
+
   const test = isModal ? location.state.from : location
-  console.log(test)
+  //console.log(test, isModal)
 
   return (
     <main className={styles.appcontainer}>
       <AppHeader />
       <div className={styles.contentcontainer}>
-        <Routes>
+        <Routes location={test}>
           <Route path="/login" element={<OnlyUnAuth component={PageLogin} />} />
-        </Routes>
-        <Routes location={isModal ? location.state.from : location}>
+          <Route path="/feed/:number" element={<OrdersDetails />} />
+          <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
           <Route path="/register" element={<OnlyUnAuth component={PageRegister} />} />
           <Route path="/forgot-password" element={<OnlyUnAuth component={ForgotPasswordPage} />} />
           <Route path="/reset-password" element={<OnlyUnAuth component={PageResetPassword} />} />
           <Route path="/" element={<PageMain />} />
           <Route path="/feed" element={<Feed />} />
-          <Route path="/feed/:number" element={<OrdersDetails />} />
-          <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
-          <Route path="/profile" element={<OnlyAuth component={ProfilePage} />}>
+
+          <Route path="/profile/*" element={<OnlyAuth component={ProfilePage} />}>
             <Route index element={<PageUserDetails />} />
             <Route path="orders" element={<FeedProfile />} />
             <Route path="orders/:number" element={<OrdersDetails />} />

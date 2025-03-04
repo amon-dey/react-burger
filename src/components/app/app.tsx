@@ -35,20 +35,20 @@ const App: FC = () => {
   }, [dispatch]);
 
   let isModal = !!(location.state?.from);
+  //грязный хак
   if (isModal) {
     if (location.state.from.pathname.includes("/profile")) {
       isModal = false;
     }
   }
 
-  const test = isModal ? location.state.from : location
-  //console.log(test, isModal)
+  const newlocation = isModal ? location.state.from : location
 
   return (
     <main className={styles.appcontainer}>
       <AppHeader />
       <div className={styles.contentcontainer}>
-        <Routes location={test}>
+        <Routes location={newlocation}>
           <Route path="/login" element={<OnlyUnAuth component={PageLogin} />} />
           <Route path="/feed/:number" element={<OrdersDetails />} />
           <Route path="/ingredients/:id" element={<PageIngredientDetails />} />
@@ -58,7 +58,7 @@ const App: FC = () => {
           <Route path="/" element={<PageMain />} />
           <Route path="/feed" element={<Feed />} />
 
-          <Route path="/profile/*" element={<OnlyAuth component={ProfilePage} />}>
+          <Route path="/profile" element={<OnlyAuth component={ProfilePage} />}>
             <Route index element={<PageUserDetails />} />
             <Route path="orders" element={<FeedProfile />} />
             <Route path="orders/:number" element={<OrdersDetails />} />

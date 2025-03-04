@@ -40,6 +40,10 @@ export const socketMiddleware = <R, S>(
             const { dispatch } = store;
 
             if (connect.match(action)) {
+                if (socket !== null) {
+                    return next(action);
+                }
+
                 url = action.payload;
                 socket = new WebSocket(action.payload);
                 isConnected = true;
@@ -87,8 +91,8 @@ export const socketMiddleware = <R, S>(
                 };
 
                 socket.onclose = () => {
+                    socket = null;
                     onClose && dispatch(onClose());
-
                     if (isConnected) {
                         reconnectTimer = window.setTimeout(() => {
                             dispatch(wsConnect(url));

@@ -30,7 +30,7 @@ export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {
     }, [ingredients, item._id, item.type, bun]);
 
     const handleOnClick = () => {
-        navigate("/ingredients/" + item._id, { state: { from: location, id: item._id }, });
+        navigate("/ingredients/" + item._id, { state: { from: location, modal: true }, });
     };
 
     const [, dragRef] = useDrag({

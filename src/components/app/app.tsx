@@ -34,13 +34,7 @@ const App: FC = () => {
     dispatch(userGetInfo());
   }, [dispatch]);
 
-  let isModal = !!(location.state?.from);
-  //грязный хак
-  if (isModal) {
-    if (location.state.from.pathname.includes("/profile")) {
-      isModal = false;
-    }
-  }
+  let isModal = !!(location.state?.modal);
 
   const newlocation = isModal ? location.state.from : location
 

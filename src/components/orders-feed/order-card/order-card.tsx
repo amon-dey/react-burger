@@ -13,7 +13,7 @@ export const OrderCard = (props: Props) => {
     const location = useLocation()
     const handleOnClick = () => {
         const to = location.pathname + "/" + props.order.number;
-        navigate(to, { state: { from: location } });
+        navigate(to, { state: { from: location, modal: true }, });
     };
 
     let status: string

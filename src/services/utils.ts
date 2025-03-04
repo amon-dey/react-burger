@@ -1,25 +1,30 @@
 
 import { API_TOKEN } from './../utils/constants'
+import { ApiResponseError } from './../utils/types'
 
-const checkResponse = async (response: Response): Promise<any> => {
+const checkResponse = async <T>(response: Response): Promise<T> => {
     if (!response.ok) {
+        let error: ApiResponseError = { message: "Не известная ошибка", success: false }
         try {
             const json = await response.json();
-            if (json.success === false) {
-                return Promise.reject(json.message);
+            if (json && typeof json === "object" && "success" in json && json.success === false) {
+                const error: ApiResponseError = json;
+                return Promise.reject(error);
             }
+            return Promise.reject(error);
         } catch (error) {
             return Promise.reject(error);
         }
     }
-    return response.json();
+
+    return response.json() as T;
 };
 
-export const request = async (url: string, options: RequestInit) => {
-    return await fetch(url, options).then(checkResponse);
+export const request = async <T>(url: string, options: RequestInit): Promise<T> => {
+    const response = await fetch(url, options);
+    return checkResponse<T>(response);
 };
 
-// Функция для чтения данных из localStorage
 export const loadFromLocalStorage = (key: string, defaultvalue: string): string => {
     try {
         const storedValue = localStorage.getItem(key);
@@ -33,7 +38,6 @@ export const loadFromLocalStorage = (key: string, defaultvalue: string): string 
     }
 };
 
-// Функция для сохранения данных в localStorage
 export const saveToLocalStorage = (key: string, item: string) => {
     try {
         const serializedItem = JSON.stringify(item);
@@ -66,23 +70,22 @@ export const refreshToken = async () => {
     return refreshData;
 };
 
-export const fetchWithRefresh = async (url: string, options: RequestInit) => {
+export const fetchWithRefresh = async <T>(url: string, options: RequestInit): Promise<T> => {
     try {
         const res = await fetch(url, options);
-        return await checkReponse(res);
-    } catch (err) {
-        if (err.message === "jwt expired") {
+        return await checkResponse<T>(res);
+    } catch (err: unknown) {
+        if (err instanceof Error && err.message === "jwt expired") {
             const refreshData = await refreshToken();
             options = {
                 ...options,
                 headers: {
                     ...options.headers,
-                    "Authorization": refreshData.accessToken
-                }
-            }
-            //options.headers.authorization = refreshData.accessToken;
+                    Authorization: refreshData.accessToken,
+                },
+            };
             const res = await fetch(url, options);
-            return await checkReponse(res);
+            return await checkResponse<T>(res);
         } else {
             return Promise.reject(err);
         }

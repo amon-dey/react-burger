@@ -1,0 +1,13 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.done {
+    color: #00CCCC;
+    display: flex;
+}
+
+.column {
+    padding: 1rem;
+}

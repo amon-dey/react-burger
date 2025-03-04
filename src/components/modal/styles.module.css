@@ -1,7 +1,7 @@
 .modal {
     border-radius: 2rem;
     background: #000000;
-    z-index: 10;
+    z-index: 999;
     position: fixed;
     top: 50%;
     left: 50%;

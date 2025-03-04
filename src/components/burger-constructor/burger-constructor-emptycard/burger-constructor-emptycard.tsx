@@ -6,7 +6,6 @@ type PropsEmpty = {
     cardType?: "top" | "bottom" | undefined,
 };
 
-// @ya.praktikum\react-developer-burger-ui-components\dist\ui\constructor-element.css
 export const EmptyItem: FC<PropsEmpty> = ({ cardType: cardType }) => {
 
     let className = `constructor-element ml-4 text text_type_main-medium text_color_inactive ${styles.fix}`;

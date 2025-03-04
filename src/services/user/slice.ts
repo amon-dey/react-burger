@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { login, logout, postRegister, userGetInfo, userSetInfo } from "./../thunks/thunks";
-import { UserType } from "../../utils/types";
+import { IUserType, IUserPayload } from "../../utils/types";
 
 type TUserState = {
-  user: UserType | null;
+  user: IUserType | null;
   isAuthChecked: boolean;
-  lastError: string | null
-}
+  lastError: string | null;
+};
 
 const initialState: TUserState = {
   user: null,
@@ -21,24 +21,27 @@ export const userSlice = createSlice({
     setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload;
     },
-    setUser: (state, action: PayloadAction<UserType | null>) => {
+    setUser: (state, action: PayloadAction<IUserType | null>) => {
       state.user = action.payload;
-    }
-  },
-  selectors: {
-    getIsAuthChecked: (state) => state.isAuthChecked,
-    getUser: (state) => state.user,
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.fulfilled, (state, action) => {
-        if (action.payload)
-          state.user = action.payload.user
+      .addCase(login.pending, (state) => {
+        state.lastError = '';
+      })
+      .addCase(login.fulfilled, (state, action: PayloadAction<IUserPayload>) => {
+        state.user = action.payload.user;
         localStorage.setItem("accessToken", action.payload.accessToken);
         localStorage.setItem("refreshToken", action.payload.refreshToken);
         state.isAuthChecked = true;
+        state.lastError = '';
+      })
+      .addCase(login.rejected, (state, action: PayloadAction<string | undefined>) => {
+        state.lastError = action.payload || "Не известная ошибка";
       })
       .addCase(logout.fulfilled, (state) => {
+        state.lastError = '';
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         state.user = null;
@@ -48,37 +51,34 @@ export const userSlice = createSlice({
         localStorage.removeItem("refreshToken");
         state.user = null;
       })
-      .addCase(postRegister.fulfilled, (state, action) => {
-        if (action.payload)
-          state.user = action.payload.user
+      .addCase(postRegister.fulfilled, (state, action: PayloadAction<IUserPayload>) => {
+        state.user = action.payload.user;
         localStorage.setItem("accessToken", action.payload.accessToken);
         localStorage.setItem("refreshToken", action.payload.refreshToken);
-        state.isAuthChecked = true
+        state.isAuthChecked = true;
       })
-      .addCase(postRegister.rejected, (state, action) => {
+      .addCase(postRegister.rejected, (state, action: PayloadAction<string | undefined>) => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
-        state.isAuthChecked = true
-        state.lastError = "ошибка"
-        if (action.payload) {
-          if (typeof action.payload === 'string') {
-            state.lastError = action.payload
-          }
-        }
+        state.isAuthChecked = true;
+        state.lastError = action.payload || "ошибка";
+      })
+      .addCase(userGetInfo.fulfilled, (state, action: PayloadAction<{ user: IUserType }>) => {
+        state.isAuthChecked = true;
+        state.user = action.payload.user;
       })
       .addCase(userGetInfo.rejected, (state) => {
-        state.isAuthChecked = true
+        state.isAuthChecked = true;
       })
-      .addCase(userGetInfo.fulfilled, (state, action) => {
-        state.isAuthChecked = true
-        state.user = action.payload.user
-      })
-      .addCase(userSetInfo.fulfilled, (state, action) => {
-        state.isAuthChecked = true
-        state.user = action.payload.user
-      })
-  }
+      .addCase(userSetInfo.fulfilled, (state, action: PayloadAction<{ user: IUserType }>) => {
+        state.isAuthChecked = true;
+        state.user = action.payload.user;
+      });
+  },
 });
 
 export const { setIsAuthChecked, setUser } = userSlice.actions;
-export const { getIsAuthChecked, getUser } = userSlice.selectors;
+
+export const getIsAuthChecked = (state: { user: TUserState }) => state.user.isAuthChecked;
+export const getUser = (state: { user: TUserState }) => state.user.user;
+export const getLastLoginError = (state: { user: TUserState }) => state.user.lastError;

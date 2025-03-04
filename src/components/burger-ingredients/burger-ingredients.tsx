@@ -13,18 +13,15 @@ export const BurgerIngredients = () => {
     const { currentActiveTab } = useSelector((state) => state.burgerIngredientsCurrentActiveTab);
 
     const refGroups = useRef<HTMLDivElement>(null);
-    const arrayOfGroupRefs = Array.from(
-        { length: ingredientItemTypes.length },
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        () => useRef<HTMLDivElement>(null),
-    );
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const arrayOfGroupRefs = ingredientItemTypes.map(() => useRef<HTMLDivElement>(null));
 
     const groupedItems = useMemo(() => {
         if (!ingredients) return null;
         return Object.entries(groupBy(ingredients, (item) => String(item.type)));
     }, [ingredients]);
 
-    //отрабатываем события скрола в списке ингредиентов
     useEffect(() => {
         const refGroupCopy = refGroups.current;
         if (!refGroupCopy) return;
@@ -38,7 +35,6 @@ export const BurgerIngredients = () => {
         };
     }, [arrayOfGroupRefs, dispatch]);
 
-    // скролим до необходимой группы ингредиентов, реакция на клик в табе
     const handleTabClick = useCallback((tabItemType: string) => {
         const scrollToGroup = (tabItemType: string) => {
             const currentTabNumber = ingredientItemTypes.findIndex(item => item.type === tabItemType);
@@ -79,5 +75,4 @@ export const BurgerIngredients = () => {
     );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default memo(BurgerIngredients);

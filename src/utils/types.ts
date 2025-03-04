@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
 
+export interface ApiResponseError {
+    success: boolean;
+    message?: string;
+}
+
 export interface IngredientItemType {
     "_id": string
     "name": string
@@ -44,7 +49,43 @@ export const ingredientItemTypes: Array<IngredientItemGroupNameType> = [
 
 export default IngredientItemType
 
-export type UserType = {
+export interface IUserType {
     email: string
     name: string
+}
+
+export enum WebsocketStatus {
+    CONNECTING = 'CONNECTING...',
+    ONLINE = 'ONLINE',
+    OFFLINE = 'OFFLINE'
+}
+
+export interface IOrderType {
+    ingredients: Array<string>;
+    ingredientsFull: Array<IngredientItemType>;
+    _id: string;
+    name: string;
+    status: "created" | "pending" | "done";
+    number: number;
+    createdAt: string
+    updatedAt: string
+}
+
+export interface IFeed {
+    status: boolean;
+    orders: Array<IOrderType>;
+    total: number;
+    totalToday: number;
+}
+
+export interface IUserPayload {
+    accessToken: string;
+    refreshToken: string;
+    user: IUserType;
+}
+
+export interface ICreateOrderPaylod {
+    success: boolean
+    name: string
+    order: IOrderType
 }

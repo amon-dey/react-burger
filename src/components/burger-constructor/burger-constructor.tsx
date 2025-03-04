@@ -45,7 +45,7 @@ export const BurgerConstructor = () => {
         } else {
             if (ingredients !== null && bun !== null) {
                 dispatch(setOrderIngredients([bun, ...ingredients, bun]));
-                dispatch(postOrder([bun, ...ingredients, bun]));
+                dispatch(postOrder({ data: [bun, ...ingredients, bun] }));
             }
         }
     };
@@ -57,11 +57,11 @@ export const BurgerConstructor = () => {
 
     if (isLoading)
         return (
-            <section className={styles.row}>
+            <Modal closeModal={() => { }} noClosable={true} modalHeaderStyle='text text_type_main-large'>
                 <div className={styles.spinner}>
                     <Spinner title='формирование заказа' />
                 </div>
-            </section>
+            </Modal>
         )
 
     return (
@@ -83,7 +83,7 @@ export const BurgerConstructor = () => {
                 </Button>
             </li>
             {orderNumber && (
-                <Modal closeModal={handleCloseOrderModal}>
+                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle=''>
                     <OrderDetails />
                 </Modal>
             )}

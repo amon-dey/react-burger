@@ -1,19 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IUserPayload, ICreateOrderPaylod, IFeed, ApiResponseError } from './../../utils/types'
 
 import {
   API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
   API_LOGOUT, API_FORGOTPASSWORD, API_RESETPASSWORD,
-  API_USER
+  API_USER, API_ORDER
 } from '../../utils/constants';
 
-import IngredientItemType from '../../utils/types';
+import { IngredientItemType } from '../../utils/types';
 import { request, fetchWithRefresh } from '../utils';
 
-export const postOrder = createAsyncThunk(
+export const postOrder = createAsyncThunk<
+  ICreateOrderPaylod,
+  { data: IngredientItemType[] }
+>(
   `burger-constructor/order`,
-  async (data: IngredientItemType[]) => {
-    const data1 = data as unknown as IngredientItemType[];
-    const idList: string[] = data1.map(item => item._id);
+  async ({ data }) => {
+    const idList: string[] = data.map(item => item._id);
     const token = localStorage.getItem("accessToken");
     const options = {
       method: 'POST', headers: {
@@ -28,6 +31,17 @@ export const postOrder = createAsyncThunk(
   }
 );
 
+export const getOrder = createAsyncThunk<
+  IFeed,
+  { number: string }
+>(
+  `order-info/fetch`,
+  async (number) => {
+    const options = { method: 'GET' };
+    return await request(API_ORDER + number.number, options);
+  }
+);
+
 export const fetchIngredients = createAsyncThunk<{ data: IngredientItemType[]; }>(
   `burger-ingredients/fetch`,
   async () => {
@@ -36,31 +50,55 @@ export const fetchIngredients = createAsyncThunk<{ data: IngredientItemType[]; }
   }
 );
 
-export const postRegister = createAsyncThunk(
-  `user/register`,
-  async (data: {
-    email: string,
-    password: string,
-    name: string
-  }) => {
-    const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", },
-      body: JSON.stringify(data),
-    };
-    return await request(API_REGISTER, options);
+export const postRegister = createAsyncThunk<
+  IUserPayload,
+  { email: string; password: string; name: string },
+  { rejectValue: string }
+>(
+  "user/register",
+  async ({ email, password, name }, { rejectWithValue }) => {
+    try {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        body: JSON.stringify({ email, password, name }),
+      };
+
+      const response = await request<IUserPayload>(API_REGISTER, options);
+      return response;
+    } catch (error) {
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
+      }
+      return rejectWithValue("Не известная ошибка");
+    }
   }
 );
 
-export const login = createAsyncThunk(
-  `api/login`,
-  async (data: {
-    email: string,
-    password: string,
-  }) => {
-    const options = {
-      method: 'POST', headers: { "Content-Type": "application/json;charset=utf-8", }, body: JSON.stringify(data),
-    };
-    return await request(API_LOGIN, options);
+export const login = createAsyncThunk<
+  IUserPayload,
+  { email: string; password: string },
+  { rejectValue: string }
+>(
+  "user/login",
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json;charset=utf-8" },
+        body: JSON.stringify({ email, password }),
+      };
+
+      const response = await request<IUserPayload>(API_LOGIN, options);
+      return response;
+    } catch (error) {
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
+      }
+      return rejectWithValue("Не известная ошибка");
+    }
   }
 );
 
@@ -98,33 +136,61 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
-export const userGetInfo = createAsyncThunk(
-  `api/userget`,
-  async () => {
-    const token = localStorage.getItem("accessToken");
-    const options = {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        "Authorization": token ? token : "",
-      },
-    };
-    return await fetchWithRefresh(API_USER, options);
+export const userGetInfo = createAsyncThunk<
+  IUserPayload,
+  void,
+  { rejectValue: string }
+>(
+  "user/getInfo",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: token || "",
+        },
+      };
+
+      const response = await fetchWithRefresh<IUserPayload>(API_USER, options);
+      return response;
+    } catch (error) {
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
+      }
+      return rejectWithValue("Не известная ошибка");
+    }
   }
 );
 
-export const userSetInfo = createAsyncThunk(
-  `api/userset`,
-  async (data: { name: string, password: string, email: string, }) => {
-    const token = localStorage.getItem("accessToken");
-    const options = {
-      method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        "Authorization": token ? token : "",
-      },
-      body: JSON.stringify(data),
-    };
-    return await fetchWithRefresh(API_USER, options);
+export const userSetInfo = createAsyncThunk<
+  IUserPayload,
+  { email: string; password: string; name: string },
+  { rejectValue: string }
+>(
+  "user/setInfo",
+  async ({ email, password, name }, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const options = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: token || "",
+        },
+        body: JSON.stringify({ email, password, name }),
+      };
+
+      const response = await request<IUserPayload>(API_USER, options);
+      return response;
+    } catch (error) {
+      if (error instanceof Object) {
+        const err = error as ApiResponseError;
+        return rejectWithValue(err.message || "Не известная ошибка");
+      }
+      return rejectWithValue("Не известная ошибка");
+    }
   }
 );

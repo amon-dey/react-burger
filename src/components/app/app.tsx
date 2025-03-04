@@ -36,7 +36,7 @@ const App: FC = () => {
 
   let isModal = !!(location.state?.from);
   if (isModal) {
-    if (location.state.from.pathname === "/profile") {
+    if (location.state.from.pathname.includes("/profile")) {
       isModal = false;
     }
   }
@@ -67,7 +67,7 @@ const App: FC = () => {
         </Routes>
 
         {isModal && (
-          <Routes>
+          <Routes location={location.state?.from || location}>
             <Route path="/ingredients/:id" element={<IngredientDetailsModal />} />
             <Route path="/feed/:number" element={<OrdersDetailsModal />} />
             <Route path="/profile/orders/:number" element={<OnlyAuth component={OrdersDetailsModal} />} />

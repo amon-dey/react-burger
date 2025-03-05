@@ -19,3 +19,9 @@ export const fillIngredientsByIds = (list1: string[], list2: Array<IngredientIte
 
     return result;
 }
+
+export function getBasename() {
+    const path = window.location.pathname;
+    const parts = path.split('/').filter(part => part !== '');
+    return `/${parts.join('/')}`;
+}

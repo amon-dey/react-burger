@@ -1,30 +1,28 @@
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig, ConfigEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
-/*
-export default defineConfig({
-  plugins: [react()],
-})*/
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:3000',
-    //     changeOrigin: true,
-    //     secure: false, // если используете самоподписанные сертификаты
-    //   },
-    // },
-    cors: {
-      origin: '*', // разрешаем все источники
-      methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      allowedHeaders: ['Content-Type', 'Authorization'],
+export default defineConfig(({ command }: ConfigEnv): UserConfig => {
+  return {
+    plugins: [react()],
+    server: {
+      // proxy: {
+      //   '/api': {
+      //     target: 'http://localhost:3000',
+      //     changeOrigin: true,
+      //     secure: false, // если используете самоподписанные сертификаты
+      //   },
+      // },
+      cors: {
+        origin: '*', // разрешаем все источники
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+      },
     },
-  },
-  base: '/react-burger/',
-  build: {
-    assetsDir: 'static',
+    base: command === 'build' ? '/react-burger/' : '/',
+    build: {
+      assetsDir: 'static',
+    }
   }
 });

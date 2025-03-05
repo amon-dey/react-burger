@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 
 export default defineConfig(({ command }: ConfigEnv): UserConfig => {
+  const isProduction = command === 'build'
+
   return {
     plugins: [react()],
     server: {
@@ -20,7 +22,7 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
         allowedHeaders: ['Content-Type', 'Authorization'],
       },
     },
-    base: command === 'build' ? '/react-burger/' : '/',
+    base: isProduction ? '/react-burger/' : '/',
     build: {
       assetsDir: 'static',
     }

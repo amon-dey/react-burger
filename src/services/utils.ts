@@ -4,7 +4,7 @@ import { ApiResponseError } from './../utils/types'
 
 const checkResponse = async <T>(response: Response): Promise<T> => {
     if (!response.ok) {
-        let error: ApiResponseError = { message: "Не известная ошибка", success: false }
+        const error: ApiResponseError = { message: "Не известная ошибка", success: false }
         try {
             const json = await response.json();
             if (json && typeof json === "object" && "success" in json && json.success === false) {

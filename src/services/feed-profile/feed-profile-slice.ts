@@ -33,7 +33,7 @@ export const feedProfileSlice = createSlice({
             state.error = action.payload;
         },
         wsMessage: (state, action: PayloadAction<IFeed>) => {
-            let feedin = action.payload;
+            const feedin = action.payload;
             feedin.orders.sort((a, b) => b.number - a.number);
             state.feed = feedin;
         }

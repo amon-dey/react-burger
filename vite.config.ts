@@ -9,13 +9,6 @@ export default defineConfig(({ command }: ConfigEnv): UserConfig => {
   return {
     plugins: [react()],
     server: {
-      // proxy: {
-      //   '/api': {
-      //     target: 'http://localhost:3000',
-      //     changeOrigin: true,
-      //     secure: false, // если используете самоподписанные сертификаты
-      //   },
-      // },
       cors: {
         origin: '*', // разрешаем все источники
         methods: ['GET', 'POST', 'PUT', 'DELETE'],

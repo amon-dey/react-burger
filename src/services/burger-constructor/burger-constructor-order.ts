@@ -10,7 +10,7 @@ type BurgerConstructorOrderInitialStateType = {
     isLoading: boolean;
 };
 
-const burgerConstructorOrderInitialState: BurgerConstructorOrderInitialStateType = {
+export const burgerConstructorOrderInitialState: BurgerConstructorOrderInitialStateType = {
     ingredintIdList: [],
     orderNumber: null,
     orederBurgerName: "",

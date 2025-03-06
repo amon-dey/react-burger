@@ -7,7 +7,7 @@ type TOrderInfo = {
     orderIsLoading: boolean
 };
 
-const initialState: TOrderInfo = {
+export const initialState: TOrderInfo = {
     fetchedOrder: null,
     orderIsLoading: false,
 };

@@ -1,0 +1,323 @@
+import IngredientItemType, { ICreateOrderPaylod, IFeed } from "../types";
+
+export const mockIngredients: IngredientItemType[] = [
+    {
+        "_id": "60666c42cc7b410027a1a9b1",
+        "name": "Краторная булка N-200i",
+        "type": "bun",
+        "proteins": 80,
+        "fat": 24,
+        "carbohydrates": 53,
+        "calories": 420,
+        "price": 1255,
+        "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        "__v": 0,
+        "uuid": "9689cec6-4288-4416-a1f4-b78a1255085c"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b5",
+        "name": "Говяжий метеорит (отбивная)",
+        "type": "main",
+        "proteins": 800,
+        "fat": 800,
+        "carbohydrates": 300,
+        "calories": 2674,
+        "price": 3000,
+        "image": "https://code.s3.yandex.net/react/code/meat-04.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-04-large.png",
+        "__v": 0,
+        "uuid": "d68b6942-c672-4ca9-931a-0ff2720bd5bc"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b6",
+        "name": "Биокотлета из марсианской Магнолии",
+        "type": "main",
+        "proteins": 420,
+        "fat": 142,
+        "carbohydrates": 242,
+        "calories": 4242,
+        "price": 424,
+        "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+        "__v": 0,
+        "uuid": "ff297159-4f6a-4b49-a1b2-4cc820a88944"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b7",
+        "name": "Соус Spicy-X",
+        "type": "sauce",
+        "proteins": 30,
+        "fat": 20,
+        "carbohydrates": 40,
+        "calories": 30,
+        "price": 90,
+        "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+        "__v": 0,
+        "uuid": "84970a16-87ac-484f-910e-63e80a09ae8c"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b4",
+        "name": "Мясо бессмертных моллюсков Protostomia",
+        "type": "main",
+        "proteins": 433,
+        "fat": 244,
+        "carbohydrates": 33,
+        "calories": 420,
+        "price": 1337,
+        "image": "https://code.s3.yandex.net/react/code/meat-02.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
+        "__v": 0,
+        "uuid": "3bde163a-c925-4618-bd52-0003a220ac86"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b9",
+        "name": "Соус традиционный галактический",
+        "type": "sauce",
+        "proteins": 42,
+        "fat": 24,
+        "carbohydrates": 42,
+        "calories": 99,
+        "price": 15,
+        "image": "https://code.s3.yandex.net/react/code/sauce-03.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sauce-03-large.png",
+        "__v": 0,
+        "uuid": "04bda226-64e2-4625-9081-bda8019ed9f3"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b8",
+        "name": "Соус фирменный Space Sauce",
+        "type": "sauce",
+        "proteins": 50,
+        "fat": 22,
+        "carbohydrates": 11,
+        "calories": 14,
+        "price": 80,
+        "image": "https://code.s3.yandex.net/react/code/sauce-04.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sauce-04-large.png",
+        "__v": 0,
+        "uuid": "b40bc7a2-4224-44ca-9f53-68962ad59a25"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9bc",
+        "name": "Плоды Фалленианского дерева",
+        "type": "main",
+        "proteins": 20,
+        "fat": 5,
+        "carbohydrates": 55,
+        "calories": 77,
+        "price": 874,
+        "image": "https://code.s3.yandex.net/react/code/sp_1.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sp_1-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sp_1-large.png",
+        "__v": 0,
+        "uuid": "be137b5e-e065-4de4-8814-cdecd64f9920"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9bb",
+        "name": "Хрустящие минеральные кольца",
+        "type": "main",
+        "proteins": 808,
+        "fat": 689,
+        "carbohydrates": 609,
+        "calories": 986,
+        "price": 300,
+        "image": "https://code.s3.yandex.net/react/code/mineral_rings.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
+        "__v": 0,
+        "uuid": "64304c04-66e4-4696-9118-2b874cc8df8f"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9ba",
+        "name": "Соус с шипами Антарианского плоскоходца",
+        "type": "sauce",
+        "proteins": 101,
+        "fat": 99,
+        "carbohydrates": 100,
+        "calories": 100,
+        "price": 88,
+        "image": "https://code.s3.yandex.net/react/code/sauce-01.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/sauce-01-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/sauce-01-large.png",
+        "__v": 0,
+        "uuid": "a9f417a4-a0bc-4b29-92b5-a550a8b7dcc2"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9bd",
+        "name": "Кристаллы марсианских альфа-сахаридов",
+        "type": "main",
+        "proteins": 234,
+        "fat": 432,
+        "carbohydrates": 111,
+        "calories": 189,
+        "price": 762,
+        "image": "https://code.s3.yandex.net/react/code/core.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/core-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/core-large.png",
+        "__v": 0,
+        "uuid": "c69827d7-2249-4ee6-84f2-1f342180ff79"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9be",
+        "name": "Мини-салат Экзо-Плантаго",
+        "type": "main",
+        "proteins": 1,
+        "fat": 2,
+        "carbohydrates": 3,
+        "calories": 6,
+        "price": 4400,
+        "image": "https://code.s3.yandex.net/react/code/salad.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/salad-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/salad-large.png",
+        "__v": 0,
+        "uuid": "fbd4f7fb-c807-4003-9d51-b5eee2901e07"
+    },
+    {
+        "_id": "60666c42cc7b410027a1a9b3",
+        "name": "Филе Люминесцентного тетраодонтимформа",
+        "type": "main",
+        "proteins": 44,
+        "fat": 26,
+        "carbohydrates": 85,
+        "calories": 643,
+        "price": 988,
+        "image": "https://code.s3.yandex.net/react/code/meat-03.png",
+        "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+        "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
+        "__v": 0,
+        "uuid": "95a403e8-6ac1-4cdd-ba22-e83e06648575"
+    },
+];
+
+export const mockCreateOrderPayload: ICreateOrderPaylod = {
+    "success": true,
+    "name": "Краторный люминесцентный метеоритный бургер",
+    "order": {
+        "ingredients": [
+            {
+                "_id": "643d69a5c3f7b9001cfa093c",
+                "name": "Краторная булка N-200i",
+                "type": "bun",
+                "proteins": 80,
+                "fat": 24,
+                "carbohydrates": 53,
+                "calories": 420,
+                "price": 1255,
+                "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+                "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+                "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+                "__v": 0
+            },
+            {
+                "_id": "643d69a5c3f7b9001cfa093e",
+                "name": "Филе Люминесцентного тетраодонтимформа",
+                "type": "main",
+                "proteins": 44,
+                "fat": 26,
+                "carbohydrates": 85,
+                "calories": 643,
+                "price": 988,
+                "image": "https://code.s3.yandex.net/react/code/meat-03.png",
+                "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+                "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
+                "__v": 0
+            },
+            {
+                "_id": "643d69a5c3f7b9001cfa0940",
+                "name": "Говяжий метеорит (отбивная)",
+                "type": "main",
+                "proteins": 800,
+                "fat": 800,
+                "carbohydrates": 300,
+                "calories": 2674,
+                "price": 3000,
+                "image": "https://code.s3.yandex.net/react/code/meat-04.png",
+                "image_mobile": "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
+                "image_large": "https://code.s3.yandex.net/react/code/meat-04-large.png",
+                "__v": 0
+            },
+            {
+                "_id": "643d69a5c3f7b9001cfa093c",
+                "name": "Краторная булка N-200i",
+                "type": "bun",
+                "proteins": 80,
+                "fat": 24,
+                "carbohydrates": 53,
+                "calories": 420,
+                "price": 1255,
+                "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+                "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+                "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+                "__v": 0
+            }
+        ],
+        "_id": "67c9d074133acd001be55d31",
+        "status": "done",
+        "name": "Краторный люминесцентный метеоритный бургер",
+        "createdAt": "2025-03-06T16:42:28.467Z",
+        "updatedAt": "2025-03-06T16:42:29.130Z",
+        "number": 70191,
+    }
+};
+
+export const mockIFeed: IFeed = {
+    status: true,
+    "orders": [
+        {
+            "_id": "67c9e294133acd001be55d7f",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa0942",
+                "643d69a5c3f7b9001cfa0943",
+                "643d69a5c3f7b9001cfa0942",
+                "643d69a5c3f7b9001cfa093d"
+            ],
+            "status": "done",
+            "name": "Space флюоресцентный spicy бургер",
+            "createdAt": "2025-03-06T17:59:48.169Z",
+            "updatedAt": "2025-03-06T17:59:49.036Z",
+            "number": 70201
+        },
+        {
+            "_id": "67c9e1bf133acd001be55d7b",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa0943",
+                "643d69a5c3f7b9001cfa0945",
+                "643d69a5c3f7b9001cfa0943",
+                "643d69a5c3f7b9001cfa093d"
+            ],
+            "status": "done",
+            "name": "Space флюоресцентный антарианский бургер",
+            "createdAt": "2025-03-06T17:56:15.400Z",
+            "updatedAt": "2025-03-06T17:56:17.004Z",
+            "number": 70200
+        },
+        {
+            "_id": "67c9e1bf133acd001be55d7a",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093d",
+                "643d69a5c3f7b9001cfa0943",
+                "643d69a5c3f7b9001cfa0945",
+                "643d69a5c3f7b9001cfa0943",
+                "643d69a5c3f7b9001cfa093d"
+            ],
+            "status": "done",
+            "name": "Space флюоресцентный антарианский бургер",
+            "createdAt": "2025-03-06T17:56:15.263Z",
+            "updatedAt": "2025-03-06T17:56:16.496Z",
+            "number": 70199
+        }
+    ],
+    "total": 69827,
+    "totalToday": 74
+}

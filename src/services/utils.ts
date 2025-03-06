@@ -2,7 +2,7 @@
 import { API_TOKEN } from './../utils/constants'
 import { ApiResponseError } from './../utils/types'
 
-const checkResponse = async <T>(response: Response): Promise<T> => {
+export const checkResponse = async <T>(response: Response): Promise<T> => {
     if (!response.ok) {
         const error: ApiResponseError = { message: "Не известная ошибка", success: false }
         try {

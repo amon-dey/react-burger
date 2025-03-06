@@ -77,7 +77,7 @@ export const OrdersDetails = () => {
 
     return (
         <section className={`${styles.row} m-6`}>
-            {!!!location.state && <p className={`${styles.ordernumber} text text_type_digits-default`}>#{number}</p>}
+            {!location.state && <p className={`${styles.ordernumber} text text_type_digits-default`}>#{number}</p>}
             <p className="text text_type_main-medium mt-10 mb-3">{localOrder.name}</p>
             <p className={`${styles.done} text text_type_main-default mb-15}`}>Выполнен</p>
             <p className="text text_type_main-medium mt-10 mb-6">Состав:</p>

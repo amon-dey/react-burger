@@ -5,7 +5,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ command }: ConfigEnv): UserConfig => {
   const isProduction = command === 'build'
-
   return {
     plugins: [react()],
     server: {

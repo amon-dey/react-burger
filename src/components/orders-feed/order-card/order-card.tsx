@@ -45,7 +45,9 @@ export const OrderCard = (props: Props) => {
                 {props.order.name}
             </p>
             <p className={`${status_color} text text_type_main-default pt-1 mb-6`}>{status}</p>
-            <IngredientsImageList ingredients={props.order.ingredientsFull} />
+            {!!props.order.ingredientsFull &&
+                <IngredientsImageList ingredients={props.order.ingredientsFull} />
+            }
         </section>
     )
 }

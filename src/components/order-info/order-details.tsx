@@ -62,6 +62,9 @@ export const OrdersDetails = () => {
     }
 
     const ingredientCounts = new Map<string, { item: IIngredient, count: number }>();
+    if (localOrder.ingredientsFull === undefined) {
+        return <div>Не корректный заказ</div>
+    }
     const totalPrice = calculateTotalPrice(localOrder.ingredientsFull)
 
     localOrder.ingredientsFull.forEach(ingredient => {

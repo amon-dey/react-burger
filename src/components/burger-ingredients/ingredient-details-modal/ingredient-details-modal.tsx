@@ -12,7 +12,7 @@ export const IngredientDetailsModal = () => {
     }
 
     return (
-        <Modal closeModal={handleCloseModal} title="Детали ингедиента" modalHeaderStyle="text text_type_main-large">
+        <Modal closeModal={handleCloseModal} title="Детали ингедиента" modalHeaderStyle="text text_type_main-large" id="modal_ingredient_details">
             <IngredientDetails />
         </Modal>
     )

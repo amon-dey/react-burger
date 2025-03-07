@@ -59,7 +59,7 @@ export const BurgerConstructor = () => {
 
     if (isLoading)
         return (
-            <Modal closeModal={() => { }} noClosable={true} modalHeaderStyle='text text_type_main-large'>
+            <Modal closeModal={() => { }} noClosable={true} modalHeaderStyle='text text_type_main-large' id="modal_create_order">
                 <div className={styles.spinner}>
                     <Spinner title='формирование заказа' />
                 </div>
@@ -85,7 +85,7 @@ export const BurgerConstructor = () => {
                 </Button>
             </li>
             {orderNumber && (
-                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle=''>
+                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle='' id="modal_create_order">
                     <OrderDetails />
                 </Modal>
             )}

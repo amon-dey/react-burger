@@ -33,7 +33,7 @@ export const OrderCard = (props: Props) => {
     }
 
     return (
-        <section className={`${styles.ordercard} p-6 mb-6`} onClick={handleOnClick}>
+        <li className={`${styles.ordercard} p-6 mb-6`} onClick={handleOnClick}>
             <div className={`${styles.container} mb-6`}>
                 <div className="text text_type_digits-default">#{props.order.number}</div>
                 <div className="text text_type_main-default text_color_inactive">
@@ -48,7 +48,7 @@ export const OrderCard = (props: Props) => {
             {!!props.order.ingredientsFull &&
                 <IngredientsImageList ingredients={props.order.ingredientsFull} />
             }
-        </section>
+        </li>
     )
 }
 

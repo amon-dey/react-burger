@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { IngredientItemType } from "../../../utils/types";
+import { IIngredient } from "../../../utils/types";
 import { useDrag, useDrop } from "react-dnd";
 import { removeIngredient } from "../../../services/burger-constructor/burger-constructor-ingredients";
 import { useDispatch } from './../../../services/store';
@@ -9,7 +9,7 @@ import type { Identifier, XYCoord } from 'dnd-core';
 import styles from './styles.module.css';
 
 type Props = {
-    ingredient: IngredientItemType,
+    ingredient: IIngredient,
     cardType?: "top" | "bottom" | undefined,
     index: number;
 };

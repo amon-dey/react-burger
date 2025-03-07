@@ -12,8 +12,9 @@ import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructo
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
 import { resetConstructor } from '../../services/burger-constructor/burger-constructor-ingredients';
 import { postOrder } from '../../services/thunks/thunks';
-import { getUser } from "../../services/user/slice.ts";
+import { getUser } from "../../services/user/user.ts";
 import { useNavigate } from "react-router-dom";
+import { IPostOrder } from './../../utils/types.ts'
 
 export const BurgerConstructor = () => {
     const User = useSelector(getUser);
@@ -45,7 +46,8 @@ export const BurgerConstructor = () => {
         } else {
             if (ingredients !== null && bun !== null) {
                 dispatch(setOrderIngredients([bun, ...ingredients, bun]));
-                dispatch(postOrder({ data: [bun, ...ingredients, bun] }));
+                const send: IPostOrder = { ingredients: [bun._id, ...ingredients.map(item => item._id), bun._id] }
+                dispatch(postOrder({ order: send }));
             }
         }
     };

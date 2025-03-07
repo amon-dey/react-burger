@@ -13,14 +13,14 @@ describe('BurgerConstructorOrderSlice Reducer', () => {
         expect(state).toEqual(burgerConstructorOrderInitialState);
     });
 
-    it('setOrderIngredients action', () => {
+    it('setOrderIngredients', () => {
         const action = setOrderIngredients(mockIngredients);
         const state = BurgerConstructorOrderSlice.reducer(burgerConstructorOrderInitialState, action);
 
         expect(state.ingredintIdList).toEqual(mockIngredients);
     });
 
-    it('resetOrder action', () => {
+    it('resetOrder', () => {
         const initialStateWithValues = {
             ...burgerConstructorOrderInitialState,
             ingredintIdList: mockIngredients,
@@ -50,8 +50,8 @@ describe('BurgerConstructorOrderSlice Reducer', () => {
 
         expect(state.isLoading).toBe(false);
         expect(state.isError).toBe(false);
-        expect(state.orderNumber).toBe(70191);
-        expect(state.orederBurgerName).toBe('Краторный люминесцентный метеоритный бургер');
+        expect(state.orderNumber).toBe(mockCreateOrderPayload.order.number);
+        expect(state.orederBurgerName).toBe(mockCreateOrderPayload.name);
     });
 
     it('postOrder.rejected', () => {

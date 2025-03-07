@@ -1,11 +1,11 @@
 import styles from './styles.module.css';
 import { IngredientsImageList } from '../ingredients-list/ingredients-list'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IOrderType } from '../../../utils/types';
+import { IOrderFeed } from '../../../utils/types';
 import { useNavigate, useLocation } from "react-router-dom";
 
 type Props = {
-    order: IOrderType
+    order: IOrderFeed
 }
 
 export const OrderCard = (props: Props) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from "../../services/store.ts";
 import { Navigate, useLocation } from "react-router-dom";
-import { getIsAuthChecked, getUser } from "../../services/user/slice.ts";
+import { getIsAuthChecked, getUser } from "../../services/user/user.ts";
 
 type ProtectedRouteProps<T extends object = object> = {
     onlyUnAuth?: boolean;

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "../services/store";
 import styles from "./styles.module.css";
 import { login } from "../services/thunks/thunks";
-import { getLastLoginError } from "../services/user/slice.ts";
+import { getLastLoginError } from "../services/user/user.ts";
 
 const PageLogin: FC = () => {
     const lastLoginError = useSelector(getLastLoginError);

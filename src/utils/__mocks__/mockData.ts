@@ -1,4 +1,4 @@
-import IngredientItemType, { ICreateOrderPaylod, IFeed } from "../types";
+import IngredientItemType, { PayloadIngedients, ICreateOrderPaylod, IFeedOrderInfo, IFeed } from "../types";
 
 export const mockIngredients: IngredientItemType[] = [
     {
@@ -14,7 +14,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
         "__v": 0,
-        "uuid": "9689cec6-4288-4416-a1f4-b78a1255085c"
     },
     {
         "_id": "60666c42cc7b410027a1a9b5",
@@ -29,7 +28,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/meat-04-large.png",
         "__v": 0,
-        "uuid": "d68b6942-c672-4ca9-931a-0ff2720bd5bc"
     },
     {
         "_id": "60666c42cc7b410027a1a9b6",
@@ -44,7 +42,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
         "__v": 0,
-        "uuid": "ff297159-4f6a-4b49-a1b2-4cc820a88944"
     },
     {
         "_id": "60666c42cc7b410027a1a9b7",
@@ -59,7 +56,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
         "__v": 0,
-        "uuid": "84970a16-87ac-484f-910e-63e80a09ae8c"
     },
     {
         "_id": "60666c42cc7b410027a1a9b4",
@@ -74,7 +70,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
         "__v": 0,
-        "uuid": "3bde163a-c925-4618-bd52-0003a220ac86"
     },
     {
         "_id": "60666c42cc7b410027a1a9b9",
@@ -89,7 +84,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/sauce-03-large.png",
         "__v": 0,
-        "uuid": "04bda226-64e2-4625-9081-bda8019ed9f3"
     },
     {
         "_id": "60666c42cc7b410027a1a9b8",
@@ -104,7 +98,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/sauce-04-large.png",
         "__v": 0,
-        "uuid": "b40bc7a2-4224-44ca-9f53-68962ad59a25"
     },
     {
         "_id": "60666c42cc7b410027a1a9bc",
@@ -119,7 +112,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/sp_1-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/sp_1-large.png",
         "__v": 0,
-        "uuid": "be137b5e-e065-4de4-8814-cdecd64f9920"
     },
     {
         "_id": "60666c42cc7b410027a1a9bb",
@@ -134,7 +126,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/mineral_rings-large.png",
         "__v": 0,
-        "uuid": "64304c04-66e4-4696-9118-2b874cc8df8f"
     },
     {
         "_id": "60666c42cc7b410027a1a9ba",
@@ -149,7 +140,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/sauce-01-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/sauce-01-large.png",
         "__v": 0,
-        "uuid": "a9f417a4-a0bc-4b29-92b5-a550a8b7dcc2"
     },
     {
         "_id": "60666c42cc7b410027a1a9bd",
@@ -164,7 +154,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/core-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/core-large.png",
         "__v": 0,
-        "uuid": "c69827d7-2249-4ee6-84f2-1f342180ff79"
     },
     {
         "_id": "60666c42cc7b410027a1a9be",
@@ -179,7 +168,6 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/salad-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/salad-large.png",
         "__v": 0,
-        "uuid": "fbd4f7fb-c807-4003-9d51-b5eee2901e07"
     },
     {
         "_id": "60666c42cc7b410027a1a9b3",
@@ -194,13 +182,17 @@ export const mockIngredients: IngredientItemType[] = [
         "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
         "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
         "__v": 0,
-        "uuid": "95a403e8-6ac1-4cdd-ba22-e83e06648575"
     },
 ];
 
+export const mockPayloadIngedients: PayloadIngedients = {
+    success: true,
+    data: mockIngredients
+}
+
 export const mockCreateOrderPayload: ICreateOrderPaylod = {
     "success": true,
-    "name": "Краторный люминесцентный метеоритный бургер",
+    "name": "Краторный бессмертный бургер",
     "order": {
         "ingredients": [
             {
@@ -218,31 +210,17 @@ export const mockCreateOrderPayload: ICreateOrderPaylod = {
                 "__v": 0
             },
             {
-                "_id": "643d69a5c3f7b9001cfa093e",
-                "name": "Филе Люминесцентного тетраодонтимформа",
+                "_id": "643d69a5c3f7b9001cfa093f",
+                "name": "Мясо бессмертных моллюсков Protostomia",
                 "type": "main",
-                "proteins": 44,
-                "fat": 26,
-                "carbohydrates": 85,
-                "calories": 643,
-                "price": 988,
-                "image": "https://code.s3.yandex.net/react/code/meat-03.png",
-                "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-                "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
-                "__v": 0
-            },
-            {
-                "_id": "643d69a5c3f7b9001cfa0940",
-                "name": "Говяжий метеорит (отбивная)",
-                "type": "main",
-                "proteins": 800,
-                "fat": 800,
-                "carbohydrates": 300,
-                "calories": 2674,
-                "price": 3000,
-                "image": "https://code.s3.yandex.net/react/code/meat-04.png",
-                "image_mobile": "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
-                "image_large": "https://code.s3.yandex.net/react/code/meat-04-large.png",
+                "proteins": 433,
+                "fat": 244,
+                "carbohydrates": 33,
+                "calories": 420,
+                "price": 1337,
+                "image": "https://code.s3.yandex.net/react/code/meat-02.png",
+                "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
+                "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
                 "__v": 0
             },
             {
@@ -260,13 +238,32 @@ export const mockCreateOrderPayload: ICreateOrderPaylod = {
                 "__v": 0
             }
         ],
-        "_id": "67c9d074133acd001be55d31",
+        "_id": "67ca66a8133acd001be55f11",
         "status": "done",
-        "name": "Краторный люминесцентный метеоритный бургер",
-        "createdAt": "2025-03-06T16:42:28.467Z",
-        "updatedAt": "2025-03-06T16:42:29.130Z",
-        "number": 70191,
+        "name": "Краторный бессмертный бургер",
+        "createdAt": "2025-03-07T03:23:20.284Z",
+        "updatedAt": "2025-03-07T03:23:20.927Z",
+        "number": 70260,
     }
+};
+
+export const mockIFeedOrderInfo: IFeedOrderInfo = {
+    "success": true,
+    "orders": [
+        {
+            "_id": "66c4ace1119d45001b500ef9",
+            "ingredients": [
+                "643d69a5c3f7b9001cfa093c",
+                "643d69a5c3f7b9001cfa0949",
+                "643d69a5c3f7b9001cfa093c"
+            ],
+            "status": "done",
+            "name": "Краторный экзо-плантаго бургер",
+            "createdAt": "2024-08-20T14:49:05.746Z",
+            "updatedAt": "2024-08-20T14:49:06.234Z",
+            "number": 50260,
+        }
+    ]
 };
 
 export const mockIFeed: IFeed = {

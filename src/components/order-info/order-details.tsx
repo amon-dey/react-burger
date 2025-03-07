@@ -3,13 +3,13 @@ import { Price } from '../price/price'
 import styles from './styles.module.css';
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from '../../services/store';
-import { IngredientItemType, IOrderType } from '../../utils/types';
+import { IIngredient, IOrderFeed } from '../../utils/types';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getOrder } from '../../services/thunks/thunks'
 import { fillIngredientsByIds } from '../../utils/utils'
 
-function calculateTotalPrice(items: Array<IngredientItemType>) {
+function calculateTotalPrice(items: Array<IIngredient>) {
     return items.reduce((total, item) => total + item.price, 0);
 }
 
@@ -18,7 +18,7 @@ export const OrdersDetails = () => {
     const location = useLocation();
     const { isLoading, ingredients } = useSelector((state) => state.burgerIngredientsIngredient);
 
-    const [localOrder, setLocalOrder] = useState<IOrderType | null>(null);
+    const [localOrder, setLocalOrder] = useState<IOrderFeed | null>(null);
     const { orders: feedOrder } = useSelector((state) => state.Feed.feed);
     const { orders: feedProfileOrder } = useSelector((state) => state.FeedProfile.feed);
 
@@ -61,7 +61,7 @@ export const OrdersDetails = () => {
         )
     }
 
-    const ingredientCounts = new Map<string, { item: IngredientItemType, count: number }>();
+    const ingredientCounts = new Map<string, { item: IIngredient, count: number }>();
     const totalPrice = calculateTotalPrice(localOrder.ingredientsFull)
 
     localOrder.ingredientsFull.forEach(ingredient => {

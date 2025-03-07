@@ -1,13 +1,13 @@
 import { Price } from '../../price/price'
 
 import styles from './styles.module.css';
-import { IngredientItemType } from './../../../utils/types'
+import { IIngredient } from './../../../utils/types'
 
 type Props = {
-    ingredients: Array<IngredientItemType>;
+    ingredients: Array<IIngredient>;
 }
 
-function calculateTotalPrice(items: Array<IngredientItemType>) {
+function calculateTotalPrice(items: Array<IIngredient>) {
     return items.reduce((total, item) => total + item.price, 0);
 }
 

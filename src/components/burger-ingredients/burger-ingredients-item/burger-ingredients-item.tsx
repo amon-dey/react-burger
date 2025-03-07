@@ -1,5 +1,5 @@
 import { FC, memo, useMemo } from 'react';
-import IngredientItemType from "../../../utils/types";
+import IIngredient from "../../../utils/types";
 import { Price } from "../../price/price";
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "./styles.module.css";
@@ -8,7 +8,7 @@ import { useSelector } from './../../../services/store';
 import { useNavigate, useLocation } from "react-router-dom";
 
 type Props = {
-    ingredient: IngredientItemType,
+    ingredient: IIngredient,
 };
 
 export const BurgerIngredientsItem: FC<Props> = ({ ingredient: item }) => {

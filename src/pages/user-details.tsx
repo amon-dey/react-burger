@@ -1,7 +1,7 @@
 import { FC, useState, useMemo } from "react";
 import { useDispatch } from "../services/store";
 import { useSelector } from "../services/store.ts";
-import { getUser } from "../services/user/slice.ts";
+import { getUser } from "../services/user/user.ts";
 import { userSetInfo } from "../services/thunks/thunks.ts";
 
 import { EmailInput, Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";

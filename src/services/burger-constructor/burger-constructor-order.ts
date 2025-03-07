@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IngredientItemType, ICreateOrderPaylod } from '../../utils/types';
+import { IIngredient, ICreateOrderPaylod } from '../../utils/types';
 import { postOrder } from '../thunks/thunks';
 
 type BurgerConstructorOrderInitialStateType = {
-    ingredintIdList: IngredientItemType[];
+    ingredintIdList: IIngredient[];
     orderNumber: number | null;
     orederBurgerName: string;
     isError: boolean;

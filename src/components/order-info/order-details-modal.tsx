@@ -21,7 +21,8 @@ export const OrdersDetailsModal = () => {
 
     const { number } = useParams()
     return (
-        <Modal closeModal={handleCloseModal} title={`#${number}`} modalHeaderStyle="text text_type_digits-default" id="modal_feed_order_info">
+        <Modal closeModal={handleCloseModal} title={`#${number}`} modalHeaderStyle="text text_type_digits-default"
+         id="order-details-modal">
             <OrdersDetails />
         </Modal>
     )

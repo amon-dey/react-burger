@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 .gigaide/gigaide.properties
 coverage
+cypress/test_data.ts

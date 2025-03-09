@@ -1,35 +1,53 @@
 describe('app works correctly with routes', function () {
-    before(function () {
-        cy.visit('http://localhost:5173/');
-    });
-
-    it('should open конструктор', function () {
-        cy.contains('Собери бургер');
-    });
-
-    it('route test', function () {
+    //личный кабинет
+    it('login test', function () {
         cy.visit('http://localhost:5173/');
 
-        cy.get('#Лента_заказов_headerlink')
+        //клик Личный кабинетs
+        cy.get('#Личный_кабинет_headerlink')
             .should('exist')
             .and('be.visible')
-            .and('have.text', 'Лента заказов')
+            .and('have.text', 'Личный кабинет')
             .click();
 
-        cy.contains('Лента заказов');
-
-        cy.get('#feed_list')
+        cy.get('#register')
             .should('exist')
-            .find('li')
-            .first()
-            .should('be.visible')
+
+        //клик Регистрация
+        cy.get('#register')
+            .should('exist')
+            .click()
+
+        cy.contains('Регистрация');
+
+        cy.get('#login')
+            .should('exist')
             .click();
 
-        cy.get('#modal_feed_order_info')
+        //кликаем Восстановить пароль
+        cy.get('#forgot-password')
             .should('exist')
+            .click()
 
+        cy.contains('Востановление пароля');
+        cy.get('#login')
+            .should('exist')
+            .click();
 
+        //вход с не верным логином паролем
+        const invalidEmail = 'invalid@example.com';
+        const invalidPassword = 'wrongpassword';
+
+        cy.get('input#email')
+            .type(invalidEmail)
+            .should('have.value', invalidEmail);
+
+        cy.get('input#password')
+            .type(invalidPassword)
+            .should('have.value', invalidPassword);
+
+        cy.contains('button', 'Войти').click();
+
+        cy.contains('p', 'Не верный логин или параоль').should('exist');
     });
-
-
 });

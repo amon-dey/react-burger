@@ -20,7 +20,7 @@ export const BurgerIngredientsGroup = forwardRef<HTMLDivElement, Props>((props, 
             <p className="text text_type_main-large mb-6" >
                 {translateIngridentType(props.group)}
             </p>
-            <ul className={styles.ul}>
+            <ul className={styles.ul} id={`group_${props.group}`}>
                 {props.ingredients.map((ingredient) => (
                     <li key={ingredient._id} className='li'>
                         <BurgerIngredientsItem ingredient={ingredient} />

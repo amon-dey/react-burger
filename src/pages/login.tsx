@@ -17,9 +17,16 @@ const PageLogin: FC = () => {
 
     const handleOnClick = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        dispatch(login({ email: email, password: password }));
-        navigate(-1);
-    }
+
+        dispatch(login({ email, password }))
+            .unwrap()
+            .then(() => {
+                navigate(-1);
+            })
+            .catch((error) => {
+                console.error("Ошибка входа:", error);
+            });
+    };
 
     return (
         <form title="Вход" onSubmit={handleOnClick} className={styles.container}>
@@ -37,10 +44,10 @@ const PageLogin: FC = () => {
                 {lastLoginError === "email or password are incorrect" ? "Не верный логин или параоль" : lastLoginError}
             </p>
             <p className="text text_type_main-default text_color_inactive mt-20">
-                Вы новый пользователь ?<Link to="/register">Зарегистрироваться</Link>
+                Вы новый пользователь ?<Link id="register" to="/register">Зарегистрироваться</Link>
             </p>
             <p className="text text_type_main-default text_color_inactive">
-                Забыли пароль ?<Link to="/forgot-password">Восстановить пароль</Link>
+                Забыли пароль ?<Link id="forgot-password" to="/forgot-password">Восстановить пароль</Link>
             </p>
         </form>
     );

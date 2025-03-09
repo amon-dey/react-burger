@@ -65,7 +65,7 @@ export const BurgerIngredients = () => {
                     ))}
             </div>
             {groupedItems &&
-                <div className={styles.grouped_items} ref={refGroups}> {
+                <div id="ingredient_groups" className={styles.grouped_items} ref={refGroups}> {
                     groupedItems.map((type, index) =>
                         <BurgerIngredientsGroup ref={arrayOfGroupRefs[index]} group={type[0]} ingredients={type[1]} key={type[0]} />
                     )}

@@ -44,7 +44,7 @@ export const BurgerConstructorIngredients: FC = () => {
     };
 
     return (
-        <div ref={drop} className={styles.ul}>
+        <div ref={drop} className={styles.ul} id="drop_input_not_bun">
             {
                 ingredients.length > 0 ? existIngreidentsList() : <div className={hoverClass} key="1"><EmptyItem /></div>
             }

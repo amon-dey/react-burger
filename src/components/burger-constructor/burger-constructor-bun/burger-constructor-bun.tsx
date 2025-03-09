@@ -29,7 +29,7 @@ export const BurgerConstructorBun: FC<Props> = ({ cardType: cardType }) => {
     const hoverClass = isHover.isHover ? styles.ishover : '';
 
     return (
-        <div ref={drop} className={hoverClass}>
+        <div ref={drop} className={hoverClass} id={`drop_input_${cardType}`}>
             {
                 bun ? <BurgerConstructorCard ingredient={bun} cardType={cardType} index={0} /> :
                     <EmptyItem cardType={cardType}></EmptyItem>

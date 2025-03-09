@@ -2,25 +2,45 @@ import { testEmail, testPassword } from '../test_data'
 
 describe('constuctor test', function () {
 
-    it('constuctor create order', function () {
+    it('modal ingredient test', function () {
         cy.visit('http://localhost:5173/');
 
         cy.clearLocalStorage();
 
-        //тест клика на ингредиенте
         cy.get('#group_bun')
             .should('exist')
             .find('li')
             .first()
-            .should('be.visible')
-            .click();
+            .as('testIngredient');
 
-        cy.get('#modal_ingredient_details')
+        cy.get('@testIngredient')
+            .find('li')
+            .eq(2)
             .should('exist')
+            .invoke('text')
+            .then((text) => {
+                Cypress.env('savedText', text);
+                cy.log(`Текст третьего li: ${text}`);
 
-        cy.get('#modal_close_buttin')
-            .should('exist')
-            .click();
+                const savedText = Cypress.env('savedText');
+                cy.log(`Используем ранее сохраненный текст: ${savedText}`);
+
+                cy.get('@testIngredient').click();
+
+                cy.get('#modal_ingredient_details')
+                    .should('exist')
+                    .contains(savedText);
+
+                cy.get('#modal_close_buttin')
+                    .should('exist')
+                    .click();
+            });
+    });
+
+    it('constuctor create order', function () {
+        cy.visit('http://localhost:5173/');
+
+        cy.clearLocalStorage();
 
         // создаём заказ
         cy.get('#constructor_create_order')

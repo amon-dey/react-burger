@@ -18,9 +18,7 @@ describe('constuctor test', function () {
 
     it('modal ingredient test', function () {
         cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
-
         cy.visit('/');
-        cy.wait(500);
 
         cy.get('#group_bun').should('exist').find('li').first().as('testIngredient');
         cy.get('@testIngredient').find('li').eq(2).should('exist').invoke('text')
@@ -33,13 +31,19 @@ describe('constuctor test', function () {
             });
     });
 
+    it('not modal ingredient test', function () {
+        cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
+        cy.visit('/#/ingredients/60666c42cc7b410027a1a9b1');
+        cy.get('#modal_ingredient_details').should('not.exist');
+        cy.contains('Краторная булка N-200i')
+
+    });
+
     it('constuctor create order', function () {
         const mockAuth = { "success": true, "user": { "email": "test@test.me", "name": "testname" } }
         cy.intercept('GET', '/api/auth/user', mockAuth).as('mockAuth');
         cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
-
         cy.visit('/');
-        cy.wait(500);
 
         cy.get('#constructor_create_order', { timeout: 10000 })
             .should('exist')

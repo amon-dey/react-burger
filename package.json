@@ -11,7 +11,7 @@
     "deploy-script": "npm run build && scp -r ./dist/* praktikum@158.160.23.171:/home/praktikum/stellar-frontend;",
     "test": "jest",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "cypress:test": "./node_modules/.bin/cypress run --spec 'cypress/e2e/*.ts' --e2e --headed"
+    "cypress:test": "./node_modules/.bin/cypress run --spec 'cypress/e2e/*.ts' --e2e"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",

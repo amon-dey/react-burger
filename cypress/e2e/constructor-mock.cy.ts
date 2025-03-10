@@ -46,6 +46,8 @@ describe('constuctor test', function () {
         cy.get('#group_bun').should('exist').find('li').first().as('bun');
         cy.get('@bun').trigger('dragstart', { dataTransfer: new DataTransfer() });
         cy.get('#drop_input_top').should('exist').trigger('drop', { dataTransfer: new DataTransfer() });
+        cy.get('#drop_input_top').should('exist').contains('верх');
+        cy.get('#drop_input_bottom').should('exist').contains('низ');
 
         // Drag-and-drop для основного ингредиента
         cy.get('#group_main').should('exist').find('li').first().as('main');
@@ -58,15 +60,8 @@ describe('constuctor test', function () {
         cy.get('#drop_input_not_bun').should('exist').trigger('drop', { dataTransfer: new DataTransfer() });
 
         // Клик на кнопку создания заказа
-
         cy.intercept('POST', '/api/orders', mockIFeedOrderInfo).as('createOrder');
-
         cy.get('#constructor_create_order').should('not.be.disabled').click();
-
-        // Создание заказа
-        // cy.intercept('POST', '/api/orders').as('makeOrder');
-        // cy.get('#constructor_create_order').click();
-        // cy.wait('@makeOrder').its('response.statusCode').should('eq', 200);
 
         // Закрытие модалки
         cy.get('#modal_close_buttin').should('exist').click();

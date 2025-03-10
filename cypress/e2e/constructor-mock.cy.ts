@@ -16,6 +16,21 @@ describe('constuctor test', function () {
         });
     });
 
+    it('modal ingredient close overlay test', function () {
+        cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
+        cy.visit('/');
+
+        cy.get('#group_bun').should('exist').find('li').first().as('testIngredient');
+        cy.get('@testIngredient').find('li').eq(2).should('exist').invoke('text')
+            .then((text) => {
+                Cypress.env('savedText', text);
+                const savedText = Cypress.env('savedText');
+                cy.get('@testIngredient').click();
+                cy.get('#modal_ingredient_details').should('exist').contains(savedText);
+                cy.get('div[data-test="modal_overlay"]').click({ force: true });
+            });
+    });
+
     it('modal ingredient test', function () {
         cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
         cy.visit('/');

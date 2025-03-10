@@ -13,7 +13,7 @@ export const ModalOverlay: FC<Props> = (props: Props) => {
         }, [props]);
 
     return (
-        <div className={styles.modaloverlay} onClick={handleClick}></div>
+        <div  data-test="modal_overlay" className={styles.modaloverlay} onClick={handleClick}></div>
     );
 };
 

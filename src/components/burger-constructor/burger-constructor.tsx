@@ -60,7 +60,7 @@ export const BurgerConstructor = () => {
     if (isLoading)
         return (
             <Modal closeModal={() => { }} noClosable={true}
-                modalHeaderStyle='text text_type_main-large' id="modal_create_order_spinner">
+                modalHeaderStyle='text text_type_main-large' dataTest="modal_create_order_spinner">
                 <div className={styles.spinner}>
                     <Spinner title='формирование заказа' />
                 </div>
@@ -80,14 +80,14 @@ export const BurgerConstructor = () => {
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice} extra_class='text_type_main-large' />
                 <Button htmlType="button" type="primary" size="large"
-                    id="constructor_create_order"
+                    data-test="constructor_create_order"
                     onClick={handleOnOrderClick}
                     disabled={disableOrderButton}>
                     Офоримть заказ
                 </Button>
             </li>
             {orderNumber && (
-                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle='' id="modal_constructor_create_order">
+                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle='' dataTest="modal_constructor_create_order">
                     <OrderDetails />
                 </Modal>
             )}

@@ -4,20 +4,20 @@ describe('app works correctly with routes', function () {
         cy.visit('/');
 
         //клик Личный кабинетs
-        cy.get('#Личный_кабинет_headerlink').should('exist').and('be.visible').and('have.text', 'Личный кабинет').click();
+        cy.get('[data-test="Личный_кабинет_headerlink"').should('exist').and('be.visible').and('have.text', 'Личный кабинет').click();
 
-        cy.get('#register').should('exist')
+        cy.get('[data-test="register"').should('exist')
 
         //клик Регистрация
-        cy.get('#register').should('exist').click()
+        cy.get('[data-test="register"').should('exist').click()
         cy.contains('Регистрация');
-        cy.get('#login').should('exist').click();
+        cy.get('[data-test="login"').should('exist').click();
 
         //кликаем Восстановить пароль
-        cy.get('#forgot-password').should('exist').click()
+        cy.get('[data-test="forgot-password"').should('exist').click()
 
         cy.contains('Востановление пароля');
-        cy.get('#login').should('exist').click();
+        cy.get('[data-test="login"').should('exist').click();
 
         //вход с не верным логином паролем
         const invalidEmail = 'invalid@example.com';

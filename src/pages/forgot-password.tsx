@@ -27,7 +27,7 @@ const ForgotPasswordPage: FC = () => {
             </Button>
             <div className="m-20"></div>
             <p className="text text_type_main-default text_color_inactive">
-                Вспомнили пароль ?<Link id="login" to="/login">Войти</Link>
+                Вспомнили пароль ?<Link data-test="login" to="/login">Войти</Link>
             </p>
         </form>
     );

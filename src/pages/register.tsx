@@ -39,7 +39,7 @@ const PageRegister: FC = () => {
             </Button>
 
             <p className="text text_type_main-default text_color_inactive mt-20">
-                Уже зарегистрированы ?<Link id="login" to="/login">Войти</Link>
+                Уже зарегистрированы ?<Link data-test="login" to="/login">Войти</Link>
             </p>
         </form>
     );

@@ -44,10 +44,10 @@ const PageLogin: FC = () => {
                 {lastLoginError === "email or password are incorrect" ? "Не верный логин или параоль" : lastLoginError}
             </p>
             <p className="text text_type_main-default text_color_inactive mt-20">
-                Вы новый пользователь ?<Link id="register" to="/register">Зарегистрироваться</Link>
+                Вы новый пользователь ?<Link data-test="register" to="/register">Зарегистрироваться</Link>
             </p>
             <p className="text text_type_main-default text_color_inactive">
-                Забыли пароль ?<Link id="forgot-password" to="/forgot-password">Восстановить пароль</Link>
+                Забыли пароль ?<Link data-test="forgot-password" to="/forgot-password">Восстановить пароль</Link>
             </p>
         </form>
     );

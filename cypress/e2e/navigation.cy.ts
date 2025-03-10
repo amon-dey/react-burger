@@ -3,23 +3,25 @@ describe('app works correctly with routes', function () {
     it('login test', function () {
         cy.visit('/');
 
-        //клик Личный кабинетs
+        //Переход в личный кабинет
         cy.get('[data-test="Личный_кабинет_headerlink"').should('exist').and('be.visible').and('have.text', 'Личный кабинет').click();
 
+        //переход на страницу регистрации
         cy.get('[data-test="register"').should('exist')
-
-        //клик Регистрация
         cy.get('[data-test="register"').should('exist').click()
         cy.contains('Регистрация');
+
+        //Переход в личный кабинет со страницы регистрации
         cy.get('[data-test="login"').should('exist').click();
 
-        //кликаем Восстановить пароль
+        //Переход на страницу востановление пароля
         cy.get('[data-test="forgot-password"').should('exist').click()
-
         cy.contains('Востановление пароля');
+
+        //Переход в личный кабинет со страницы регистрации
         cy.get('[data-test="login"').should('exist').click();
 
-        //вход с не верным логином паролем
+        //Вход с не верным логином паролем
         const invalidEmail = 'invalid@example.com';
         const invalidPassword = 'wrongpassword';
         cy.intercept('POST', '/api/auth/login').as('loginRequest');

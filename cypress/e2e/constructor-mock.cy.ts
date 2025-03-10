@@ -16,6 +16,7 @@ describe('constuctor test', function () {
         });
     });
 
+     //модальное окно игредиента, закрытие - оверлей
     it('modal ingredient close overlay test', function () {
         cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
         cy.visit('/');
@@ -31,6 +32,7 @@ describe('constuctor test', function () {
             });
     });
 
+    //модальное окно игредиента, закрытие - кнопка
     it('modal ingredient test', function () {
         cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
         cy.visit('/');
@@ -46,6 +48,7 @@ describe('constuctor test', function () {
             });
     });
 
+    //переход по прямой ссылке
     it('not modal ingredient test', function () {
         cy.intercept('GET', '/api/ingredients', mockPayloadIngedients).as('mockIngredients');
         cy.visit('/#/ingredients/60666c42cc7b410027a1a9b1');
@@ -54,6 +57,7 @@ describe('constuctor test', function () {
 
     });
 
+    //создание заказа
     it('constuctor create order', function () {
         const mockAuth = { "success": true, "user": { "email": "test@test.me", "name": "testname" } }
         cy.intercept('GET', '/api/auth/user', mockAuth).as('mockAuth');

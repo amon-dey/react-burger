@@ -36,11 +36,3 @@
 //   }
 // }
 require("@4tw/cypress-drag-drop");
-
-Cypress.Commands.add('login', (email: string, password: string) => {
-    cy.intercept('POST', '/api/auth/login').as('loginRequest');
-    cy.get('input#email').type(email);
-    cy.get('input#password').type(password);
-    cy.contains('button', 'Войти').click();
-    cy.wait('@loginRequest').its('response.statusCode').should('eq', 200);
-});

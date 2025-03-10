@@ -1,6 +1,6 @@
 describe('feed test', function () {
 
-    it('feedtest', function () {
+    it('feedtest modal', function () {
         cy.visit('/');
 
         cy.get('#Лента_заказов_headerlink').should('exist').and('be.visible').and('have.text', 'Лента заказов').click();

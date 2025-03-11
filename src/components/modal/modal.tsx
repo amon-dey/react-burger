@@ -10,6 +10,7 @@ type Props = {
     title?: string;
     noClosable?: boolean
     modalHeaderStyle: string
+    dataTest: string
 };
 
 import styles from './styles.module.css';
@@ -40,7 +41,7 @@ export const Modal: FC<Props> = (props: Props) => {
     return ReactDOM.createPortal(
         <>
             <ModalOverlay closeModal={props.closeModal} />
-            <div className={`${styles.modal}`} onClick={handleClick}>
+            <div className={`${styles.modal}`} onClick={handleClick} data-test={props.dataTest}>
                 <div className="mt-10 mr-10 ml-10">
                     <ModalHeader closeModal={props.closeModal} title={props.title}
                         noClosable={props.noClosable} modalHeaderStyle={props.modalHeaderStyle} />

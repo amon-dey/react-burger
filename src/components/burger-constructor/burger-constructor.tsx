@@ -12,8 +12,9 @@ import { BurgerConstructorBun } from "./burger-constructor-bun/burger-constructo
 import { BurgerConstructorIngredients } from "./burger-constructor-ingredients/burger-constructor-ingredients";
 import { resetConstructor } from '../../services/burger-constructor/burger-constructor-ingredients';
 import { postOrder } from '../../services/thunks/thunks';
-import { getUser } from "../../services/user/slice.ts";
+import { getUser } from "../../services/user/user.ts";
 import { useNavigate } from "react-router-dom";
+import { IPostOrder } from './../../utils/types.ts'
 
 export const BurgerConstructor = () => {
     const User = useSelector(getUser);
@@ -45,7 +46,8 @@ export const BurgerConstructor = () => {
         } else {
             if (ingredients !== null && bun !== null) {
                 dispatch(setOrderIngredients([bun, ...ingredients, bun]));
-                dispatch(postOrder({ data: [bun, ...ingredients, bun] }));
+                const send: IPostOrder = { ingredients: [bun._id, ...ingredients.map(item => item._id), bun._id] }
+                dispatch(postOrder({ order: send }));
             }
         }
     };
@@ -57,7 +59,8 @@ export const BurgerConstructor = () => {
 
     if (isLoading)
         return (
-            <Modal closeModal={() => { }} noClosable={true} modalHeaderStyle='text text_type_main-large'>
+            <Modal closeModal={() => { }} noClosable={true}
+                modalHeaderStyle='text text_type_main-large' dataTest="modal_create_order_spinner">
                 <div className={styles.spinner}>
                     <Spinner title='формирование заказа' />
                 </div>
@@ -77,13 +80,14 @@ export const BurgerConstructor = () => {
             <li className={`${styles.li_total} p-4 `}>
                 <Price price={totalPrice} extra_class='text_type_main-large' />
                 <Button htmlType="button" type="primary" size="large"
+                    data-test="constructor_create_order"
                     onClick={handleOnOrderClick}
                     disabled={disableOrderButton}>
                     Офоримть заказ
                 </Button>
             </li>
             {orderNumber && (
-                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle=''>
+                <Modal closeModal={handleCloseOrderModal} modalHeaderStyle='' dataTest="modal_constructor_create_order">
                     <OrderDetails />
                 </Modal>
             )}

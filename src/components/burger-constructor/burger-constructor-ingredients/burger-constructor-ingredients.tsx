@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { useSelector, useDispatch } from './../../../services/store';
 import { BurgerConstructorCard } from "./../burger-constructor-card/burgerconstructor-card";
 import { addIngredient } from "../../../services/burger-constructor/burger-constructor-ingredients";
-import { ingredientItemTypes, IngredientItemType } from "./../../../utils/types";
+import { ingredientItemTypes, IIngredient } from "./../../../utils/types";
 import { EmptyItem } from "./../burger-constructor-emptycard/burger-constructor-emptycard";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -23,10 +23,10 @@ export const BurgerConstructorIngredients: FC = () => {
             isHover: monitor.isOver(),
         }),
         drop(doppeditem) {
-            const { item } = doppeditem as { item: IngredientItemType };
+            const { item } = doppeditem as { item: IIngredient };
             const doppedIngredient = {
                 ...item,
-                uuid: uuidv4()} as IngredientItemType;
+                uuid: uuidv4()} as IIngredient;
             dispatch(addIngredient(doppedIngredient));
         },
     });
@@ -44,7 +44,7 @@ export const BurgerConstructorIngredients: FC = () => {
     };
 
     return (
-        <div ref={drop} className={styles.ul}>
+        <div ref={drop} className={styles.ul} id="drop_input_not_bun">
             {
                 ingredients.length > 0 ? existIngreidentsList() : <div className={hoverClass} key="1"><EmptyItem /></div>
             }

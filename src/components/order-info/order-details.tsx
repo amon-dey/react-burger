@@ -3,13 +3,13 @@ import { Price } from '../price/price'
 import styles from './styles.module.css';
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from '../../services/store';
-import { IngredientItemType, IOrderType } from '../../utils/types';
+import { IIngredient, IOrderFeed } from '../../utils/types';
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getOrder } from '../../services/thunks/thunks'
 import { fillIngredientsByIds } from '../../utils/utils'
 
-function calculateTotalPrice(items: Array<IngredientItemType>) {
+function calculateTotalPrice(items: Array<IIngredient>) {
     return items.reduce((total, item) => total + item.price, 0);
 }
 
@@ -18,7 +18,7 @@ export const OrdersDetails = () => {
     const location = useLocation();
     const { isLoading, ingredients } = useSelector((state) => state.burgerIngredientsIngredient);
 
-    const [localOrder, setLocalOrder] = useState<IOrderType | null>(null);
+    const [localOrder, setLocalOrder] = useState<IOrderFeed | null>(null);
     const { orders: feedOrder } = useSelector((state) => state.Feed.feed);
     const { orders: feedProfileOrder } = useSelector((state) => state.FeedProfile.feed);
 
@@ -61,7 +61,10 @@ export const OrdersDetails = () => {
         )
     }
 
-    const ingredientCounts = new Map<string, { item: IngredientItemType, count: number }>();
+    const ingredientCounts = new Map<string, { item: IIngredient, count: number }>();
+    if (localOrder.ingredientsFull === undefined) {
+        return <div>Не корректный заказ</div>
+    }
     const totalPrice = calculateTotalPrice(localOrder.ingredientsFull)
 
     localOrder.ingredientsFull.forEach(ingredient => {
@@ -77,7 +80,7 @@ export const OrdersDetails = () => {
 
     return (
         <section className={`${styles.row} m-6`}>
-            {!!!location.state && <p className={`${styles.ordernumber} text text_type_digits-default`}>#{number}</p>}
+            {!location.state && <p className={`${styles.ordernumber} text text_type_digits-default`}>#{number}</p>}
             <p className="text text_type_main-medium mt-10 mb-3">{localOrder.name}</p>
             <p className={`${styles.done} text text_type_main-default mb-15}`}>Выполнен</p>
             <p className="text text_type_main-medium mt-10 mb-6">Состав:</p>

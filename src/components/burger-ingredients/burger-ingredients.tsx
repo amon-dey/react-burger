@@ -1,9 +1,9 @@
 import { useEffect, useRef, useMemo, useCallback, memo } from 'react';
 import { useSelector, useDispatch } from './../../services/store';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientItemTypes, IngredientItemGroupNameType } from "../../utils/types";
+import { ingredientItemTypes, IIngredientItemGroupNameType } from "../../utils/types";
 import { BurgerIngredientsGroup } from "./burger-ingredients-group/burger-ingredients-group";
-import { setCurrentActiveTab } from '../../services/burger-ingredients/burger-ingredients-current-activetab';
+import { setCurrentActiveTab } from '../../services/burger-ingredients/burger-ingredients-current-activetab.ts';
 import { getVisibleGroup, groupBy } from "./utils";
 import styles from './styles.module.css';
 
@@ -59,13 +59,13 @@ export const BurgerIngredients = () => {
             </p>
             <div className={`${styles.tab_block} mb-10}`}>
                 {ingredientItemTypes.map(
-                    (ingredient: IngredientItemGroupNameType) => (
+                    (ingredient: IIngredientItemGroupNameType) => (
                         <Tab value={ingredient.type} active={currentActiveTab == ingredient.type} onClick={() => handleTabClick(ingredient.type)} key={ingredient.type}>
                             {ingredient.translated_name}</Tab>
                     ))}
             </div>
             {groupedItems &&
-                <div className={styles.grouped_items} ref={refGroups}> {
+                <div id="ingredient_groups" className={styles.grouped_items} ref={refGroups}> {
                     groupedItems.map((type, index) =>
                         <BurgerIngredientsGroup ref={arrayOfGroupRefs[index]} group={type[0]} ingredients={type[1]} key={type[0]} />
                     )}

@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { IngredientItemType } from '../../utils/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IIngredient, PayloadIngedients } from '../../utils/types';
 import { fetchIngredients } from "../thunks/thunks";
 
 
 type BurgerIngredientsInitialStateType = {
-    ingredients: IngredientItemType[] | null,
+    ingredients: IIngredient[] | null,
     isLoading: boolean,
     isError: boolean;
 };
@@ -25,7 +25,7 @@ export const BurgerIngredientsSlice = createSlice({
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(fetchIngredients.fulfilled, (state, action) => {
+            .addCase(fetchIngredients.fulfilled, (state, action: PayloadAction<PayloadIngedients>) => {
                 state.isLoading = false;
                 state.isError = false;
                 if (action.payload) {

@@ -20,7 +20,7 @@ export const OrdersFeed = (props: Props) => {
                 )
             }
             {props.children}
-            <ul className={`${styles.ul} mr-2`}>
+            <ul className={`${styles.ul} mr-2`} data-test="feed_list">
                 {
                     props.feed.orders.map(order =>
                         <OrderCard order={order} key={order._id} />

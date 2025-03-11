@@ -1,12 +1,12 @@
 import { forwardRef, memo } from 'react';
 import BurgerIngredientsItem from '../burger-ingredients-item/burger-ingredients-item';
-import { IngredientItemType, ingredientItemTypes } from "../../../utils/types";
+import { IIngredient, ingredientItemTypes } from "../../../utils/types";
 
 import styles from './styles.module.css';
 
 type Props = {
     group: string;
-    ingredients: IngredientItemType[];
+    ingredients: IIngredient[];
 };
 
 const translateIngridentType = (dataname: string): string => {
@@ -20,7 +20,7 @@ export const BurgerIngredientsGroup = forwardRef<HTMLDivElement, Props>((props, 
             <p className="text text_type_main-large mb-6" >
                 {translateIngridentType(props.group)}
             </p>
-            <ul className={styles.ul}>
+            <ul className={styles.ul} data-test={`group_${props.group}`}>
                 {props.ingredients.map((ingredient) => (
                     <li key={ingredient._id} className='li'>
                         <BurgerIngredientsItem ingredient={ingredient} />
@@ -31,5 +31,4 @@ export const BurgerIngredientsGroup = forwardRef<HTMLDivElement, Props>((props, 
     );
 });
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default memo(BurgerIngredientsGroup);

@@ -7,7 +7,7 @@ export const OrderDetails = () => {
 
     return (
         <section className={`${styles.items} mt-5 mb-30 mr-30 ml-30`}>
-            <p className={`${styles.textglow} text text_type_digits-large mb-2`}>{orderNumber}</p>
+            <p id="new_order_number" className={`${styles.textglow} text text_type_digits-large mb-2`}>{orderNumber}</p>
             <p className="text text_type_main-medium">идентификатор заказа</p>
             <OrderDetailsSuccessIcon />
             <p className="text text_type_main-default m-2">Ваш заказ начали готовить</p>

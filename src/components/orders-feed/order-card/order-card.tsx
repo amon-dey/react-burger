@@ -1,11 +1,11 @@
 import styles from './styles.module.css';
 import { IngredientsImageList } from '../ingredients-list/ingredients-list'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IOrderType } from '../../../utils/types';
+import { IOrderFeed } from '../../../utils/types';
 import { useNavigate, useLocation } from "react-router-dom";
 
 type Props = {
-    order: IOrderType
+    order: IOrderFeed
 }
 
 export const OrderCard = (props: Props) => {
@@ -33,7 +33,7 @@ export const OrderCard = (props: Props) => {
     }
 
     return (
-        <section className={`${styles.ordercard} p-6 mb-6`} onClick={handleOnClick}>
+        <li className={`${styles.ordercard} p-6 mb-6`} onClick={handleOnClick}>
             <div className={`${styles.container} mb-6`}>
                 <div className="text text_type_digits-default">#{props.order.number}</div>
                 <div className="text text_type_main-default text_color_inactive">
@@ -45,8 +45,10 @@ export const OrderCard = (props: Props) => {
                 {props.order.name}
             </p>
             <p className={`${status_color} text text_type_main-default pt-1 mb-6`}>{status}</p>
-            <IngredientsImageList ingredients={props.order.ingredientsFull} />
-        </section>
+            {!!props.order.ingredientsFull &&
+                <IngredientsImageList ingredients={props.order.ingredientsFull} />
+            }
+        </li>
     )
 }
 

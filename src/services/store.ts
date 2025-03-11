@@ -6,7 +6,7 @@ import {
 
 import { combineReducers } from 'redux';
 import { BurgerIngredientsSlice } from './burger-ingredients/burger-ingredients-ingrediets';
-import { currentActiveTabSlice } from './burger-ingredients/burger-ingredients-current-activetab';
+import { currentActiveTabSlice } from './burger-ingredients/burger-ingredients-current-activetab.ts';
 import { selectedIngredientSlice } from './burger-ingredients/burger-ingredients-selected-ingredient';
 import { BurgerConstructorSlice } from './burger-constructor/burger-constructor-ingredients';
 import { BurgerConstructorOrderSlice } from './burger-constructor/burger-constructor-order';
@@ -18,7 +18,7 @@ import { feedProfileSlice, wsClose as wsCloseProfile, wsError as wsErrorProfile,
 import { wsConnect, wsDisconnect } from "./feed/actions";
 import { socketMiddleware } from './middleware/socket-middleware';
 
-import { userSlice } from './user/slice'
+import { userSlice } from './user/user.ts'
 
 const feedMiddleware = socketMiddleware({
     connect: wsConnect,

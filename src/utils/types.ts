@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
-
 export interface ApiResponseError {
     success: boolean;
     message?: string;
 }
 
-export interface IngredientItemType {
+export interface IBasicPaylod {
+    success: boolean;
+}
+
+export interface IIngredient {
     "_id": string
     "name": string
     "type": string
@@ -18,36 +20,29 @@ export interface IngredientItemType {
     "image_mobile": string,
     "image_large": string,
     "__v": number,
-    "uuid": string | undefined
+    "uuid"?: string | undefined
 }
 
-export const IngredientType = PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    calories: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    image_mobile: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    __v: PropTypes.number.isRequired,
-}).isRequired;
+export interface PayloadIngedients extends IBasicPaylod {
+    data: IIngredient[],
+}
 
-export type IngredientItemGroupNameType = {
+export interface IPostOrder {
+    ingredients: Array<string>
+}
+
+export type IIngredientItemGroupNameType = {
     type: string;
     translated_name: string;
 }
 
-export const ingredientItemTypes: Array<IngredientItemGroupNameType> = [
+export const ingredientItemTypes: Array<IIngredientItemGroupNameType> = [
     { type: "bun", translated_name: "Булки" },
     { type: "main", translated_name: "Начинки" },
     { type: "sauce", translated_name: "Соусы" }
 ];
 
-export default IngredientItemType
+export default IIngredient
 
 export interface IUserType {
     email: string
@@ -60,20 +55,27 @@ export enum WebsocketStatus {
     OFFLINE = 'OFFLINE'
 }
 
-export interface IOrderType {
-    ingredients: Array<string>;
-    ingredientsFull: Array<IngredientItemType>;
-    _id: string;
+export interface IOrderBasic {
     name: string;
+    _id: string;
     status: "created" | "pending" | "done";
     number: number;
     createdAt: string
     updatedAt: string
 }
 
+export interface IOrderFeed extends IOrderBasic {
+    ingredients: Array<string>;
+    ingredientsFull?: Array<IIngredient>;   
+}
+
+export interface IOrderIngredientsFullInfo extends IOrderBasic {
+    ingredients: Array<IIngredient>;
+}
+
 export interface IFeed {
     status: boolean;
-    orders: Array<IOrderType>;
+    orders: Array<IOrderFeed>;
     total: number;
     totalToday: number;
 }
@@ -84,8 +86,11 @@ export interface IUserPayload {
     user: IUserType;
 }
 
-export interface ICreateOrderPaylod {
-    success: boolean
+export interface ICreateOrderPaylod extends IBasicPaylod {
     name: string
-    order: IOrderType
+    order: IOrderIngredientsFullInfo
+}
+
+export interface IFeedOrderInfo extends IBasicPaylod {
+    orders: Array<IOrderFeed>
 }

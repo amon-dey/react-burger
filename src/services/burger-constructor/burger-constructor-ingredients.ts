@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IngredientItemType } from '../../utils/types';
-
+import { IIngredient } from '../../utils/types';
 
 type BurgerConstructorInitialStateType = {
-    bun: IngredientItemType | null;
-    ingredients: IngredientItemType[];
+    bun: IIngredient | null;
+    ingredients: IIngredient[];
     ingredientToDrop: number | null;
 };
 
-const burgerConstructorInitialState: BurgerConstructorInitialStateType = {
+export const burgerConstructorInitialState: BurgerConstructorInitialStateType = {
     bun: null,
     ingredients: [],
     ingredientToDrop: null

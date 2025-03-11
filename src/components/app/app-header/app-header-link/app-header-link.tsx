@@ -24,7 +24,7 @@ export const AppHeaderLink: React.FC<Props> = (props: React.PropsWithChildren<Pr
     const textClass = isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive";
 
     return (
-        <Link className={`${styles.headerbutton} ${textClass} m-4`} to={props.linkLocation} >
+        <Link data-test={`${props.title.replace(" ", "_")}_headerlink`} className={`${styles.headerbutton} ${textClass} m-4`} to={props.linkLocation} >
             <ButtonIcon type={typeButton} />
             {props.title}
         </Link>

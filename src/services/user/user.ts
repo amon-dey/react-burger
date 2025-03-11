@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { login, logout, postRegister, userGetInfo, userSetInfo } from "./../thunks/thunks";
+import { login, logout, postRegister, userGetInfo, userSetInfo } from "../thunks/thunks";
 import { IUserType, IUserPayload } from "../../utils/types";
 
 type TUserState = {
@@ -47,6 +47,7 @@ export const userSlice = createSlice({
         state.user = null;
       })
       .addCase(logout.rejected, (state) => {
+        state.lastError = '';
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         state.user = null;

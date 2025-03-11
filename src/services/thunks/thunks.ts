@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IUserPayload, ICreateOrderPaylod, IFeed, ApiResponseError } from './../../utils/types'
+import { IUserPayload, ICreateOrderPaylod, IFeedOrderInfo, ApiResponseError, IPostOrder, PayloadIngedients } from './../../utils/types'
 
 import {
   API_MAKE_ORDER, API_INGREDIENTS, API_REGISTER, API_LOGIN,
@@ -7,32 +7,29 @@ import {
   API_USER, API_ORDER
 } from '../../utils/constants';
 
-import { IngredientItemType } from '../../utils/types';
 import { request, fetchWithRefresh } from '../utils';
 
 export const postOrder = createAsyncThunk<
   ICreateOrderPaylod,
-  { data: IngredientItemType[] }
+  { order: IPostOrder }
 >(
   `burger-constructor/order`,
-  async ({ data }) => {
-    const idList: string[] = data.map(item => item._id);
+  async (order) => {
+    //const idList: string[] = data.map(item => item._id);
     const token = localStorage.getItem("accessToken");
     const options = {
       method: 'POST', headers: {
         "Content-Type": "application/json;charset=utf-8",
         "Authorization": token ? token : "",
       },
-      body: JSON.stringify({
-        ingredients: idList,
-      }),
+      body: JSON.stringify(order.order),
     };
     return await fetchWithRefresh(API_MAKE_ORDER, options);
   }
 );
 
 export const getOrder = createAsyncThunk<
-  IFeed,
+  IFeedOrderInfo,
   { number: string }
 >(
   `order-info/fetch`,
@@ -42,7 +39,7 @@ export const getOrder = createAsyncThunk<
   }
 );
 
-export const fetchIngredients = createAsyncThunk<{ data: IngredientItemType[]; }>(
+export const fetchIngredients = createAsyncThunk<PayloadIngedients>(
   `burger-ingredients/fetch`,
   async () => {
     const options = { method: 'GET' };

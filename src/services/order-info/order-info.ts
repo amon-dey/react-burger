@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFeed, IOrderType } from '../../utils/types';
+import { IFeedOrderInfo, IOrderFeed } from '../../utils/types';
 import { getOrder } from '../thunks/thunks';
 
 type TOrderInfo = {
-    fetchedOrder: IOrderType | null
+    fetchedOrder: IOrderFeed | null
     orderIsLoading: boolean
 };
 
-const initialState: TOrderInfo = {
+export const initialState: TOrderInfo = {
     fetchedOrder: null,
     orderIsLoading: false,
 };
@@ -22,7 +22,7 @@ export const OrderInfoSlice = createSlice({
             .addCase(getOrder.pending, (state) => {
                 state.orderIsLoading = true
             })
-            .addCase(getOrder.fulfilled, (state, action: PayloadAction<IFeed>) => {
+            .addCase(getOrder.fulfilled, (state, action: PayloadAction<IFeedOrderInfo>) => {
                 state.orderIsLoading = false
                 state.fetchedOrder = action.payload.orders[0];
             })

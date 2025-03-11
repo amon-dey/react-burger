@@ -17,7 +17,9 @@ export const ModalHeader: FC<Props> = (props: Props) => {
             <a className={props.modalHeaderStyle}>{props.title}</a>
             {
                 !!props.noClosable === false &&
-                <CloseIcon type="primary" onClick={props.closeModal} className={styles.headerclose} />
+                <div data-test="modal_close_buttin" onClick={props.closeModal} className={styles.headerclose}>
+                    <CloseIcon type="primary" />
+                </div>
             }
         </div>
     );
